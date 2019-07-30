@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { isNonWorkingDay } from "../../../../utils/days";
+import { isNonWorkingDay } from "../../../../../utils/days";
 
 const mapStateToProps = (state, ownProps) => {
     return {

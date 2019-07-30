@@ -13,7 +13,7 @@ html, body {
     font-weight: 300;
     font-size: 14px;
     color: #004466;
-    background-color: transparent;
+    background-color: #f0f0f0;
 
     -webkit-user-select: none;
 }

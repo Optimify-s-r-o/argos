@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { switchForward, switchBackward } from '../../../../../actions/days';
+import { switchForward, switchBackward } from '../../../../../../actions/days';
 
 const mapStateToProps = state => {
     return { days: state.days };

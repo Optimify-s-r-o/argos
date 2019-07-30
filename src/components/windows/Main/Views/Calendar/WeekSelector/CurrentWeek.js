@@ -1,5 +1,5 @@
 import React from 'react'
-import { switchToday } from '../../../../../actions/days';
+import { switchToday } from '../../../../../../actions/days';
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {

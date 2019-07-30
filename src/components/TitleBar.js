@@ -1,14 +1,19 @@
 import React from 'react';
-import minimize from '../../icons/minimize.png';
-import maximize from '../../icons/maximize.png';
-import maximized from '../../icons/maximized.png';
-import close from '../../icons/close.png';
+import minimize from '../icons/minimize.png';
+import maximize from '../icons/maximize.png';
+import maximized from '../icons/maximized.png';
+import close from '../icons/close.png';
 
 const isElectron = typeof window.require === 'function';
 let w = null;
 
 if (isElectron) {
     w = window.require('electron').remote.getCurrentWindow();
+
+    w.on('show', (e) => {
+        document.getElementById('Maximize').children[0].src = maximize;
+        document.body.classList.add('border');
+    });
 
     w.on('maximize', (e) => {
         document.getElementById('Maximize').children[0].src = maximized;
@@ -25,7 +30,7 @@ if (isElectron) {
 class TitleBar extends React.Component {
     render() {
         return <div id="TitleBar">
-            <div id="Icon">&nbsp;</div>
+            {this.props.icon === false ? '' : <div id="Icon">&nbsp;</div>}
             <div id="AppName">{this.props.title}</div>
             <div id="Buttons">
                 <button id="Minimize" onClick={this.handleMinimize}><img src={minimize} alt="Minimize"/></button>

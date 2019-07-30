@@ -1,0 +1,81 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+
+    padding: 16px;
+}
+
+.form-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    overflow: hidden;
+}
+
+.form-card-header {
+    padding: 16px 24px;
+
+    background: rgba(0, 68, 102, .05);
+    border-top: 1px solid rgba(0, 68, 102, .2);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.form-card-header:first-child {
+    border-top: 0;
+}
+
+.form-card-row {
+    display: table-row;
+    flex-direction: row;
+}
+
+.form-card-row-header, .form-card-row-content {
+    display: table-cell;
+
+    padding: 16px 24px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.form-card-row-header {
+    color: rgba(0, 68, 102, .65);
+    font-weight: 400;
+}
+
+.form-card-row-content {
+    color: #004466;
+    font-weight: 400;
+}
+
+.form-card-row:last-child .form-card-row-header, .form-card-row:last-child .form-card-row-content,
+.form-card-row:last-of-type .form-card-row-header, .form-card-row:last-of-type .form-card-row-content,
+.form-card-row.no-border .form-card-row-header, .form-card-row.no-border .form-card-row-content {
+    border: 0;
+}
+
+.selectable {
+    user-select: all;
+}
+
+input[type="text"], input[type="date"], input[type="number"] {
+    margin: -8px -16px;
+    padding: 8px 16px;
+
+    background: rgba(0, 68, 102, .05);
+    border: 1px solid transparent;
+    color: #004466;
+    font-family: 'Segoe UI';
+
+    transition: border .2s ease-in-out;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
+    border: 1px solid rgba(0, 68, 102, .2);
+    outline: 0;
+}

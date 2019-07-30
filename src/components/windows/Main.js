@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles.css';
-import TitleBar from './TitleBar';
+import '../../styles/main.css';
+import TitleBar from '../TitleBar';
 import Nav from './Main/Nav';
 import Views from './Main/Views';
 

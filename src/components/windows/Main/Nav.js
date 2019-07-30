@@ -1,21 +1,23 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {setCurrentNav} from '../../actions/nav';
-import {setWeeks, setCalendarView} from '../../actions/calendar';
-import {setCapacitiesView} from '../../actions/capacities';
-import weeks from '../../icons/weeks.png';
-import view from '../../icons/view.png';
-import generateDocument from '../../icons/generate_special.png';
-import settings from '../../icons/settings-icon.png';
-import inventure from '../../icons/inventure.png';
-import months from '../../icons/months.png';
-import deadlineEarliest from '../../icons/deadline_earliest.png';
-import deadlineLatest from '../../icons/deadline_latest.png';
-import capacitiesAbsolute from '../../icons/capacities_absolute.png';
-import capacitiesPercentual from '../../icons/capacities_percentual.png';
-import classicDays from '../../icons/style_dates.png';
-import classicCapacities from '../../icons/style_capacities.png';
-import compact from '../../icons/style_compact.png';
+import {connect} from 'react-redux';
+import {setCurrentNav} from '../../../actions/nav';
+import {setWeeks, setCalendarView} from '../../../actions/calendar';
+import {setCapacitiesView} from '../../../actions/capacities';
+import OpenWindow from '../../OpenWindow';
+import weeks from '../../../icons/weeks.png';
+import view from '../../../icons/view.png';
+import generateDocument from '../../../icons/generate_special.png';
+import settings from '../../../icons/settings-icon.png';
+import inventure from '../../../icons/inventure.png';
+import months from '../../../icons/months.png';
+import deadlineEarliest from '../../../icons/deadline_earliest.png';
+import deadlineLatest from '../../../icons/deadline_latest.png';
+import capacitiesAbsolute from '../../../icons/capacities_absolute.png';
+import capacitiesPercentual from '../../../icons/capacities_percentual.png';
+import classicDays from '../../../icons/style_dates.png';
+import classicCapacities from '../../../icons/style_capacities.png';
+import compact from '../../../icons/style_compact.png';
+import {JobInfoSettings} from "../JobInfo";
 
 const mapStateToProps = state => {
     return {
@@ -59,6 +61,13 @@ class NavComponent extends React.Component {
                             <img src={view} alt="Zakázky"/>
                             <span>Zakázky</span>
                         </button>
+
+                        <OpenWindow path="/job-info" settings={JobInfoSettings}>
+                            <button className="large-icon">
+                                <img/>
+                                <span>test</span>
+                            </button>
+                        </OpenWindow>
                     </div>
                     <div className="section">
                         <div className="section-header">Formuláře</div>

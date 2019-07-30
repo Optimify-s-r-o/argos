@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { isNonWorkingDay } from "../../../../utils/days";
-import triangle from '../../../../icons/triangle.png';
+import { isNonWorkingDay } from "../../../../../utils/days";
+import triangle from '../../../../../icons/triangle.png';
 
 const mapStateToProps = state => {
     return { days: state.days }
