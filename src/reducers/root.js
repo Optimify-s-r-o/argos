@@ -76,8 +76,9 @@ function rootReducer(state = initialState, action) {
         else if (action.switch === 'today')
             newWeekDelta = 0;
 
+        console.log(state);
         // TODO api call, request only changed days
-        let newDays = prepareDays(newWeekDelta, state.weeks);
+        let newDays = prepareDays(newWeekDelta, state.settings.weeks);
         return Object.assign({}, state, {
             weekDelta: newWeekDelta,
             days: newDays,
