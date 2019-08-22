@@ -8,7 +8,7 @@ import weeks from '../../../icons/weeks.png';
 import view from '../../../icons/view.png';
 import generateDocument from '../../../icons/generate_special.png';
 import settings from '../../../icons/settings-icon.png';
-import inventure from '../../../icons/inventure.png';
+import inventory from '../../../icons/inventure.png';
 import months from '../../../icons/months.png';
 import deadlineEarliest from '../../../icons/deadline_earliest.png';
 import deadlineLatest from '../../../icons/deadline_latest.png';
@@ -18,6 +18,7 @@ import classicDays from '../../../icons/style_dates.png';
 import classicCapacities from '../../../icons/style_capacities.png';
 import compact from '../../../icons/style_compact.png';
 import {JobInfoSettings} from "../JobInfo";
+import {withTranslation} from 'react-i18next';
 
 const mapStateToProps = state => {
     return {
@@ -40,26 +41,47 @@ function mapDispatchToProps(dispatch) {
 
 class NavComponent extends React.Component {
     render() {
+        const { t } = this.props;
         return <nav>
             <div id="Tabs">
-                <button id="HomeTab" onClick={() => this.props.setCurrentNav('home')} className={this.props.currentNav === "home" ? "active" : ""}>Domů</button>
-                <button id="MaterialTab" onClick={() => this.props.setCurrentNav('material')} className={this.props.currentNav === "material" ? "active" : ""}>Materiál</button>
-                <button id="CalendarViewTab" onClick={() => this.props.setCurrentNav('calendarView')} className={this.props.currentNav === "calendarView" ? "active special" : "special"}>Zobrazení kalendáře</button>
-                <button id="JobsViewTab" onClick={() => this.props.setCurrentNav('jobsView')} className={this.props.currentNav === "jobsView" ? "active special" : "special"}>Zakázky</button>
+                <button
+                    id="HomeTab"
+                    onClick={() => this.props.setCurrentNav('home')}
+                    className={this.props.currentNav === "home" ? "active" : ""}>
+                    {t('nav:tabs.home')}
+                </button>
+                <button
+                    id="MaterialTab"
+                    onClick={() => this.props.setCurrentNav('material')}
+                    className={this.props.currentNav === "material" ? "active" : ""}>
+                    {t('nav:tabs.material')}
+                </button>
+                <button
+                    id="CalendarViewTab"
+                    onClick={() => this.props.setCurrentNav('calendarView')}
+                    className={this.props.currentNav === "calendarView" ? "active special" : "special"}>
+                    {t('nav:tabs.calendarView')}
+                </button>
+                <button
+                    id="JobsViewTab"
+                    onClick={() => this.props.setCurrentNav('jobsView')}
+                    className={this.props.currentNav === "jobsView" ? "active special" : "special"}>
+                    {t('nav:tabs.jobsView')}
+                </button>
             </div>
             <div id="Content">
                 <div id="HomeContent" className={this.props.currentNav === "home" ? "active" : ""}>
                     <div className="section">
-                        <div className="section-header">Zobrazení</div>
+                        <div className="section-header">{t('nav:home.view.header')}</div>
 
                         <button className={this.props.view === 'calendar' ? 'active large-icon' : 'large-icon'}>
-                            <img src={weeks} alt="Kalendář"/>
-                            <span>Kalendář</span>
+                            <img src={weeks} alt={t('nav:home.view.calendar')}/>
+                            <span>{t('nav:home.view.calendar')}</span>
                         </button>
 
                         <button className={this.props.view === 'jobs' ? 'active large-icon' : 'large-icon'}>
-                            <img src={view} alt="Zakázky"/>
-                            <span>Zakázky</span>
+                            <img src={view} alt={t('nav:home.view.jobs')}/>
+                            <span>{t('nav:home.view.jobs')}</span>
                         </button>
 
                         <OpenWindow path="/job-info" settings={JobInfoSettings}>
@@ -70,93 +92,93 @@ class NavComponent extends React.Component {
                         </OpenWindow>
                     </div>
                     <div className="section">
-                        <div className="section-header">Formuláře</div>
+                        <div className="section-header">{t('nav:home.forms.header')}</div>
 
                         <button className="large-icon">
-                            <img src={generateDocument} alt="Generovat dokument"/>
-                            <span>Generovat<br/> dokument</span>
+                            <img src={generateDocument} alt={t('nav:home.forms.generateDocument')}/>
+                            <span>{t('nav:home.forms.generateDocument')}</span>
                         </button>
                     </div>
                     <div className="section">
-                        <div className="section-header"></div>
+                        <div className="section-header">{t('nav:home.settings.header')}</div>
 
                         <button className="large-icon">
-                            <img src={settings} alt="Nastavení"/>
-                            <span>Nastavení</span>
+                            <img src={settings} alt={t('nav:home.settings.settings')}/>
+                            <span>{t('nav:home.settings.settings')}</span>
                         </button>
                     </div>
                 </div>
 
                 <div id="MaterialContent" className={this.props.currentNav === "material" ? "active" : ""}>
                     <div className="section">
-                        <div className="section-header"></div>
+                        <div className="section-header">{t('nav:material.inventory.header')}</div>
 
                         <button className="large-icon">
-                            <img src={inventure} alt="Inventura"/>
-                            <span>Inventura</span>
+                            <img src={inventory} alt={t('nav:material.inventory.inventory')}/>
+                            <span>{t('nav:material.inventory.inventory')}</span>
                         </button>
                     </div>
                 </div>
 
                 <div id="CalendarViewContent" className={this.props.currentNav === "calendarView" ? "active" : ""}>
                     <div className="section">
-                        <div className="section-header">Období</div>
+                        <div className="section-header">{t('nav:calendarView.period.header')}</div>
 
                         <button className={this.props.weeks === 4 ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setWeeks(4)}>
-                            <img src={months} alt="Měsíční"/>
-                            <span>Měsíční</span>
+                            <img src={months} alt={t('nav:calendarView.period.months')}/>
+                            <span>{t('nav:calendarView.period.months')}</span>
                         </button>
 
                         <button className={this.props.weeks === 1 ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setWeeks(1)}>
-                            <img src={weeks} alt="Týdenní"/>
-                            <span>Týdenní</span>
+                            <img src={weeks} alt={t('nav:calendarView.period.weeks')}/>
+                            <span>{t('nav:calendarView.period.weeks')}</span>
                         </button>
                     </div>
 
                     <div className="section">
-                        <div className="section-header">Řazení</div>
+                        <div className="section-header">{t('nav:calendarView.sort.header')}</div>
 
                         <button className="large-icon">
-                            <img src={deadlineEarliest} alt="Měsíční"/>
-                            <span>Dříve<br/> končící</span>
+                            <img src={deadlineEarliest} alt={t('nav:calendarView.sort.deadlineEarliest')}/>
+                            <span>{t('nav:calendarView.sort.deadlineEarliest')}</span>
                         </button>
 
                         <button className="large-icon">
-                            <img src={deadlineLatest} alt="Týdenní"/>
-                            <span>Později<br/> končící</span>
+                            <img src={deadlineLatest} alt={t('nav:calendarView.sort.deadlineLatest')}/>
+                            <span>{t('nav:calendarView.sort.deadlineLatest')}</span>
                         </button>
                     </div>
 
                     <div className="section">
-                        <div className="section-header">Kapacity</div>
+                        <div className="section-header">{t('nav:calendarView.capacitiesView.header')}</div>
 
                         <button className={this.props.capacitiesView === 'percentage' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setCapacitiesView('percentage')}>
-                            <img src={capacitiesPercentual} alt="Procentuální"/>
-                            <span>Procentuální</span>
+                            <img src={capacitiesPercentual} alt={t('nav:calendarView.capacitiesView.percentual')}/>
+                            <span>{t('nav:calendarView.capacitiesView.percentual')}</span>
                         </button>
 
                         <button className={this.props.capacitiesView === 'absolute' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setCapacitiesView('absolute')}>
-                            <img src={capacitiesAbsolute} alt="Absolutní"/>
-                            <span>Absolutní</span>
+                            <img src={capacitiesAbsolute} alt={t('nav:calendarView.capacitiesView.absolute')}/>
+                            <span>{t('nav:calendarView.capacitiesView.absolute')}</span>
                         </button>
                     </div>
 
                     <div className="section">
-                        <div className="section-header">Styl fází</div>
+                        <div className="section-header">{t('nav:calendarView.phaseView.header')}</div>
 
                         <button className={this.props.calendarView === 'classicDays' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setCalendarView('classicDays')}>
-                            <img src={classicDays} alt="Dny"/>
-                            <span>Dny</span>
+                            <img src={classicDays} alt={t('nav:calendarView.phaseView.classicDays')}/>
+                            <span>{t('nav:calendarView.phaseView.classicDays')}</span>
                         </button>
 
                         <button className={this.props.calendarView === 'classicCapacities' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setCalendarView('classicCapacities')}>
-                            <img src={classicCapacities} alt="Kapacity"/>
-                            <span>Kapacity</span>
+                            <img src={classicCapacities} alt={t('nav:calendarView.phaseView.classicCapacities')}/>
+                            <span>{t('nav:calendarView.phaseView.classicCapacities')}</span>
                         </button>
 
                         <button className={this.props.calendarView === 'compact' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setCalendarView('compact')}>
-                            <img src={compact} alt="Kompaktní"/>
-                            <span>Kompaktní</span>
+                            <img src={compact} alt={t('nav:calendarView.phaseView.compact')}/>
+                            <span>{t('nav:calendarView.phaseView.compact')}</span>
                         </button>
                     </div>
                 </div>
@@ -165,6 +187,7 @@ class NavComponent extends React.Component {
     }
 }
 
-const Nav = connect(mapStateToProps, mapDispatchToProps)(NavComponent);
+let Nav = connect(mapStateToProps, mapDispatchToProps)(NavComponent);
+Nav = withTranslation()(Nav);
 
 export default Nav;

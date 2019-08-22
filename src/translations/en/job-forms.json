@@ -1,0 +1,19 @@
+{
+  "common": {
+    "commonInfo": "Common informations",
+    "detailedInfo": "Detailed informations",
+    "jobIdentification": "Job identification",
+    "customerIdentification": "Customer",
+    "contractDates": "Contract duration",
+    "deadline": "Deadline",
+    "isAcceptedByCustomer": "Is accepted by customer?",
+    "location": "Location",
+    "description": "Description",
+    "snow": "Sněhová oblast",
+    "zatizeni": "Zatížení",
+    "trussTypes": "Truss types"
+  },
+  "add": {
+    "addJob": "Add job"
+  }
+}

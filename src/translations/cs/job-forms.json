@@ -1,0 +1,19 @@
+{
+  "common": {
+    "commonInfo": "Základní informace",
+    "detailedInfo": "Detailní informace",
+    "jobIdentification": "Identifikace zakázky",
+    "customerIdentification": "Zákazník",
+    "contractDates": "Trvání smlouvy",
+    "deadline": "Deadline",
+    "isAcceptedByCustomer": "Přijato zákazníkem?",
+    "location": "Lokalita",
+    "description": "Popis",
+    "snow": "Sněhová oblast",
+    "zatizeni": "Zatížení",
+    "trussTypes": "Typ vazníků"
+  },
+  "add": {
+    "addJob": "Přidat zakázku"
+  }
+}

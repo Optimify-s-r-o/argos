@@ -1,0 +1,52 @@
+{
+  "tabs": {
+    "home": "Domů",
+    "material": "Materiál",
+    "calendarView": "Zobrazení kalendáře",
+    "jobsView": "Zakázky"
+  },
+  "home": {
+    "view": {
+      "header": "Zobrazení",
+      "calendar": "Kalendář",
+      "jobs": "Zakázky"
+    },
+    "forms": {
+      "header": "Formuláře",
+      "generateDocument": "Generovat<br/> dokument"
+    },
+    "settings": {
+      "header": "",
+      "settings": "Nastavení"
+    }
+  },
+  "material": {
+    "inventory": {
+      "header": "",
+      "inventory": "Inventura"
+    }
+  },
+  "calendarView": {
+    "period": {
+      "header": "Období",
+      "months": "Měsíční",
+      "weeks": "Týdenní"
+    },
+    "sort": {
+      "header": "Řazení",
+      "deadlineEarliest": "Dříve<br/> končící",
+      "deadlineLatest": "Později<br/> končící"
+    },
+    "capacitiesView": {
+      "header": "Zobrazení kapacit",
+      "percentual": "Procentuální",
+      "absolute": "Absolutní"
+    },
+    "phaseView": {
+      "header": "Zobrazení fází",
+      "classicDays": "Dny",
+      "classicCapacities": "Kapacity",
+      "compact": "Kompaktní"
+    }
+  }
+}

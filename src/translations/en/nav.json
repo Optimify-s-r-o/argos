@@ -1,0 +1,52 @@
+{
+  "tabs": {
+    "home": "Home",
+    "material": "Material",
+    "calendarView": "Calendar view",
+    "jobsView": "Jobs"
+  },
+  "home": {
+    "view": {
+      "header": "View",
+      "calendar": "Calendar",
+      "jobs": "Jobs"
+    },
+    "forms": {
+      "header": "Forms",
+      "generateDocument": "Generate<br/> document"
+    },
+    "settings": {
+      "header": "",
+      "settings": "Settings"
+    }
+  },
+  "material": {
+    "inventory": {
+      "header": "",
+      "inventory": "Inventory"
+    }
+  },
+  "calendarView": {
+    "period": {
+      "header": "Period",
+      "months": "Month",
+      "weeks": "Week"
+    },
+    "sort": {
+      "header": "Sorting",
+      "deadlineEarliest": "Ending<br/> earlier",
+      "deadlineLatest": "Ending<br/> later"
+    },
+    "capacitiesView": {
+      "header": "Capacities view",
+      "percentual": "Percentual",
+      "absolute": "Absolute"
+    },
+    "phaseView": {
+      "header": "Phases view",
+      "classicDays": "Days",
+      "classicCapacities": "Capacities",
+      "compact": "Compact"
+    }
+  }
+}
