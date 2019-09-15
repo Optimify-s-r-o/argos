@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { isNonWorkingDay } from "../../../../../utils/days";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = state => {
     return {
@@ -14,9 +15,11 @@ const mapStateToProps = state => {
 
 class RowCapacitiesComponent extends React.Component {
     render () {
+        const { t } = this.props;
+
         return <div id="RowCapacities" className={'Row view-' + this.props.capacitiesView}>
             <div id="HeaderCapacities" className="RowHeader">
-                Zbývající kapacity pracovišť
+                {t('calendar:rowCapacities.header')}
             </div>
 
             <div className="Days">
@@ -97,6 +100,6 @@ class RowCapacitiesComponent extends React.Component {
     }
 }
 
-const RowCapacities = connect(mapStateToProps)(RowCapacitiesComponent);
+const RowCapacities = withTranslation()(connect(mapStateToProps)(RowCapacitiesComponent));
 
 export default RowCapacities;

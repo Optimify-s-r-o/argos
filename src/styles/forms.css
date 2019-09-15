@@ -14,7 +14,6 @@
     background: #FFFFFF;
     border-radius: 16px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
-    overflow: hidden;
 }
 
 .form-card-header {
@@ -107,6 +106,24 @@ input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
     border: 1px solid rgba(0, 68, 102, .2) !important;
     box-shadow: none !important;
     outline: 0 !important;
+}
+
+.react-select__single-value {
+    color: #004466 !important;
+}
+
+.react-select__menu {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2) !important;
+}
+
+.react-select__option--is-focused {
+    background-color: rgba(0, 68, 102, .1) !important;
+}
+
+.react-select__option--is-selected {
+    background-color: #00bbff !important;
 }
 
 

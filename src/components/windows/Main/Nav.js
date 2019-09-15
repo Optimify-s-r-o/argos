@@ -17,8 +17,9 @@ import capacitiesPercentual from '../../../icons/capacities_percentual.png';
 import classicDays from '../../../icons/style_dates.png';
 import classicCapacities from '../../../icons/style_capacities.png';
 import compact from '../../../icons/style_compact.png';
-import {JobInfoSettings} from "../JobInfo";
 import {withTranslation} from 'react-i18next';
+import {GenerateDocumentPath, GenerateDocumentSettings} from '../GenerateDocument';
+import {JobAddPath, JobAddSettings} from "../JobAdd";
 
 const mapStateToProps = state => {
     return {
@@ -84,9 +85,9 @@ class NavComponent extends React.Component {
                             <span>{t('nav:home.view.jobs')}</span>
                         </button>
 
-                        <OpenWindow path="/job-info" settings={JobInfoSettings}>
+                        <OpenWindow path={JobAddPath} settings={JobAddSettings}>
                             <button className="large-icon">
-                                <img/>
+                                <img alt="test"/>
                                 <span>test</span>
                             </button>
                         </OpenWindow>
@@ -94,10 +95,12 @@ class NavComponent extends React.Component {
                     <div className="section">
                         <div className="section-header">{t('nav:home.forms.header')}</div>
 
-                        <button className="large-icon">
-                            <img src={generateDocument} alt={t('nav:home.forms.generateDocument')}/>
-                            <span>{t('nav:home.forms.generateDocument')}</span>
-                        </button>
+                        <OpenWindow path={GenerateDocumentPath} settings={GenerateDocumentSettings}>
+                            <button className="large-icon">
+                                <img src={generateDocument} alt={t('nav:home.forms.generateDocument')}/>
+                                <span>{t('nav:home.forms.generateDocument')}</span>
+                            </button>
+                        </OpenWindow>
                     </div>
                     <div className="section">
                         <div className="section-header">{t('nav:home.settings.header')}</div>
@@ -187,7 +190,6 @@ class NavComponent extends React.Component {
     }
 }
 
-let Nav = connect(mapStateToProps, mapDispatchToProps)(NavComponent);
-Nav = withTranslation()(Nav);
+let Nav = withTranslation()(connect(mapStateToProps, mapDispatchToProps)(NavComponent));
 
 export default Nav;

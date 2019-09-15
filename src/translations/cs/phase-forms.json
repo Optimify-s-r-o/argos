@@ -1,0 +1,14 @@
+{
+  "create": {
+    "titleBar": "Vytvoření fáze",
+    "phase": "Typ fáze",
+    "date": "Datum",
+    "create": "Vytvořit fázi"
+  },
+  "phases": {
+    "saw": "Pila",
+    "press": "Lis",
+    "transport": "Transport",
+    "assembly": "Montáž"
+  }
+}

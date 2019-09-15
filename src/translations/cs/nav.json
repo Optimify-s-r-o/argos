@@ -13,7 +13,7 @@
     },
     "forms": {
       "header": "Formuláře",
-      "generateDocument": "Generovat<br/> dokument"
+      "generateDocument": "Generovat\n dokument"
     },
     "settings": {
       "header": "",
@@ -34,8 +34,8 @@
     },
     "sort": {
       "header": "Řazení",
-      "deadlineEarliest": "Dříve<br/> končící",
-      "deadlineLatest": "Později<br/> končící"
+      "deadlineEarliest": "Dříve\n končící",
+      "deadlineLatest": "Později\n končící"
     },
     "capacitiesView": {
       "header": "Zobrazení kapacit",

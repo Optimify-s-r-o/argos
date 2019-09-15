@@ -1,0 +1,13 @@
+{
+  "generate": {
+    "titleBar": "Generovat dokument",
+    "template": "Šablona",
+    "dates": "Časové rozmezí",
+    "generate": "Generovat"
+  },
+  "template": {
+    "transportOverview": "Přehled doprav",
+    "productionOverview": "Přehled výroby",
+    "trussOverview": "Přehled vazníků"
+  }
+}

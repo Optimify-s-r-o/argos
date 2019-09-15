@@ -1,6 +1,7 @@
 import React from 'react'
 import { switchToday } from '../../../../../../actions/days';
 import { connect } from "react-redux";
+import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = state => {
     return { weekDelta: state.weekDelta };
@@ -24,10 +25,12 @@ class CurrentWeekComponent extends React.Component {
     }
 
     render () {
+        const { t } = this.props;
+
         return <div id="CurrentWeek">
             {
                 this.props.weekDelta !== 0 &&
-                <button className="btn btn-text" onClick={this.handleSwitchToday}>Aktuální týden</button>
+                <button className="btn btn-text" onClick={this.handleSwitchToday}>{t('calendar:weekSelector.currentWeek')}</button>
             }
         </div>
     }
@@ -35,4 +38,4 @@ class CurrentWeekComponent extends React.Component {
 
 const CurrentWeek = connect(mapStateToProps, mapDispatchToProps)(CurrentWeekComponent);
 
-export default CurrentWeek;
+export default withTranslation()(CurrentWeek);

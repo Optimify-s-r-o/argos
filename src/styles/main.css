@@ -85,7 +85,7 @@ body.border {
 
 /* NAV */
 
-nav {
+nav:not(.react-contextmenu) {
     height: 120px;
 
     background-color: #f3f3f3;
@@ -290,6 +290,7 @@ nav #Content > div .section .large-icon span {
     font-size: 12px;
     font-weight: 400;
     text-align: center;
+    white-space: pre-line;
 }
 
 #Views{
@@ -666,7 +667,15 @@ nav #Content > div .section .large-icon span {
     display: block;
     position: relative;
 
+    flex-grow: 1;
+
     overflow-y: scroll;
+
+    transition: all .2s ease-out;
+}
+
+#Jobs.show-shadow {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
 }
 
 .RowJob {
@@ -691,17 +700,88 @@ nav #Content > div .section .large-icon span {
     font-size: 16px;
 }
 
-.HeaderJob .JobID, .HeaderJob .JobDeadline {
-    margin-top: 6px;
+.HeaderJob .JobID, .HeaderJob .JobDeadline, .HeaderJob .JobStatus {
+    margin-top: 4px;
 
     font-weight: 400;
 }
 
-.HeaderJob .JobID small, .HeaderJob .JobDeadline small {
-    margin-right: 6px;
+.HeaderJob .JobID small, .HeaderJob .JobDeadline small, .HeaderJob .JobStatus small {
+    margin-right: 4px;
 
     font-weight: 300;
 }
+
+.HeaderJob .JobStatus .status {
+    display: inline-block;
+
+    margin-right: -6px;
+}
+
+.HeaderJob .JobStatus .status button {
+    position: relative;
+
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 9px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 11px;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(1) {
+    z-index: 1;
+
+    padding: 0 18px 0 6px;
+
+    border-color: #ff4040;
+    color: #ff4040;
+    opacity: .75;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(1):hover {
+    background-color: #ff4040;
+    color: white;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(2) {
+    z-index: 3;
+
+    margin-right: -16px;
+    margin-left: -16px;
+
+    padding: 1px 6px;
+
+    background-color: #004466;
+    border-color: #004466;
+    color: white;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(3) {
+    z-index: 2;
+
+    padding: 0 6px 0 18px;
+
+    border-color: #00bbff;
+    color: #00bbff;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(3):hover {
+    background-color: #00bbff;
+    color: white;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(1), .HeaderJob .JobStatus .status button:nth-child(3) {
+    opacity: .6;
+
+    transition: all .2s ease-in-out;
+}
+
+.HeaderJob .JobStatus .status button:nth-child(1):hover, .HeaderJob .JobStatus .status button:nth-child(3):hover {
+    cursor: pointer;
+
+    opacity: 1;
+}
+
 
 #Jobs .Day {
     align-items: center;
@@ -713,7 +793,7 @@ nav #Content > div .section .large-icon span {
     color: white;
 }
 
-#Jobs .Day > * {
+#Jobs .Day > div {
     position: relative;
 
     width: 100%;
@@ -721,20 +801,49 @@ nav #Content > div .section .large-icon span {
     margin: 2px 0;
 }
 
-#Jobs .Day .Saw > div:not(.empty), #Jobs .Day .Saw > div:not(.empty):after {
+#Jobs .Day .Saw > div > div > div > div:not(.empty), #Jobs .Day .Saw > div > div > div > div:not(.empty):after {
     background-color: #ff4040;
 }
 
-#Jobs .Day .Press > div:not(.empty), #Jobs .Day .Press > div:not(.empty):after {
+#Jobs .Day .Press > div > div > div > div:not(.empty), #Jobs .Day .Press > div > div > div > div:not(.empty):after {
     background-color: #00bbff;
 }
 
-#Jobs .Day .Transport > div:not(.empty), #Jobs .Day .Transport > div:not(.empty):after {
+#Jobs .Day .Transport > div > div > div > div:not(.empty), #Jobs .Day .Transport > div > div > div > div:not(.empty):after {
     background-color: #66dd00;
 }
 
-#Jobs .Day .Assembly > div:not(.empty), #Jobs .Day .Assembly > div:not(.empty):after {
+#Jobs .Day .Assembly > div > div > div > div:not(.empty), #Jobs .Day .Assembly > div > div > div > div:not(.empty):after {
     background-color: #ffbc45;
+}
+
+#Jobs .Day .droppable {
+    position: relative;
+}
+
+#Jobs .Day .droppable:after {
+    content: '';
+
+    box-sizing: border-box;
+    position: absolute;
+
+    height: 32px;
+    width: 32px;
+
+    top: -2px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: rgba(0, 0, 0, .05);
+    border: 1px dashed rgba(0, 0, 0, .2);
+    border-radius: 16px;
+
+    opacity: 0;
+}
+
+#Jobs .Day .droppable.dropped:after {
+    opacity: 1;
 }
 
 /* CALENDAR VIEWS */
@@ -790,6 +899,10 @@ nav #Content > div .section .large-icon span {
     margin: auto;
 
     border-radius: 3px;
+}
+
+#Jobs .Day .empty:active {
+    background-color: rgba(0, 187, 255, .2);
 }
 
 /*
@@ -871,6 +984,26 @@ nav #Content > div .section .large-icon span {
     height: 6px;
 }
 
+#HeaderAddJob {
+    padding: 24px 24px;
+
+    opacity: .5;
+}
+
+#HeaderAddJob span {
+    position: relative;
+
+    top: -8px;
+    left: 8px;
+
+    font-size: 16px;
+}
+
+#HeaderAddJob:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
 #HeaderAddJob:after {
     content: none;
 }
@@ -899,7 +1032,7 @@ nav #Content > div .section .large-icon span {
 }
 
 .viewClassicDays .empty {
-    height: 32px;
+    height: 28px;
 }
 
 /* VIEW > CLASSIC CAPACITIES */
@@ -921,7 +1054,7 @@ nav #Content > div .section .large-icon span {
 }
 
 .viewClassicCapacities .empty {
-    height: 32px;
+    height: 28px;
 }
 
 /* VIEW > COMPACT */
@@ -945,7 +1078,7 @@ nav #Content > div .section .large-icon span {
     display: none;
 }
 
-.viewCompact .JobDeadline {
+.viewCompact .JobDeadline, .viewCompact .JobStatus {
     display: none;
 }
 
@@ -967,4 +1100,92 @@ nav #Content > div .section .large-icon span {
 
 .viewCompact .empty {
     height: 6px;
+}
+
+/* REACT CONTEXT MENU */
+
+.react-contextmenu {
+    z-index: 9999;
+
+    min-width: 160px;
+
+    margin: 2px 0 0;
+    padding: 5px 0;
+
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+    color: #373a3c;
+    font-size: 14px;
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    text-align: left;
+
+    transition: opacity 250ms ease !important;
+}
+
+.react-contextmenu.react-contextmenu--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.react-contextmenu-item {
+    background: 0 0;
+    border: 0;
+    color: #373a3c;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 3px 20px;
+    text-align: inherit;
+    white-space: nowrap;
+}
+
+.react-contextmenu-item.react-contextmenu-item--active,
+.react-contextmenu-item.react-contextmenu-item--selected {
+    color: #fff;
+    background-color: #004466;
+    text-decoration: none;
+}
+
+.react-contextmenu-item.react-contextmenu-item--disabled,
+.react-contextmenu-item.react-contextmenu-item--disabled:hover {
+    background-color: transparent;
+    border-color: rgba(0,0,0,.15);
+    color: #878a8c;
+}
+
+.react-contextmenu-item--divider {
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    cursor: inherit;
+    margin-bottom: 3px;
+    padding: 2px 0;
+}
+.react-contextmenu-item--divider:hover {
+    background-color: transparent;
+    border-color: rgba(0,0,0,.15);
+}
+
+.react-contextmenu-item.react-contextmenu-submenu {
+    padding: 0;
+}
+
+.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item {
+}
+
+.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item:after {
+    content: "▶";
+    display: inline-block;
+    position: absolute;
+    right: 7px;
+}
+
+.example-multiple-targets::after {
+    content: attr(data-count);
+    display: block;
+}
+
+.danger {
+    color: #ff4040;
 }

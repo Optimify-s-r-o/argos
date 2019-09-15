@@ -1,0 +1,11 @@
+{
+  "titleBar": "Změna kapacity",
+  "requiredCapacity": "Potřebná kapacita",
+  "freeCapacity": "Nepřiřazená kapacita",
+  "saveCapacities": "Uložit kapacity",
+  "date": "Datum",
+  "phase": "Typ pracoviště",
+  "currentValue": "Současná hodnota",
+  "newValue": "Nová hodnota",
+  "saveCapacity": "Uložit kapacitu"
+}

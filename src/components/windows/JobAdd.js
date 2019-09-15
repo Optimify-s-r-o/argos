@@ -3,11 +3,10 @@ import '../../styles/main.css';
 import '../../styles/forms.css';
 import TitleBar from '../TitleBar';
 import FormRow from '../FormRow';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import DatePicker from 'react-date-picker';
-import CalendarSelect from '../forms/CalendarSelect';
 import Switch from '../forms/Switch';
 import Select from '../forms/Select';
+import DatePicker from '../forms/DatePicker';
+import DateRangePicker from '../forms/DateRangePicker'
 import { withTranslation } from 'react-i18next';
 
 const title = 'Přidat zakázku';
@@ -28,13 +27,9 @@ class JobAdd extends React.Component {
             contractDates: [new Date(), new Date()],
             deadline: new Date(),
             acceptedByCustomer: false,
-            isCalendarContractOpen: false,
-            isCalendarDeadlineOpen: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleContractDatesRangeChange = this.handleContractDatesRangeChange.bind(this);
-        this.handleDeadlineChange = this.handleDeadlineChange.bind(this);
     }
 
     handleInputChange(event) {
@@ -45,14 +40,6 @@ class JobAdd extends React.Component {
         this.setState({
             [name]: value
         });
-    }
-
-    handleContractDatesRangeChange(dates) {
-        this.setState({contractDates: dates});
-    }
-
-    handleDeadlineChange(date) {
-        this.setState({deadline: date});
     }
 
     render() {
@@ -85,27 +72,11 @@ class JobAdd extends React.Component {
                         </FormRow>
 
                         <FormRow title={t('jobForms:common.contractDates')}>
-                            <DateRangePicker
-                                name="contractDates"
-                                clearIcon={null}
-                                value={this.state.contractDates}
-                                onChange={this.handleContractDatesRangeChange}
-                                onCalendarOpen={() => this.setState({isCalendarContractOpen: true})}
-                                onCalendarClose={() => this.setState({isCalendarContractOpen: false})}
-                                calendarIcon=<CalendarSelect state={this.state.isCalendarContractOpen ? 'open' : 'closed'}/>
-                            />
+                            <DateRangePicker name="contractDates" value={this.state.contractDates} onChange={this.handleInputChange}/>
                         </FormRow>
 
                         <FormRow title={t('jobForms:common.deadline')}>
-                            <DatePicker
-                                name="deadline"
-                                clearIcon={null}
-                                value={this.state.deadline}
-                                onChange={this.handleDeadlineChange}
-                                onCalendarOpen={() => this.setState({isCalendarDeadlineOpen: true})}
-                                onCalendarClose={() => this.setState({isCalendarDeadlineOpen: false})}
-                                calendarIcon=<CalendarSelect state={this.state.isCalendarDeadlineOpen ? 'open' : 'closed'}/>
-                            />
+                            <DatePicker name="deadline" value={this.state.deadline} onChange={this.handleInputChange}/>
                         </FormRow>
 
                         <FormRow title={t('jobForms:common.isAcceptedByCustomer')}>

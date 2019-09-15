@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { isNonWorkingDay } from "../../../../../utils/days";
 import triangle from '../../../../../icons/triangle.png';
+import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = state => {
     return { days: state.days }
@@ -9,9 +10,11 @@ const mapStateToProps = state => {
 
 class RowEventsComponent extends React.Component {
     render () {
+        const { t } = this.props;
+
         return <div id="RowEvents" className="Row">
             <div id="HeaderEvents" className="RowHeader">
-                Události
+                {t('calendar:rowEvents.header')}
             </div>
 
             <div className="Days">
@@ -24,7 +27,7 @@ class RowEventsComponent extends React.Component {
                             dayClasses += " nonWorkDay";
 
                         return <div key={day} className={dayClasses}>
-                            <img src={triangle} width="32" height="32"/>
+                            <img src={triangle} alt="warning" width="32" height="32"/>
                         </div>
                     })
                 }
@@ -33,6 +36,6 @@ class RowEventsComponent extends React.Component {
     }
 }
 
-const RowEvents = connect(mapStateToProps)(RowEventsComponent);
+const RowEvents = withTranslation()(connect(mapStateToProps)(RowEventsComponent));
 
 export default RowEvents;

@@ -5,7 +5,8 @@ class Select extends ReactSelect {
 
 Select.defaultProps = {
     className: 'react-select-container',
-    classNamePrefix: 'react-select'
+    classNamePrefix: 'react-select',
+    placeholder: '', // TODO
 };
 
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { switchForward, switchBackward } from '../../../../../../actions/days';
+import { withTranslation } from 'react-i18next';
 
 const mapStateToProps = state => {
     return { days: state.days };
@@ -34,9 +35,11 @@ class SelectorComponent extends React.Component {
     }
 
     render () {
+        const { i18n } = this.props;
+
         return <div id="Selector">
             <button className="btn btn-char" onClick={this.handleSwitchBackward}>&lt;</button>
-            <span>{this.props.days[0].toLocaleDateString('cs-CZ')} - {this.props.days[this.props.days.length - 1].toLocaleDateString('cs-CZ')}</span>
+            <span>{this.props.days[0].toLocaleDateString(i18n.language)} - {this.props.days[this.props.days.length - 1].toLocaleDateString(i18n.language)}</span>
             <button className="btn btn-char" onClick={this.handleSwitchForward}>&gt;</button>
         </div>
     }
@@ -44,4 +47,4 @@ class SelectorComponent extends React.Component {
 
 const Selector = connect(mapStateToProps, mapDispatchToProps)(SelectorComponent);
 
-export default Selector;
+export default withTranslation()(Selector);

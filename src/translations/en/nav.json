@@ -13,7 +13,7 @@
     },
     "forms": {
       "header": "Forms",
-      "generateDocument": "Generate<br/> document"
+      "generateDocument": "Generate\n document"
     },
     "settings": {
       "header": "",
@@ -34,8 +34,8 @@
     },
     "sort": {
       "header": "Sorting",
-      "deadlineEarliest": "Ending<br/> earlier",
-      "deadlineLatest": "Ending<br/> later"
+      "deadlineEarliest": "Ending\n earlier",
+      "deadlineLatest": "Ending\n later"
     },
     "capacitiesView": {
       "header": "Capacities view",

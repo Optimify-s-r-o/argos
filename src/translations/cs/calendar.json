@@ -1,0 +1,39 @@
+{
+  "addJob": "Přidat zakázku",
+  "weekSelector": {
+    "currentWeek": "Aktuální týden",
+    "legend": "Legenda"
+  },
+  "rowDays": {
+    "week": "týden",
+    "days": [
+      "ne",
+      "po",
+      "út",
+      "st",
+      "čt",
+      "pá",
+      "so"
+    ]
+  },
+  "rowEvents": {
+    "header": "Události"
+  },
+  "rowCapacities": {
+    "header": "Zbývající kapacity pracovišť"
+  },
+  "rowJob": {
+    "header": {
+      "jobId": "ID",
+      "deadline": "Deadline",
+      "status": "Stav"
+    },
+    "phaseContextMenu": {
+      "changeCapacity": "Změnit kapacitu",
+      "moveFreeCapacity": "Přesunout volnou kapacitu",
+      "changeTransportInfo": "Změnit údaje o výjezdu",
+      "removePhase": "Smazat fázi",
+      "createPhase": "Vytvořit fázi"
+    }
+  }
+}

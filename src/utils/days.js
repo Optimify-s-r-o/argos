@@ -48,4 +48,12 @@ function isNonWorkingDay(date) {
     return date.getDay() === 6 || date.getDay() === 0 || isHoliday(date);
 }
 
-export { prepareDays, isNonWorkingDay };
+function getDateString(date) {
+    return date.getFullYear()
+        + '-'
+        + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+        + '-'
+        + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+}
+
+export { prepareDays, isNonWorkingDay, getDateString };
