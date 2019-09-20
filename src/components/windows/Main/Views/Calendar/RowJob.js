@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { isNonWorkingDay, getDateString } from '../../../../../utils/days';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import { ContextMenuTrigger } from 'react-contextmenu';
 import { withTranslation } from 'react-i18next';
+import ucfirst from '../../../../../utils/ucfirst';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -88,10 +89,16 @@ class RowJobComponent extends React.Component {
                         let phaseClass = {};
 
                         phases.forEach(phase => {
-                            let dragData = {
+                            const dragData = {
                                 jobId: this.props.jobId, // TODO: change jobId to generated ID
                                 phase: phase,
                                 date: getDateString(day),
+                            };
+
+                            const attributes ={
+                                'job-id': this.props.jobId,
+                                    'phase': phase,
+                                    'day': getDateString(day),
                             };
 
                             if (this.props.job.phases[phase].includes(day)) {
@@ -108,19 +115,11 @@ class RowJobComponent extends React.Component {
                                 else
                                     phaseClass[phase] += 'startEnd';
 
-                                let menuItems = [];
-
-                                if (phase === 'saw' || phase === 'press') {
-                                    menuItems.push(<MenuItem key="changeCapacity">{t('calendar:rowJob.phaseContextMenu.changeCapacity')}</MenuItem>);
-                                    menuItems.push(<MenuItem key="moveFreeCapacity">{t('calendar:rowJob.phaseContextMenu.moveFreeCapacity')}</MenuItem>);
-                                    menuItems.push(<MenuItem key="divider01" divider />);
-                                } else if (phase === 'transport') {
-                                    menuItems.push(<MenuItem key="changeTransportInfo">{t('calendar:rowJob.phaseContextMenu.changeTransportInfo')}</MenuItem>);
-                                    menuItems.push(<MenuItem key="divider01" divider />);
-                                }
-
-                                contents[phase] = [
-                                    <ContextMenuTrigger key="trigger" id={'contextMenu-' + phase + '-' + day + '-' + this.props.job.jobId} holdToDisplay={-1}>
+                                contents[phase] = <ContextMenuTrigger
+                                    test="25"
+                                    id={'Phase' + ucfirst(phase) + 'Menu'}
+                                    attributes={attributes}
+                                    holdToDisplay={-1}>
                                         <div
                                             className="droppable"
                                             onDragOver={e => this.onDragOver(e, dragData)}
@@ -135,7 +134,8 @@ class RowJobComponent extends React.Component {
                                                     phase: phase,
                                                     date: getDateString(day),
                                                     capacityToMove: 100, // TODO
-                                                })}>
+                                                })}
+                                            >
                                                 <div className="classic" key={day + '-classic'}>
                                                     <span className="classicDay">{day.getDate()}</span>
                                                     <span className="classicCapacity">X</span>
@@ -143,32 +143,26 @@ class RowJobComponent extends React.Component {
                                                 <div className="compact" key={day + '-compact'}/>
                                             </div>
                                         </div>
-                                    </ContextMenuTrigger>,
-                                    <ContextMenu key="menu" id={'contextMenu-' + phase + '-' + day + '-' + this.props.job.jobId}>
-                                        {menuItems}
-                                        <MenuItem><span className="danger">{t('calendar:rowJob.phaseContextMenu.removePhase')}</span></MenuItem>
-                                    </ContextMenu>
-                                ];
+                                    </ContextMenuTrigger>;
                             } else {
-                                contents[phase] = [
-                                    <ContextMenuTrigger key="trigger" id={'contextMenu-' + phase + '-' + day + '-' + this.props.job.jobId} holdToDisplay={-1}>
-                                        <div
-                                            className="empty droppable"
-                                            onDragOver={e => this.onDragOver(e, dragData)}
-                                            onDragEnter={e => this.onDragEnter(e, dragData)}
-                                            onDragLeave={this.onDragLeave}
-                                            onDrop={e => this.onDrop(e, dragData)}
-                                        />
-                                    </ContextMenuTrigger>,
-                                    <ContextMenu key="menu" id={'contextMenu-' + phase + '-' + day + '-' + this.props.job.jobId}>
-                                        <MenuItem>{t('calendar:rowJob.phaseContextMenu.createPhase')}</MenuItem>
-                                    </ContextMenu>
-                                ];
+                                contents[phase] = <ContextMenuTrigger
+                                    id={'EmptyPhaseMenu'}
+                                    attributes={attributes}
+                                    holdToDisplay={-1}
+                                >
+                                    <div
+                                        className="empty droppable"
+                                        onDragOver={e => this.onDragOver(e, dragData)}
+                                        onDragEnter={e => this.onDragEnter(e, dragData)}
+                                        onDragLeave={this.onDragLeave}
+                                        onDrop={e => this.onDrop(e, dragData)}
+                                    />
+                                </ContextMenuTrigger>;
                             }
                         });
 
                         return <div key={day} className={dayClasses}>
-                            <div className="Deadline"></div>
+                            <div className="Contract"></div>
 
                             <div className={phaseClass['saw']}>
                                 {contents['saw']}

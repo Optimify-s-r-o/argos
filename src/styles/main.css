@@ -728,6 +728,10 @@ nav #Content > div .section .large-icon span {
     font-size: 11px;
 }
 
+.HeaderJob .JobStatus .status button:focus {
+    outline: none;
+}
+
 .HeaderJob .JobStatus .status button:nth-child(1) {
     z-index: 1;
 
@@ -1142,6 +1146,10 @@ nav #Content > div .section .large-icon span {
     white-space: nowrap;
 }
 
+.react-contextmenu-item:focus {
+    outline: none;
+}
+
 .react-contextmenu-item.react-contextmenu-item--active,
 .react-contextmenu-item.react-contextmenu-item--selected {
     color: #fff;
@@ -1179,11 +1187,6 @@ nav #Content > div .section .large-icon span {
     display: inline-block;
     position: absolute;
     right: 7px;
-}
-
-.example-multiple-targets::after {
-    content: attr(data-count);
-    display: block;
 }
 
 .danger {
