@@ -7,14 +7,26 @@ import RowJob from './Calendar/RowJob';
 import { connect } from "react-redux";
 import { withTranslation } from 'react-i18next';
 import jobAddImg from '../../../../icons/add.png';
-import {ContextMenu, MenuItem} from "react-contextmenu";
+import { ContextMenu, MenuItem } from 'react-contextmenu';
+import accountGetToken from '../../../../api/accout-get-token';
+import { appAccountTokenSet } from "../../../../actions/app";
+import getCalendarDays from "../../../../api/calendar-days";
+import {getDateString} from "../../../../utils/days";
 
 const mapStateToProps = state => {
     return {
         calendarView: state.settings.calendarView,
-        jobs: state.jobs
+        days: state.days,
+        jobs: state.jobs,
+        token: state.token,
     }
 };
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setToken: (token) => dispatch(appAccountTokenSet(token)),
+    }
+}
 
 class CalendarComponent extends React.Component {
     constructor(props) {
@@ -31,6 +43,25 @@ class CalendarComponent extends React.Component {
         this.contextMenuChangeTransportInfo = this.contextMenuChangeTransportInfo.bind(this);
         this.contextMenuRemovePhase = this.contextMenuRemovePhase.bind(this);
         this.contextMenuCreatePhase = this.contextMenuCreatePhase.bind(this);
+    }
+
+    componentDidMount() {
+        accountGetToken(res => { // TODO: move to login
+            if (res.status === 200)
+                this.props.setToken(res.body);
+
+            // TODO: rest of this method stays here
+            if (this.props.token !== null) {
+                getCalendarDays(
+                    this.props.token,
+                    getDateString(this.props.days[0]),
+                    getDateString(this.props.days[this.props.days.length - 1]),
+                    res => {
+                        console.log(res);
+                    }
+                );
+            }
+        });
     }
 
     handleMouseEnterRowJob(index) {
@@ -132,6 +163,6 @@ class CalendarComponent extends React.Component {
     }
 }
 
-const Calendar = withTranslation()(connect(mapStateToProps)(CalendarComponent));
+const Calendar = withTranslation()(connect(mapStateToProps, mapDispatchToProps)(CalendarComponent));
 
 export default Calendar;

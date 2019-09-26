@@ -70,7 +70,6 @@ function jobsGenerator(days)
         returnObject[randomJob.jobId] = randomJob;
     }
 
-    console.log(returnObject);
     return returnObject;
 }
 

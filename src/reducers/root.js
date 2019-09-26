@@ -5,9 +5,11 @@ import {ACTION_SET_WEEKS, ACTION_SWITCH_CALENDAR_VIEW} from '../actions/calendar
 import {ACTION_SWITCH_CAPACITIES_VIEW} from '../actions/capacities';
 import {ACTION_SWITCH_VIEW} from '../actions/view';
 import {ACTION_SET_CURRENT_NAV} from '../actions/nav';
+import {ACTION_APP_ACCOUNT_TOKEN_SET} from "../actions/app";
 
 const initialDays = prepareDays(0);
 const initialState = {
+    token: null,
     settings: {
         currentNav: 'home',
         view: 'calendar',
@@ -19,14 +21,20 @@ const initialState = {
     days: initialDays,
     events: {},
     capacities: {},
-    jobs: jobsGenerator(initialDays)
+    jobs: jobsGenerator(initialDays),
 };
 
 function rootReducer(state = initialState, action) {
-    if (action.type === ACTION_SET_CURRENT_NAV) {
+    if (action.type === ACTION_APP_ACCOUNT_TOKEN_SET) {
+        return Object.assign({}, state, {
+            token: action.token,
+        });
+    }
+
+    else if (action.type === ACTION_SET_CURRENT_NAV) {
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
-                currentNav: action.nav
+                currentNav: action.nav,
             })
         });
     }
@@ -34,7 +42,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === ACTION_SWITCH_VIEW) {
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
-                view: action.view
+                view: action.view,
             })
         });
     }
@@ -42,7 +50,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === ACTION_SWITCH_CALENDAR_VIEW) {
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
-                calendarView: action.view
+                calendarView: action.view,
             })
         });
     }
@@ -50,7 +58,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === ACTION_SWITCH_CAPACITIES_VIEW) {
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
-                capacitiesView: action.view
+                capacitiesView: action.view,
             })
         });
     }
@@ -60,10 +68,10 @@ function rootReducer(state = initialState, action) {
         let newDays = prepareDays(state.weekDelta, action.weeks);
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
-                weeks: action.weeks
+                weeks: action.weeks,
             }),
             days: newDays,
-            jobs: jobsGenerator(newDays) // TODO: remove after testing
+            jobs: jobsGenerator(newDays), // TODO: remove after testing
         });
     }
 
@@ -76,13 +84,12 @@ function rootReducer(state = initialState, action) {
         else if (action.switch === 'today')
             newWeekDelta = 0;
 
-        console.log(state);
         // TODO api call, request only changed days
         let newDays = prepareDays(newWeekDelta, state.settings.weeks);
         return Object.assign({}, state, {
             weekDelta: newWeekDelta,
             days: newDays,
-            jobs: jobsGenerator(newDays) // TODO: remove after testing
+            jobs: jobsGenerator(newDays), // TODO: remove after testing
         });
     }
 
