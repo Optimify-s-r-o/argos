@@ -1,7 +1,7 @@
 import { prepareDays } from '../utils/days';
 import jobsGenerator from '../utils/jobsGenerator'; // TODO: remove all occurrences
 import {ACTION_DAYS_SWITCH} from '../actions/days';
-import {ACTION_SET_WEEKS, ACTION_SWITCH_CALENDAR_VIEW} from '../actions/calendar';
+import {ACTION_SET_CALENDAR_DATA, ACTION_SET_WEEKS, ACTION_SWITCH_CALENDAR_VIEW} from '../actions/calendar';
 import {ACTION_SWITCH_CAPACITIES_VIEW} from '../actions/capacities';
 import {ACTION_SWITCH_VIEW} from '../actions/view';
 import {ACTION_SET_CURRENT_NAV} from '../actions/nav';
@@ -19,8 +19,8 @@ const initialState = {
     },
     weekDelta: 0,
     days: initialDays,
-    events: {},
     capacities: {},
+    warnings: {},
     jobs: jobsGenerator(initialDays),
 };
 
@@ -93,9 +93,11 @@ function rootReducer(state = initialState, action) {
         });
     }
 
-    else if (action.type === 'JOBS_CHANGED') {
+    else if (action.type === ACTION_SET_CALENDAR_DATA) {
         return Object.assign({}, state, {
-            jobs: Object.assign({}, state.jobs, /*action.jobsToChange*/jobsGenerator(state.days))
+            capacities: action.data.Capacities,
+            warnings: action.data.Warnings,
+            jobs: action.data.Jobs,
         })
     }
 

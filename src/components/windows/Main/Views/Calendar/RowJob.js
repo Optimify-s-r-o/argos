@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const phases = ['saw', 'press', 'transport', 'assembly'];
+const phases = ['Saw', 'Press', 'Transport', 'Construction'];
 
 class RowJobComponent extends React.Component {
     onDragStart(e, data) { // TODO: change jobId to generated ID in drag & drop
@@ -61,11 +61,21 @@ class RowJobComponent extends React.Component {
     render () {
         const { t } = this.props;
 
+        let phaseDatesToIndex = {};
+        phases.forEach(phase => {
+            phaseDatesToIndex[phase] = {};
+
+            if (this.props.job.Phases && this.props.job.Phases[phase])
+                this.props.job.Phases[phase].forEach((entry, index) => {
+                    phaseDatesToIndex[phase][entry.Date] = index;
+                });
+        });
+
         return <div className="Row RowJob">
             <div className="RowHeader HeaderJob">
-                <div className="JobName">{this.props.job.place}, {this.props.job.type}</div>
-                <div className="JobID"><small>{t('calendar:rowJob.header.jobId')}:</small> {this.props.job.jobId}</div>
-                <div className="JobDeadline"><small>{t('calendar:rowJob.header.deadline')}:</small> {this.props.job.deadline}</div>
+                <div className="JobName">{this.props.job.Place}, {this.props.job.Type}</div>
+                <div className="JobID"><small>{t('calendar:rowJob.header.jobId')}:</small> {this.props.job.Identification}</div>
+                <div className="JobDeadline"><small>{t('calendar:rowJob.header.deadline')}:</small> {this.props.job.Deadline}</div>
                 <div className="JobStatus">
                     <small>{t('calendar:rowJob.header.status')}:</small>
                     <div className="status">
@@ -97,13 +107,13 @@ class RowJobComponent extends React.Component {
 
                             const attributes ={
                                 'job-id': this.props.jobId,
-                                    'phase': phase,
-                                    'day': getDateString(day),
+                                'phase': phase,
+                                'day': getDateString(day),
                             };
 
-                            if (this.props.job.phases[phase].includes(day)) {
-                                let hasBefore = this.props.job.phases[phase].includes(this.props.days[index - 1]);
-                                let hasAfter = this.props.job.phases[phase].includes(this.props.days[index + 1]);
+                            if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
+                                let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(getDateString(this.props.days[index - 1]));
+                                let hasAfter = phaseDatesToIndex[phase].hasOwnProperty(getDateString(this.props.days[index + 1]));
 
                                 phaseClass[phase] = phase.charAt(0).toUpperCase() + phase.slice(1) + ' ';
                                 if (hasBefore && hasAfter)
@@ -136,11 +146,11 @@ class RowJobComponent extends React.Component {
                                                     capacityToMove: 100, // TODO
                                                 })}
                                             >
-                                                <div className="classic" key={day + '-classic'}>
+                                                <div className="classic" key={getDateString(day) + '-classic'}>
                                                     <span className="classicDay">{day.getDate()}</span>
-                                                    <span className="classicCapacity">X</span>
+                                                    <span className="classicCapacity">{this.props.job.Phases[phase][phaseDatesToIndex[phase][getDateString(day)]].Consumption}</span>
                                                 </div>
-                                                <div className="compact" key={day + '-compact'}/>
+                                                <div className="compact" key={getDateString(day) + '-compact'}/>
                                             </div>
                                         </div>
                                     </ContextMenuTrigger>;
@@ -164,19 +174,19 @@ class RowJobComponent extends React.Component {
                         return <div key={day} className={dayClasses}>
                             <div className="Contract"></div>
 
-                            <div className={phaseClass['saw']}>
-                                {contents['saw']}
+                            <div className={phaseClass['Saw']}>
+                                {contents['Saw']}
                             </div>
 
-                            <div className={phaseClass['press']}>
-                                {contents['press']}
+                            <div className={phaseClass['Press']}>
+                                {contents['Press']}
                             </div>
 
-                            <div className={phaseClass['transport']}>
-                                {contents['transport']}
+                            <div className={phaseClass['Transport']}>
+                                {contents['Transport']}
                             </div>
-                            <div className={phaseClass['assembly']}>
-                                {contents['assembly']}
+                            <div className={phaseClass['Construction']}>
+                                {contents['Construction']}
                             </div>
                         </div>
                     })

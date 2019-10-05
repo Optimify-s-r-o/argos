@@ -9,9 +9,10 @@ import { withTranslation } from 'react-i18next';
 import jobAddImg from '../../../../icons/add.png';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import accountGetToken from '../../../../api/accout-get-token';
-import { appAccountTokenSet } from "../../../../actions/app";
-import getCalendarDays from "../../../../api/calendar-days";
-import {getDateString} from "../../../../utils/days";
+import { appAccountTokenSet } from '../../../../actions/app';
+import getCalendarDays from '../../../../api/calendar-days';
+import { getDateString } from '../../../../utils/days';
+import { setCalendarData } from "../../../../actions/calendar";
 
 const mapStateToProps = state => {
     return {
@@ -25,6 +26,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
     return {
         setToken: (token) => dispatch(appAccountTokenSet(token)),
+        setCalendarData: (data) => dispatch(setCalendarData(data)),
     }
 }
 
@@ -58,6 +60,8 @@ class CalendarComponent extends React.Component {
                     getDateString(this.props.days[this.props.days.length - 1]),
                     res => {
                         console.log(res);
+                        if (res.status === 200)
+                            this.props.setCalendarData(res.body);
                     }
                 );
             }
@@ -117,9 +121,9 @@ class CalendarComponent extends React.Component {
             <RowCapacities/>
             <div id="Jobs" className={'view' + this.props.calendarView.charAt(0).toUpperCase() + this.props.calendarView.slice(1) + (this.state.showJobsShadow ? ' show-shadow' : '')}>
                 {
-                    Object.keys(this.props.jobs).map((jobId, index) => {
-                        return <div key={'job-' + jobId} onMouseEnter={(e) => this.handleMouseEnterRowJob(index)} onMouseLeave={(e) => this.handleMouseLeaveRowJob(index)}>
-                            <RowJob jobId={jobId}/>
+                    Object.keys(this.props.jobs).map((job, index) => {
+                        return <div key={'job-' + job} onMouseEnter={(e) => this.handleMouseEnterRowJob(index)} onMouseLeave={(e) => this.handleMouseLeaveRowJob(index)}>
+                            <RowJob jobId={job}/>
                             </div>
                     })
                 }
@@ -151,7 +155,7 @@ class CalendarComponent extends React.Component {
                     <MenuItem onClick={this.contextMenuRemovePhase}><span className="danger">{t('calendar:rowJob.phaseContextMenu.removePhase')}</span></MenuItem>
                 </ContextMenu>
 
-                <ContextMenu id={'PhaseAssemblyMenu'}>
+                <ContextMenu id={'PhaseConstructionMenu'}>
                     <MenuItem onClick={this.contextMenuRemovePhase}><span className="danger">{t('calendar:rowJob.phaseContextMenu.removePhase')}</span></MenuItem>
                 </ContextMenu>
 

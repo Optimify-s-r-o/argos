@@ -817,7 +817,7 @@ nav #Content > div .section .large-icon span {
     background-color: #66dd00;
 }
 
-#Jobs .Day .Assembly > div > div > div > div:not(.empty), #Jobs .Day .Assembly > div > div > div > div:not(.empty):after {
+#Jobs .Day .Construction > div > div > div > div:not(.empty), #Jobs .Day .Construction > div > div > div > div:not(.empty):after {
     background-color: #ffbc45;
 }
 

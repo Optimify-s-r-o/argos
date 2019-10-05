@@ -27,7 +27,7 @@ class RowEventsComponent extends React.Component {
                             dayClasses += " nonWorkDay";
 
                         return <div key={day} className={dayClasses}>
-                            <img src={triangle} alt="warning" width="32" height="32"/>
+                                {/*<img src={triangle} alt="warning" width="32" height="32"/>*/}
                         </div>
                     })
                 }

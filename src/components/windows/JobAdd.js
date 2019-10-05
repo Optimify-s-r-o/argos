@@ -8,6 +8,8 @@ import Select from '../forms/Select';
 import DatePicker from '../forms/DatePicker';
 import DateRangePicker from '../forms/DateRangePicker'
 import { withTranslation } from 'react-i18next';
+import jobCreate from '../../api/job-create';
+import getJobList from '../../api/proxy/job-list';
 
 const title = 'Přidat zakázku';
 
@@ -30,6 +32,14 @@ class JobAdd extends React.Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleAddJob = this.handleAddJob.bind(this);
+    }
+
+    componentDidMount() {
+        getJobList(res => {
+            console.log(res.status);
+            console.log(res);
+        });
     }
 
     handleInputChange(event) {
@@ -40,6 +50,19 @@ class JobAdd extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleAddJob() {
+        if (this.props.hasOwnProperty('token')) {
+            // TODO: validate inputs
+            // TODO: fetch job from proxy
+            jobCreate(res => {
+
+            }, this.state.deadline, this.state.contractDates[0], this.state.contractDates[1], this.state.customerId, true, {});
+        } else {
+            console.error('Not logged in!');
+            // TODO: not logged in
+        }
     }
 
     render() {
@@ -104,10 +127,6 @@ class JobAdd extends React.Component {
                 </div>
             </div>
         ];
-    }
-
-    handleAddJob() {
-        // TODO
     }
 }
 

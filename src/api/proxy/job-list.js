@@ -1,11 +1,10 @@
-function getCalendarDays(token, from, to, callback) {
+function getJobList(callback) {
     fetch(
-        'http://104.248.41.203/api/Calendar/days?from=' + from + '&to=' + to,
+        'http://localhost:53986/jobs/jobList',
         {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token,
             },
         }
     )
@@ -16,4 +15,4 @@ function getCalendarDays(token, from, to, callback) {
         .catch(console.log);
 }
 
-export default getCalendarDays;
+export default getJobList;
