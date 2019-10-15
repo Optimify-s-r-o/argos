@@ -1,14 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {getBrowserWindow} from '../utils/electron';
 const path = require('path');
 
-const isElectron = typeof window.require === 'function';
+const BrowserWindow = getBrowserWindow();
 
-let BrowserWindow;
-if (isElectron)
-    BrowserWindow = window.require('electron').remote.BrowserWindow;
+/*const ipcRenderer = getIpcRenderer();
 
-const defaultOptions = {
+ipcRenderer.on('event-fired', (e, event, data) => {
+    console.log(event);
+    console.log(data);
+});*/
+
+const defaultSettings = {
     frame: false,
     webPreferences: {
         nodeIntegration: true
@@ -39,19 +43,23 @@ class OpenWindowComponent extends React.Component {
     }
 
     openWindow() {
-        if (isElectron && BrowserWindow !== null && this.props.hasOwnProperty('path')) {
+        if (BrowserWindow !== undefined && this.props.hasOwnProperty('path')) {
             let options;
-            if (this.props.hasOwnProperty('windowOptions'))
-                options = Object.assign({}, defaultOptions, this.props.windowOptions);
+            if (this.props.hasOwnProperty('windowSettings'))
+                options = Object.assign({}, defaultSettings, this.props.windowSettings);
             else
-                options = defaultOptions;
+                options = defaultSettings;
 
             let w = new BrowserWindow(options);
 
             w.loadURL(`file://${path.join(__dirname, '../build/index.html#') + this.props.path}`);
 
-            w.on('ready-to-show', (e) => {
+            w.once('ready-to-show', e => {
                 w.show();
+            });
+
+            w.once('closed', e => {
+                w = null;
             });
         }
     }

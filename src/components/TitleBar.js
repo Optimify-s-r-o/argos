@@ -33,20 +33,20 @@ class TitleBar extends React.Component {
             {this.props.icon === false ? '' : <div id="Icon">&nbsp;</div>}
             <div id="AppName">{this.props.title}</div>
             <div id="Buttons">
-                <button id="Minimize" onClick={this.handleMinimize}><img src={minimize} alt="Minimize"/></button>
-                <button id="Maximize" onClick={this.handleMaximize}><img src={maximized} alt="Maximized"/></button>
-                <button id="Close" onClick={this.handleClose}><img src={close} alt="Close"/></button>
+                <button id="Minimize" tabIndex={-1} onClick={this.handleMinimize}><img src={minimize} alt="Minimize"/></button>
+                <button id="Maximize" tabIndex={-1} onClick={this.handleMaximize}><img src={maximized} alt="Maximized"/></button>
+                <button id="Close" tabIndex={-1} onClick={this.handleClose}><img src={close} alt="Close"/></button>
             </div>
         </div>
     }
 
     handleMinimize() {
-        if (w !== null)
+        if (w !== null && w.isMinimizable())
             w.minimize();
     }
 
     handleMaximize() {
-        if (w !== null) {
+        if (w !== null && w.isMaximizable()) {
             if (w.isMaximized())
                 w.unmaximize();
             else
@@ -55,7 +55,7 @@ class TitleBar extends React.Component {
     }
 
     handleClose() {
-        if (w !== null)
+        if (w !== null && w.isClosable())
             w.close();
     }
 }

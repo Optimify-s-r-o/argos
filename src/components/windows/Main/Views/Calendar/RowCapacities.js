@@ -38,7 +38,7 @@ class RowCapacitiesComponent extends React.Component {
                                     available:this.props.capacities[key] ? this.props.capacities[key].Saw.Available : null,
                                     full: this.props.capacities[key] ? this.props.capacities[key].Saw.Used + this.props.capacities[key].Saw.Available : null,
                                 },
-                                percentage: this.props.capacities[key] ? 100 - Math.round(this.props.capacities[key].Saw.Used / (this.props.capacities[key].Saw.Used + this.props.capacities[key].Saw.Available) * 100) : null,
+                                percentage: this.props.capacities[key] ? 100 - Math.round(this.props.capacities[key].Saw.Used / (this.props.capacities[key].Saw.Used + this.props.capacities[key].Saw.Available) * 100) : null, // TODO: dividing by 0
                             },
                             press: {
                                 absolute: {
@@ -46,8 +46,16 @@ class RowCapacitiesComponent extends React.Component {
                                     available:this.props.capacities[key] ? this.props.capacities[key].Press.Available : null,
                                     full: this.props.capacities[key] ? this.props.capacities[key].Press.Used + this.props.capacities[key].Press.Available : null,
                                 },
-                                percentage: this.props.capacities[key] ? 100 - Math.round(this.props.capacities[key].Press.Used / (this.props.capacities[key].Press.Used + this.props.capacities[key].Press.Available) * 100) : null,
-                            }
+                                percentage: this.props.capacities[key] ? 100 - Math.round(this.props.capacities[key].Press.Used / (this.props.capacities[key].Press.Used + this.props.capacities[key].Press.Available) * 100) : null, // TODO: dividing by 0
+                            },
+                            construction: {
+                                absolute: {
+                                    used: this.props.capacities[key] ? this.props.capacities[key].Construction.Used : null,
+                                    available:this.props.capacities[key] ? this.props.capacities[key].Construction.Available : null,
+                                    full: this.props.capacities[key] ? this.props.capacities[key].Construction.Used + this.props.capacities[key].Construction.Available : null,
+                                },
+                                percentage: this.props.capacities[key] ? 100 - Math.round(this.props.capacities[key].Construction.Used / (this.props.capacities[key].Construction.Used + this.props.capacities[key].Construction.Available) * 100) : null, // TODO: dividing by 0
+                            },
                         };
 
                         return <div key={day} className={dayClasses}>
@@ -73,7 +81,7 @@ class RowCapacitiesComponent extends React.Component {
                                     })}
                                 />
                                 <div className="capacity-absolute">
-                                    <span>{capacities.saw.absolute.used}</span>
+                                    <span>{capacities.saw.absolute.available}</span>
                                     <span>{capacities.saw.absolute.full}</span>
                                 </div>
                                 <div className="capacity-percentage">
@@ -103,11 +111,41 @@ class RowCapacitiesComponent extends React.Component {
                                     })}
                                 />
                                 <div className="capacity-absolute">
-                                    <span>{capacities.press.absolute.used}</span>
+                                    <span>{capacities.press.absolute.available}</span>
                                     <span>{capacities.press.absolute.full}</span>
                                 </div>
                                 <div className="capacity-percentage">
                                     <span>{capacities.press.percentage}</span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div className="capacity-section capacity-construction">
+                                <CircularProgressbar
+                                    className="capacity-circle"
+                                    value="100"
+                                    text=""
+                                    strokeWidth="2"
+                                    styles={buildStyles({
+                                        pathColor: '#ffbc45'
+                                    })}
+                                />
+                                <CircularProgressbar
+                                    className="capacity-value"
+                                    value={capacities.construction.percentage}
+                                    text=""
+                                    strokeWidth="8"
+                                    styles={buildStyles({
+                                        strokeLinecap: 'butt',
+                                        pathColor: '#ffbc45',
+                                        trailColor: 'transparent'
+                                    })}
+                                />
+                                <div className="capacity-absolute">
+                                    <span>{capacities.construction.absolute.available}</span>
+                                    <span>{capacities.construction.absolute.full}</span>
+                                </div>
+                                <div className="capacity-percentage">
+                                    <span>{capacities.construction.percentage}</span>
                                     <span>%</span>
                                 </div>
                             </div>

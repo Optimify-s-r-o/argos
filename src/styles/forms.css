@@ -129,6 +129,10 @@ input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
     background-color: #00bbff !important;
 }
 
+.react-select__input > input {
+    margin: 0;
+}
+
 
 /** CALENDAR */
 

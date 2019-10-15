@@ -13,6 +13,8 @@ import { appAccountTokenSet } from '../../../../actions/app';
 import getCalendarDays from '../../../../api/calendar-days';
 import { getDateString } from '../../../../utils/days';
 import { setCalendarData } from "../../../../actions/calendar";
+import {JobAddPath, JobAddSettings} from '../../JobAdd';
+import OpenWindow from '../../../OpenWindow';
 
 const mapStateToProps = state => {
     return {
@@ -38,6 +40,7 @@ class CalendarComponent extends React.Component {
             showJobsShadow: false,
         };
 
+        this.fetchJobs = this.fetchJobs.bind(this);
         this.handleMouseEnterRowJob = this.handleMouseEnterRowJob.bind(this);
         this.handleMouseLeaveRowJob = this.handleMouseLeaveRowJob.bind(this);
         this.contextMenuChangeCapacity = this.contextMenuChangeCapacity.bind(this);
@@ -53,19 +56,28 @@ class CalendarComponent extends React.Component {
                 this.props.setToken(res.body);
 
             // TODO: rest of this method stays here
-            if (this.props.token !== null) {
-                getCalendarDays(
-                    this.props.token,
-                    getDateString(this.props.days[0]),
-                    getDateString(this.props.days[this.props.days.length - 1]),
-                    res => {
-                        console.log(res);
-                        if (res.status === 200)
-                            this.props.setCalendarData(res.body);
-                    }
-                );
-            }
+            this.fetchJobs();
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.days !== this.props.days)
+            this.fetchJobs();
+    }
+
+    fetchJobs() {
+        if (this.props.token !== null) {
+            getCalendarDays(
+                this.props.token,
+                getDateString(this.props.days[0]),
+                getDateString(this.props.days[this.props.days.length - 1]),
+                res => {
+                    console.log(res);
+                    if (res.status === 200)
+                        this.props.setCalendarData(res.body);
+                }
+            );
+        }
     }
 
     handleMouseEnterRowJob(index) {
@@ -129,10 +141,12 @@ class CalendarComponent extends React.Component {
                 }
 
                 <div id="RowJobAdd" className="Row">
-                    <div id="HeaderAddJob" className="RowHeader">
-                        <img src={jobAddImg} alt={t('calendar:addJob')}/>
-                        <span>{t('calendar:addJob')}</span>
-                    </div>
+                    <OpenWindow path={JobAddPath} windowSettings={JobAddSettings}>
+                        <div id="HeaderAddJob" className="RowHeader">
+                            <img src={jobAddImg} alt={t('calendar:addJob')}/>
+                            <span>{t('calendar:addJob')}</span>
+                        </div>
+                    </OpenWindow>
                 </div>
 
                 <ContextMenu id={'PhaseSawMenu'}>

@@ -19,7 +19,7 @@ import classicCapacities from '../../../icons/style_capacities.png';
 import compact from '../../../icons/style_compact.png';
 import {withTranslation} from 'react-i18next';
 import {GenerateDocumentPath, GenerateDocumentSettings} from '../GenerateDocument';
-import {JobAddPath, JobAddSettings} from "../JobAdd";
+import {JobAddPath, JobAddSettings} from '../JobAdd';
 
 const mapStateToProps = state => {
     return {
@@ -85,7 +85,7 @@ class NavComponent extends React.Component {
                             <span>{t('nav:home.view.jobs')}</span>
                         </button>
 
-                        <OpenWindow path={JobAddPath} settings={JobAddSettings}>
+                        <OpenWindow path={JobAddPath} windowSettings={JobAddSettings}>
                             <button className="large-icon">
                                 <img alt="test"/>
                                 <span>test</span>

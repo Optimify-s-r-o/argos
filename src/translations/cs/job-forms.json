@@ -3,6 +3,7 @@
     "commonInfo": "Základní informace",
     "detailedInfo": "Detailní informace",
     "jobIdentification": "Identifikace zakázky",
+    "selectJobId": "Zadejte ID zakázky...",
     "customerIdentification": "Zákazník",
     "contractDates": "Trvání smlouvy",
     "deadline": "Deadline",

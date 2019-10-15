@@ -1,17 +1,18 @@
 import {getDateString} from '../utils/days';
 
-function jobCreate(callback, deadline, contractStart, contractEnd, customerIdentification, planAutomatically, jobJson) {
+function jobCreate(token, deadline, contractStart, contractEnd, customerIdentification, planAutomatically, jobJson, callback) {
     deadline = getFormattedDate(deadline);
     contractStart = getFormattedDate(contractStart);
     contractEnd = getFormattedDate(contractEnd);
 
     fetch(
-        'http://104.248.41.203/api/Account/getToken',
+        'http://104.248.41.203/api/Job/create',
         {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
                 Deadline: deadline,

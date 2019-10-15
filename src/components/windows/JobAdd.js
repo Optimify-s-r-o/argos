@@ -10,13 +10,21 @@ import DateRangePicker from '../forms/DateRangePicker'
 import { withTranslation } from 'react-i18next';
 import jobCreate from '../../api/job-create';
 import getJobList from '../../api/proxy/job-list';
+import {getIpcRenderer, isElectron} from "../../utils/electron";
+import {EVENT_JOB_CREATED} from '../../events/jobs';
+import queryString from 'query-string';
+const ipcRenderer = getIpcRenderer();
 
 const title = 'Přidat zakázku';
 
 const JobAddPath = '/job-add';
 
 const JobAddSettings = {
-    title: title
+    title: title,
+    width: 503,
+    height: 754,
+    maximizable: false,
+    resizable: false,
 };
 
 class JobAdd extends React.Component {
@@ -24,11 +32,13 @@ class JobAdd extends React.Component {
         super(props);
 
         this.state = {
+            token: null,
             jobId: '',
             customerId: '',
             contractDates: [new Date(), new Date()],
             deadline: new Date(),
             acceptedByCustomer: false,
+            loadedJob: null,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,8 +47,11 @@ class JobAdd extends React.Component {
 
     componentDidMount() {
         getJobList(res => {
-            console.log(res.status);
             console.log(res);
+        });
+
+        this.setState({
+            token: queryString.parse(this.props.location.search).token,
         });
     }
 
@@ -53,12 +66,24 @@ class JobAdd extends React.Component {
     }
 
     handleAddJob() {
-        if (this.props.hasOwnProperty('token')) {
+        if (isElectron())
+            ipcRenderer.send('event', EVENT_JOB_CREATED, {'data': 'asd'});
+
+        if (this.state.token) {
             // TODO: validate inputs
             // TODO: fetch job from proxy
-            jobCreate(res => {
+            jobCreate(
+                this.state.token,
+                this.state.deadline,
+                this.state.contractDates[0],
+                this.state.contractDates[1],
+                this.state.customerId,
+                true,
+                {},
+                res => {
 
-            }, this.state.deadline, this.state.contractDates[0], this.state.contractDates[1], this.state.customerId, true, {});
+                }
+            );
         } else {
             console.error('Not logged in!');
             // TODO: not logged in
@@ -82,6 +107,9 @@ class JobAdd extends React.Component {
                                     {label: 'test1', value: 'test1'},
                                     {label: 'test2', value: 'test2'}
                                 ]}
+                                placeholder={t('jobForms:common.selectJobId')}
+                                tabIndex={1}
+                                autoFocus
                             />
                         </FormRow>
 
@@ -91,6 +119,7 @@ class JobAdd extends React.Component {
                                 type="text"
                                 value={this.state.customerId}
                                 onChange={this.handleInputChange}
+                                tabIndex={2}
                             />
                         </FormRow>
 
@@ -111,7 +140,7 @@ class JobAdd extends React.Component {
                         </FormRow>
 
                         <FormRow border={false}>
-                            <button className="btn btn-text" onClick={() => this.handleAddJob()}>{t('jobForms:add.addJob')}</button>
+                            <button className="btn btn-text" onClick={this.handleAddJob}/* disabled={this.props.loadedJob !== null}*/>{t('jobForms:add.addJob')}</button>
                         </FormRow>
 
 

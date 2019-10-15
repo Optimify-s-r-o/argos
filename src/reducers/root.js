@@ -1,5 +1,4 @@
 import { prepareDays } from '../utils/days';
-import jobsGenerator from '../utils/jobsGenerator'; // TODO: remove all occurrences
 import {ACTION_DAYS_SWITCH} from '../actions/days';
 import {ACTION_SET_CALENDAR_DATA, ACTION_SET_WEEKS, ACTION_SWITCH_CALENDAR_VIEW} from '../actions/calendar';
 import {ACTION_SWITCH_CAPACITIES_VIEW} from '../actions/capacities';
@@ -21,7 +20,7 @@ const initialState = {
     days: initialDays,
     capacities: {},
     warnings: {},
-    jobs: jobsGenerator(initialDays),
+    jobs: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -71,7 +70,7 @@ function rootReducer(state = initialState, action) {
                 weeks: action.weeks,
             }),
             days: newDays,
-            jobs: jobsGenerator(newDays), // TODO: remove after testing
+            jobs: {},
         });
     }
 
@@ -89,7 +88,7 @@ function rootReducer(state = initialState, action) {
         return Object.assign({}, state, {
             weekDelta: newWeekDelta,
             days: newDays,
-            jobs: jobsGenerator(newDays), // TODO: remove after testing
+            jobs: {},
         });
     }
 

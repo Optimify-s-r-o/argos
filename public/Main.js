@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 
 function createWindow () {
@@ -21,6 +21,10 @@ function createWindow () {
 
     window.on('ready-to-show', (e) => {
         window.show();
+    });
+
+    ipcMain.on('event', (e, event, data) => {
+        window.webContents.send('event-fired', event, data);
     });
 }
 
