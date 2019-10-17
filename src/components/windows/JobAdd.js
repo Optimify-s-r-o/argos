@@ -13,6 +13,7 @@ import getJobList from '../../api/proxy/job-list';
 import {getIpcRenderer, isElectron} from "../../utils/electron";
 import {EVENT_JOB_CREATED} from '../../events/jobs';
 import queryString from 'query-string';
+import getJob from "../../api/proxy/get-job";
 const ipcRenderer = getIpcRenderer();
 
 const title = 'Přidat zakázku';
@@ -39,15 +40,24 @@ class JobAdd extends React.Component {
             deadline: new Date(),
             acceptedByCustomer: false,
             loadedJob: null,
+            jobList: {},
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleJobSelected = this.handleJobSelected.bind(this);
         this.handleAddJob = this.handleAddJob.bind(this);
     }
 
     componentDidMount() {
         getJobList(res => {
-            console.log(res);
+            let jobList = [];
+            res.body.forEach(jobIdentification => {
+                jobList.push({
+                    label: jobIdentification,
+                    value: jobIdentification,
+                });
+            });
+            this.setState({jobList: jobList});
         });
 
         this.setState({
@@ -65,6 +75,12 @@ class JobAdd extends React.Component {
         });
     }
 
+    handleJobSelected(event) {
+        getJob(event.value, res => {
+            this.setState({loadedJob: res.body});
+        });
+    }
+
     handleAddJob() {
         if (isElectron())
             ipcRenderer.send('event', EVENT_JOB_CREATED, {'data': 'asd'});
@@ -78,8 +94,8 @@ class JobAdd extends React.Component {
                 this.state.contractDates[0],
                 this.state.contractDates[1],
                 this.state.customerId,
-                true,
-                {},
+                this.state.acceptedByCustomer,
+                this.state.loadedJob,
                 res => {
 
                 }
@@ -103,11 +119,9 @@ class JobAdd extends React.Component {
 
                         <FormRow title={t('jobForms:common.jobIdentification')}>
                             <Select
-                                options={[
-                                    {label: 'test1', value: 'test1'},
-                                    {label: 'test2', value: 'test2'}
-                                ]}
+                                options={this.state.jobList}
                                 placeholder={t('jobForms:common.selectJobId')}
+                                onChange={this.handleJobSelected}
                                 tabIndex={1}
                                 autoFocus
                             />
@@ -140,15 +154,15 @@ class JobAdd extends React.Component {
                         </FormRow>
 
                         <FormRow border={false}>
-                            <button className="btn btn-text" onClick={this.handleAddJob}/* disabled={this.props.loadedJob !== null}*/>{t('jobForms:add.addJob')}</button>
+                            <button className="btn btn-text" onClick={this.handleAddJob} disabled={this.state.loadedJob === null}>{t('jobForms:add.addJob')}</button>
                         </FormRow>
 
 
                         <div className="form-card-header">
                             {t('jobForms:common.detailedInfo')}
                         </div>
-                        <FormRow title={t('jobForms:common.location')} selectable={true}></FormRow>
-                        <FormRow title={t('jobForms:common.description')} selectable={true}></FormRow>
+                        <FormRow title={t('jobForms:common.location')} selectable={true}>{this.state.loadedJob ? this.state.loadedJob.Place : ''}</FormRow>
+                        <FormRow title={t('jobForms:common.description')} selectable={true}>{this.state.loadedJob ? this.state.loadedJob.Type : ''}</FormRow>
                         <FormRow title="Sněhová oblast" selectable={true}></FormRow>
                         <FormRow title="Zatížení" selectable={true}></FormRow>
                         <FormRow title={t('jobForms:common.trussTypes')} selectable={true}></FormRow>

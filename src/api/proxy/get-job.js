@@ -1,6 +1,6 @@
-function getJobList(callback) {
+function getJob(jobId, callback) {
     fetch(
-        'http://localhost:6969/jobs/jobList',
+        'http://localhost:6969/jobs/getJob?jobIdentification=' + jobId,
         {
             method: 'GET',
             headers: {
@@ -15,4 +15,4 @@ function getJobList(callback) {
         .catch(console.log);
 }
 
-export default getJobList;
+export default getJob;
