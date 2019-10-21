@@ -4,7 +4,6 @@ import ReactDatePicker from 'react-date-picker';
 import CalendarSelect from './CalendarSelect';
 import ReactDOM from 'react-dom';
 import {withTranslation} from 'react-i18next';
-import ReactDateRangePicker from "./DateRangePicker";
 
 class DatePicker extends React.Component {
     constructor(props) {

@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDateRangePicker from '@wojtekmaj/react-daterange-picker';
 import CalendarSelect from './CalendarSelect';
-import ReactDOM from "react-dom";
-import ReactDatePicker from "./DatePicker";
-import {withTranslation} from "react-i18next";
+import ReactDOM from 'react-dom';
+import {withTranslation} from 'react-i18next';
 
 class DateRangePicker extends React.Component {
     constructor(props) {

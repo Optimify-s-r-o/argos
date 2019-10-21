@@ -321,6 +321,29 @@ nav #Content > div .section .large-icon span {
     background-color: #eeeeee;
 }
 
+#Calendar:after {
+    content: '';
+
+    position: absolute;
+    z-index: 99999;
+
+    top: 60px; /* week selector */
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: none;
+
+    background-color: rgba(0, 187, 255, .25);
+    background-image: url('/loader.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#Calendar.loading:after {
+    display: block;
+}
+
 .Row {
     display: flex;
     position: relative;

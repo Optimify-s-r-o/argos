@@ -82,9 +82,6 @@ class JobAdd extends React.Component {
     }
 
     handleAddJob() {
-        if (isElectron())
-            ipcRenderer.send('event', EVENT_JOB_CREATED, {'data': 'asd'});
-
         if (this.state.token) {
             // TODO: validate inputs
             // TODO: fetch job from proxy
@@ -97,7 +94,8 @@ class JobAdd extends React.Component {
                 this.state.acceptedByCustomer,
                 this.state.loadedJob,
                 res => {
-
+                    if (isElectron() && res.status === 200)
+                        ipcRenderer.send('event', EVENT_JOB_CREATED, res.data);
                 }
             );
         } else {

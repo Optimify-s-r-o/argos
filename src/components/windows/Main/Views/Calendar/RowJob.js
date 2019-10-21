@@ -112,8 +112,8 @@ class RowJobComponent extends React.Component {
                             };
 
                             if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
-                                let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(getDateString(this.props.days[index - 1]));
-                                let hasAfter = phaseDatesToIndex[phase].hasOwnProperty(getDateString(this.props.days[index + 1]));
+                                let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(getDateString(new Date(Date.parse(day) - 86400000)));
+                                let hasAfter = phaseDatesToIndex[phase].hasOwnProperty(getDateString(new Date(Date.parse(day) + 86400000)));
 
                                 phaseClass[phase] = phase.charAt(0).toUpperCase() + phase.slice(1) + ' ';
                                 if (hasBefore && hasAfter)

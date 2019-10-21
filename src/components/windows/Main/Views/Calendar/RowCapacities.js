@@ -9,7 +9,7 @@ const mapStateToProps = state => {
     return {
         days: state.days,
         capacitiesView: state.settings.capacitiesView,
-        capacities: state.capacities
+        capacities: state.capacities,
     }
 };
 
@@ -77,7 +77,8 @@ class RowCapacitiesComponent extends React.Component {
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         pathColor: '#ff4040',
-                                        trailColor: 'transparent'
+                                        trailColor: 'transparent',
+                                        pathTransition: 'none',
                                     })}
                                 />
                                 <div className="capacity-absolute">
@@ -107,7 +108,8 @@ class RowCapacitiesComponent extends React.Component {
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         pathColor: '#00bbff',
-                                        trailColor: 'transparent'
+                                        trailColor: 'transparent',
+                                        pathTransition: 'none',
                                     })}
                                 />
                                 <div className="capacity-absolute">
@@ -137,7 +139,8 @@ class RowCapacitiesComponent extends React.Component {
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         pathColor: '#ffbc45',
-                                        trailColor: 'transparent'
+                                        trailColor: 'transparent',
+                                        pathTransition: 'none',
                                     })}
                                 />
                                 <div className="capacity-absolute">

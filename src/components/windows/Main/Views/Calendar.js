@@ -15,6 +15,7 @@ import { getDateString } from '../../../../utils/days';
 import { setCalendarData } from "../../../../actions/calendar";
 import {JobAddPath, JobAddSettings} from '../../JobAdd';
 import OpenWindow from '../../../OpenWindow';
+import {getIpcRenderer, isElectron} from "../../../../utils/electron";
 
 const mapStateToProps = state => {
     return {
@@ -38,6 +39,7 @@ class CalendarComponent extends React.Component {
 
         this.state = {
             showJobsShadow: false,
+            isLoadingJobs: false,
         };
 
         this.fetchJobs = this.fetchJobs.bind(this);
@@ -48,6 +50,14 @@ class CalendarComponent extends React.Component {
         this.contextMenuChangeTransportInfo = this.contextMenuChangeTransportInfo.bind(this);
         this.contextMenuRemovePhase = this.contextMenuRemovePhase.bind(this);
         this.contextMenuCreatePhase = this.contextMenuCreatePhase.bind(this);
+
+        if (isElectron()) {
+            const ipcRenderer = getIpcRenderer();
+
+            ipcRenderer.on('event-fired', (e, event, data) => {
+                this.fetchJobs();
+            });
+        }
     }
 
     componentDidMount() {
@@ -65,9 +75,10 @@ class CalendarComponent extends React.Component {
             this.fetchJobs();
     }
 
-    fetchJobs() {
+    async fetchJobs() {
         if (this.props.token !== null) {
-            getCalendarDays(
+            this.setState({isLoadingJobs: true});
+            await getCalendarDays(
                 this.props.token,
                 getDateString(this.props.days[0]),
                 getDateString(this.props.days[this.props.days.length - 1]),
@@ -77,6 +88,7 @@ class CalendarComponent extends React.Component {
                         this.props.setCalendarData(res.body);
                 }
             );
+            this.setState({isLoadingJobs: false});
         }
     }
 
@@ -126,7 +138,7 @@ class CalendarComponent extends React.Component {
     render () {
         const { t } = this.props;
 
-        return <div id="Calendar">
+        return <div id="Calendar" className={this.state.isLoadingJobs ? 'loading' : ''}>
             <WeekSelector/>
             <RowDays/>
             <RowEvents/>
@@ -141,7 +153,7 @@ class CalendarComponent extends React.Component {
                 }
 
                 <div id="RowJobAdd" className="Row">
-                    <OpenWindow path={JobAddPath} windowSettings={JobAddSettings}>
+                    <OpenWindow path={JobAddPath + '?token=' + this.props.token} windowSettings={JobAddSettings}>
                         <div id="HeaderAddJob" className="RowHeader">
                             <img src={jobAddImg} alt={t('calendar:addJob')}/>
                             <span>{t('calendar:addJob')}</span>

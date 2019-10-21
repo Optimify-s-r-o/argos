@@ -63,14 +63,13 @@ function rootReducer(state = initialState, action) {
     }
 
     else if (action.type === ACTION_SET_WEEKS) {
-        // TODO api call, request new days
         let newDays = prepareDays(state.weekDelta, action.weeks);
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
                 weeks: action.weeks,
             }),
             days: newDays,
-            jobs: {},
+            //jobs: {},
         });
     }
 
@@ -83,12 +82,11 @@ function rootReducer(state = initialState, action) {
         else if (action.switch === 'today')
             newWeekDelta = 0;
 
-        // TODO api call, request only changed days
         let newDays = prepareDays(newWeekDelta, state.settings.weeks);
         return Object.assign({}, state, {
             weekDelta: newWeekDelta,
             days: newDays,
-            jobs: {},
+            //jobs: {},
         });
     }
 

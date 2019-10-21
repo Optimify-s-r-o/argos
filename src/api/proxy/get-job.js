@@ -1,18 +1,19 @@
-function getJob(jobId, callback) {
-    fetch(
-        'http://localhost:6969/jobs/getJob?jobIdentification=' + jobId,
-        {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-        }
-    )
-        .then(res => res.json().then(data => ({status: res.status, body: data})))
-        .then(res => {
-            callback(res);
-        })
-        .catch(console.log);
+async function getJob(jobId, callback) {
+    try {
+        const result = await fetch(
+            'http://localhost:6969/jobs/getJob?jobIdentification=' + jobId,
+            {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            }
+        );
+        const data = {status: result.status, body: (await result.json())};
+        callback(data);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export default getJob;
