@@ -15,6 +15,11 @@
     "trussTypes": "Typ vazníků"
   },
   "add": {
+    "title": "Přidání zakázky",
     "addJob": "Přidat zakázku"
+  },
+  "added": {
+    "title": "OK",
+    "text": "Zakázka byla přidána."
   }
 }

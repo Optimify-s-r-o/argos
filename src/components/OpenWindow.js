@@ -21,7 +21,6 @@ const defaultSettings = {
     show: false,
     minWidth: 320,
     useContentSize: true,
-    title: 'test'
 };
 
 /**

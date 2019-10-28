@@ -7,6 +7,7 @@ import job_forms_cs from './translations/cs/job-forms';
 import capacity_forms_cs from './translations/cs/capacity-forms';
 import phase_forms_cs from './translations/cs/phase-forms';
 import document_forms_cs from './translations/cs/document-forms';
+import message_box_cs from './translations/cs/message-box';
 
 import nav_en from './translations/en/nav'
 //import calendar_en from './translations/en/calendar';
@@ -30,6 +31,7 @@ i18n
                 capacityForms: capacity_forms_cs,
                 phaseForms: phase_forms_cs,
                 documentForms: document_forms_cs,
+                messageBox: message_box_cs,
             },
             en: {
                 nav: nav_en,

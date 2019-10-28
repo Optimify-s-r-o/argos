@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/icons/loader.gif" afterDir="false" />
+    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader">
+      <change afterPath="$PROJECT_DIR$/src/api/proxy/set-database-path.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/translations/cs/message-box.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/showMessageBox.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/accout-get-token.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/accout-get-token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/calendar-days.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/calendar-days.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/job-create.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/job-create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/proxy/get-job.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/proxy/get-job.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/proxy/job-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/proxy/job-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/OpenWindow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OpenWindow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/forms/DatePicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/DatePicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/forms/DateRangePicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/DateRangePicker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TitleBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/JobAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/JobAdd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowCapacities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowCapacities.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/root.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/root.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/translations/cs/job-forms.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/job-forms.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/electron.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/electron.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,35 +45,36 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="ProjectId" id="1ShWYpbDqshFchBEbXQLLm1ooUA" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api/proxy" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.CoffeeScript" />
     <property name="ts.external.directory.path" value="D:\Web\argos-frontend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Web\argos-frontend\public" />
-      <recent name="D:\Web\argos-frontend\src\components\forms" />
-      <recent name="D:\Web\argos-frontend\src\translations\en" />
-      <recent name="D:\Web\argos-frontend\src\components\windows" />
-      <recent name="D:\Web\argos-frontend\src" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Web\argos-frontend\src\translations\cs" />
       <recent name="D:\Web\argos-frontend\src\styles" />
       <recent name="D:\Web\argos-frontend\src\components\windows" />
       <recent name="D:\Web\argos-frontend\src\components" />
       <recent name="D:\Web\argos-frontend\src\components\Main" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Web\argos-frontend\src\api\proxy" />
+      <recent name="D:\Web\argos-frontend\public" />
+      <recent name="D:\Web\argos-frontend\src\components\forms" />
+      <recent name="D:\Web\argos-frontend\src\translations\en" />
+      <recent name="D:\Web\argos-frontend\src\components\windows" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -85,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.electron-start">
     <configuration name="electron-start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -96,6 +100,21 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
@@ -139,6 +158,7 @@
       <workItem from="1570148536031" duration="6887000" />
       <workItem from="1570658117812" duration="16452000" />
       <workItem from="1570931211935" duration="2491000" />
+      <workItem from="1572041631868" duration="23538000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
@@ -175,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569485376378</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader">
+      <created>1571686840244</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1571686840244</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,7 +213,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -198,6 +227,7 @@
     <MESSAGE value="form components, translations" />
     <MESSAGE value="context menu refactor" />
     <MESSAGE value="api login" />
-    <option name="LAST_COMMIT_MESSAGE" value="api login" />
+    <MESSAGE value="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader" />
   </component>
 </project>

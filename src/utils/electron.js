@@ -26,4 +26,17 @@ function getIpcRenderer() {
     return ipcRenderer;
 }
 
-export {isElectron, getBrowserWindow, getIpcMain, getIpcRenderer};
+function closeCurrentElectronWindow() {
+    if (isElectron()) {
+        const w = window.require('electron').remote.getCurrentWindow();
+        w.setClosable(true);
+        w.close();
+    }
+}
+
+function setCurrentElectronWindowTitle(title) {
+    if (isElectron())
+        window.require('electron').remote.getCurrentWindow().setTitle(title);
+}
+
+export {isElectron, getBrowserWindow, getIpcMain, getIpcRenderer, closeCurrentElectronWindow, setCurrentElectronWindowTitle};

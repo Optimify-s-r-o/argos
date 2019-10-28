@@ -1,0 +1,46 @@
+.row.text {
+    font-weight: 400;
+}
+
+.row.buttons {
+    padding: 8px 16px;
+
+    justify-content: flex-end;
+
+    background-color: white;
+}
+
+.row.buttons button {
+    display: inline-block;
+
+    margin-left: 16px;
+}
+
+.btn-yes, .btn-ok {
+
+}
+
+.btn-no, .btn-cancel {
+    border-color: rgba(0, 0, 0, .15);
+    color: rgba(0, 0, 0, .3);
+}
+
+.btn-no:hover, .btn-cancel:hover {
+    background-color: rgba(0, 0, 0, .15);
+    border-color: transparent;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    color: #004466;
+}
+
+.btn-no:active, .btn-cancel:active {
+    background-color: rgba(0, 0, 0, .15);
+    border-color: transparent;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    color: #004466;
+}
+
+.btn-no:focus, .btn-cancel:focus {
+    outline: 0;
+
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+}

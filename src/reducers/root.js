@@ -1,23 +1,61 @@
 import { prepareDays } from '../utils/days';
-import {ACTION_DAYS_SWITCH} from '../actions/days';
-import {ACTION_SET_CALENDAR_DATA, ACTION_SET_WEEKS, ACTION_SWITCH_CALENDAR_VIEW} from '../actions/calendar';
-import {ACTION_SWITCH_CAPACITIES_VIEW} from '../actions/capacities';
-import {ACTION_SWITCH_VIEW} from '../actions/view';
-import {ACTION_SET_CURRENT_NAV} from '../actions/nav';
-import {ACTION_APP_ACCOUNT_TOKEN_SET} from "../actions/app";
+import { ACTION_DAYS_SWITCH } from '../actions/days';
+import {
+    ACTION_SET_CALENDAR_DATA,
+    ACTION_SET_WEEKS,
+    ACTION_SORT_CALENDAR,
+    ACTION_SWITCH_CALENDAR_VIEW
+} from '../actions/calendar';
+import { ACTION_SWITCH_CAPACITIES_VIEW } from '../actions/capacities';
+import { ACTION_SWITCH_VIEW } from '../actions/view';
+import { ACTION_SET_CURRENT_NAV } from '../actions/nav';
+import { ACTION_APP_ACCOUNT_TOKEN_SET } from "../actions/app";
+import { isElectron } from '../utils/electron';
+import setDatabasePath from "../api/proxy/set-database-path";
 
-const initialDays = prepareDays(0);
-const initialState = {
-    token: null,
-    settings: {
+function __getInitialSettings() {
+    const defSettings = {
         currentNav: 'home',
         view: 'calendar',
         calendarView: 'classicDays',
         capacitiesView: 'percentage',
+        sort: 'earliest',
         weeks: 4,
-    },
+        pambaPath: '',
+    };
+
+    if (isElectron()) {
+        const Store = window.require('electron-store');
+        const store = new Store();
+
+        if (!store.has('settings'))
+            store.set('settings', defSettings);
+
+        const settings = store.get('settings', defSettings);
+
+        setDatabasePath(settings.pambaPath);
+
+        return settings;
+    } else {
+        return defSettings;
+    }
+}
+
+function __setSetting(key, value) {
+    if (isElectron()) {
+        const Store = window.require('electron-store');
+        const store = new Store();
+
+        store.set('settings.' + key, value);
+    }
+}
+
+const initialSettings = __getInitialSettings();
+const initialState = {
+    token: null,
+    settings: initialSettings,
     weekDelta: 0,
-    days: initialDays,
+    days: prepareDays(0, initialSettings.weeks),
     capacities: {},
     warnings: {},
     jobs: {},
@@ -31,6 +69,8 @@ function rootReducer(state = initialState, action) {
     }
 
     else if (action.type === ACTION_SET_CURRENT_NAV) {
+        __setSetting('currentNav', action.nav);
+
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
                 currentNav: action.nav,
@@ -39,6 +79,8 @@ function rootReducer(state = initialState, action) {
     }
 
     else if (action.type === ACTION_SWITCH_VIEW) {
+        __setSetting('view', action.view);
+
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
                 view: action.view,
@@ -47,6 +89,8 @@ function rootReducer(state = initialState, action) {
     }
 
     else if (action.type === ACTION_SWITCH_CALENDAR_VIEW) {
+        __setSetting('calendarView', action.view);
+
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
                 calendarView: action.view,
@@ -55,6 +99,8 @@ function rootReducer(state = initialState, action) {
     }
 
     else if (action.type === ACTION_SWITCH_CAPACITIES_VIEW) {
+        __setSetting('capacitiesView', action.view);
+
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
                 capacitiesView: action.view,
@@ -62,14 +108,28 @@ function rootReducer(state = initialState, action) {
         });
     }
 
+    else if (action.type === ACTION_SORT_CALENDAR) {
+        __setSetting('sort', action.order);
+
+        const sortConst = action.order === 'earliest' ? 1 : -1;
+
+        return Object.assign({}, state, {
+            settings: Object.assign({}, state.settings, {
+                sort: action.order,
+            }),
+            jobs: state.jobs.sort((a, b) => a.Deadline > b.Deadline ? sortConst : -sortConst),
+        });
+    }
+
     else if (action.type === ACTION_SET_WEEKS) {
+        __setSetting('weeks', action.weeks);
+
         let newDays = prepareDays(state.weekDelta, action.weeks);
         return Object.assign({}, state, {
             settings: Object.assign({}, state.settings, {
                 weeks: action.weeks,
             }),
             days: newDays,
-            //jobs: {},
         });
     }
 
@@ -86,15 +146,16 @@ function rootReducer(state = initialState, action) {
         return Object.assign({}, state, {
             weekDelta: newWeekDelta,
             days: newDays,
-            //jobs: {},
         });
     }
 
     else if (action.type === ACTION_SET_CALENDAR_DATA) {
+        const sortConst = state.settings.sort === 'earliest' ? 1 : -1;
+
         return Object.assign({}, state, {
             capacities: action.data.Capacities,
             warnings: action.data.Warnings,
-            jobs: action.data.Jobs,
+            jobs: action.data.Jobs.sort((a, b) => a.Deadline > b.Deadline ? sortConst : -sortConst),
         })
     }
 

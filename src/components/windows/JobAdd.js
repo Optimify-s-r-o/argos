@@ -10,18 +10,21 @@ import DateRangePicker from '../forms/DateRangePicker'
 import { withTranslation } from 'react-i18next';
 import jobCreate from '../../api/job-create';
 import getJobList from '../../api/proxy/job-list';
-import {getIpcRenderer, isElectron} from "../../utils/electron";
+import {
+    getIpcRenderer,
+    isElectron,
+    closeCurrentElectronWindow,
+    setCurrentElectronWindowTitle
+} from '../../utils/electron';
 import {EVENT_JOB_CREATED} from '../../events/jobs';
 import queryString from 'query-string';
 import getJob from "../../api/proxy/get-job";
+import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_INFO, showMessageBox} from '../../utils/showMessageBox';
 const ipcRenderer = getIpcRenderer();
-
-const title = 'Přidat zakázku';
 
 const JobAddPath = '/job-add';
 
 const JobAddSettings = {
-    title: title,
     width: 503,
     height: 754,
     maximizable: false,
@@ -96,6 +99,11 @@ class JobAdd extends React.Component {
                 res => {
                     if (isElectron() && res.status === 200)
                         ipcRenderer.send('event', EVENT_JOB_CREATED, res.data);
+
+                    showMessageBox('jobForms:added', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK, () => {
+                        closeCurrentElectronWindow();
+                    });
+
                 }
             );
         } else {
@@ -106,8 +114,9 @@ class JobAdd extends React.Component {
 
     render() {
         const { t } = this.props;
+        setCurrentElectronWindowTitle(t('jobForms:add.title'));
         return [
-            <TitleBar key="titleBar" title={title} icon={false}/>,
+            <TitleBar key="titleBar" title={t('jobForms:add.title')} icon={false}/>,
             <div key="content" className="row">
                 <div className="column">
                     <div className="form-card">

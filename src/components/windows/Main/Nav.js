@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setCurrentNav} from '../../../actions/nav';
-import {setWeeks, setCalendarView} from '../../../actions/calendar';
+import {setWeeks, setCalendarView, sort} from '../../../actions/calendar';
 import {setCapacitiesView} from '../../../actions/capacities';
 import OpenWindow from '../../OpenWindow';
 import weeks from '../../../icons/weeks.png';
@@ -17,9 +17,9 @@ import capacitiesPercentual from '../../../icons/capacities_percentual.png';
 import classicDays from '../../../icons/style_dates.png';
 import classicCapacities from '../../../icons/style_capacities.png';
 import compact from '../../../icons/style_compact.png';
-import {withTranslation} from 'react-i18next';
-import {GenerateDocumentPath, GenerateDocumentSettings} from '../GenerateDocument';
-import {JobAddPath, JobAddSettings} from '../JobAdd';
+import { withTranslation } from 'react-i18next';
+import { GenerateDocumentPath, GenerateDocumentSettings } from '../GenerateDocument';
+import { JobAddPath, JobAddSettings } from '../JobAdd';
 
 const mapStateToProps = state => {
     return {
@@ -27,7 +27,8 @@ const mapStateToProps = state => {
         view: state.settings.view,
         calendarView: state.settings.calendarView,
         capacitiesView: state.settings.capacitiesView,
-        weeks: state.settings.weeks
+        sortState: state.settings.sort,
+        weeks: state.settings.weeks,
     }
 };
 
@@ -36,7 +37,8 @@ function mapDispatchToProps(dispatch) {
         setCurrentNav: (nav) => dispatch(setCurrentNav(nav)),
         setWeeks: (weeks) => dispatch(setWeeks(weeks)),
         setCalendarView: (view) => dispatch(setCalendarView(view)),
-        setCapacitiesView: (view) => dispatch(setCapacitiesView(view))
+        setCapacitiesView: (view) => dispatch(setCapacitiesView(view)),
+        sort: (order) => dispatch(sort(order)),
     }
 }
 
@@ -141,12 +143,12 @@ class NavComponent extends React.Component {
                     <div className="section">
                         <div className="section-header">{t('nav:calendarView.sort.header')}</div>
 
-                        <button className="large-icon">
+                        <button className={this.props.sortState === 'earliest' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.sort('earliest')}>
                             <img src={deadlineEarliest} alt={t('nav:calendarView.sort.deadlineEarliest')}/>
                             <span>{t('nav:calendarView.sort.deadlineEarliest')}</span>
                         </button>
 
-                        <button className="large-icon">
+                        <button className={this.props.sortState === 'latest' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.sort('latest')}>
                             <img src={deadlineLatest} alt={t('nav:calendarView.sort.deadlineLatest')}/>
                             <span>{t('nav:calendarView.sort.deadlineLatest')}</span>
                         </button>

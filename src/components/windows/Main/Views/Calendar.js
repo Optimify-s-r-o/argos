@@ -4,7 +4,7 @@ import RowDays from './Calendar/RowDays';
 import RowEvents from './Calendar/RowEvents';
 import RowCapacities from './Calendar/RowCapacities';
 import RowJob from './Calendar/RowJob';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import jobAddImg from '../../../../icons/add.png';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
@@ -12,10 +12,10 @@ import accountGetToken from '../../../../api/accout-get-token';
 import { appAccountTokenSet } from '../../../../actions/app';
 import getCalendarDays from '../../../../api/calendar-days';
 import { getDateString } from '../../../../utils/days';
-import { setCalendarData } from "../../../../actions/calendar";
-import {JobAddPath, JobAddSettings} from '../../JobAdd';
+import { setCalendarData } from '../../../../actions/calendar';
+import { JobAddPath, JobAddSettings } from '../../JobAdd';
 import OpenWindow from '../../../OpenWindow';
-import {getIpcRenderer, isElectron} from "../../../../utils/electron";
+import { getIpcRenderer, isElectron } from '../../../../utils/electron';
 
 const mapStateToProps = state => {
     return {
@@ -83,7 +83,6 @@ class CalendarComponent extends React.Component {
                 getDateString(this.props.days[0]),
                 getDateString(this.props.days[this.props.days.length - 1]),
                 res => {
-                    console.log(res);
                     if (res.status === 200)
                         this.props.setCalendarData(res.body);
                 }

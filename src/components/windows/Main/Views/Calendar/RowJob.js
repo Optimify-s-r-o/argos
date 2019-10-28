@@ -23,14 +23,14 @@ class RowJobComponent extends React.Component {
     onDragOver(e, data) { // TODO: change jobId to generated ID in drag & drop
         const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-        if (draggedData.jobid === data.jobId.toLowerCase() && draggedData.phase === data.phase && draggedData.date !== data.date)
+        if (draggedData.jobid === data.jobId.toLowerCase() && draggedData.phase === data.phase.toLowerCase() && draggedData.date !== data.date)
             e.preventDefault();
     }
 
     onDragEnter(e, data) { // TODO: change jobId to generated ID in drag & drop
         const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-        if (draggedData.jobid === data.jobId.toLowerCase() && draggedData.phase === data.phase && draggedData.date !== data.date)
+        if (draggedData.jobid === data.jobId.toLowerCase() && draggedData.phase === data.phase.toLowerCase() && draggedData.date !== data.date)
             e.target.closest('.droppable').classList.add('dropped');
     }
 
@@ -100,13 +100,13 @@ class RowJobComponent extends React.Component {
 
                         phases.forEach(phase => {
                             const dragData = {
-                                jobId: this.props.jobId, // TODO: change jobId to generated ID
+                                jobId: this.props.job.Id, // TODO: change jobId to generated ID
                                 phase: phase,
                                 date: getDateString(day),
                             };
 
                             const attributes ={
-                                'job-id': this.props.jobId,
+                                'job-id': this.props.job.Id,
                                 'phase': phase,
                                 'day': getDateString(day),
                             };
@@ -140,7 +140,7 @@ class RowJobComponent extends React.Component {
                                             <div
                                                 draggable
                                                 onDragStart={e => this.onDragStart(e, {
-                                                    jobId: this.props.jobId, // TODO: change jobId to generated ID
+                                                    jobId: this.props.job.Id, // TODO: change jobId to generated ID
                                                     phase: phase,
                                                     date: getDateString(day),
                                                     capacityToMove: 100, // TODO

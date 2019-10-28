@@ -32,7 +32,8 @@ class TitleBar extends React.Component {
         return <div id="TitleBar">
             {this.props.icon === false ? '' : <div id="Icon">&nbsp;</div>}
             <div id="AppName">{this.props.title}</div>
-            <div id="Buttons">
+
+            <div id="Buttons" className={!this.props.hasOwnProperty('buttons') || this.props.buttons ? '' : 'hidden'}>
                 <button id="Minimize" tabIndex={-1} onClick={this.handleMinimize}><img src={minimize} alt="Minimize"/></button>
                 <button id="Maximize" tabIndex={-1} onClick={this.handleMaximize}><img src={maximized} alt="Maximized"/></button>
                 <button id="Close" tabIndex={-1} onClick={this.handleClose}><img src={close} alt="Close"/></button>
