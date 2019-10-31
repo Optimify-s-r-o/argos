@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader">
-      <change afterPath="$PROJECT_DIR$/src/api/proxy/set-database-path.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/translations/cs/message-box.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/showMessageBox.js" afterDir="false" />
+    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/api/job-delete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/OpenWindow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OpenWindow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TitleBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/forms/DateRangePicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/DateRangePicker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/JobAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/JobAdd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/root.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/root.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/translations/cs/job-forms.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/job-forms.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/electron.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/electron.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +35,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api/proxy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
@@ -62,19 +46,19 @@
     <property name="ts.external.directory.path" value="D:\Web\argos-frontend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Web\argos-frontend\src\api" />
+      <recent name="D:\Web\argos-frontend\src\api\proxy" />
+      <recent name="D:\Web\argos-frontend\public" />
+      <recent name="D:\Web\argos-frontend\src\components\forms" />
+      <recent name="D:\Web\argos-frontend\src\translations\en" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Web\argos-frontend\src\translations\cs" />
       <recent name="D:\Web\argos-frontend\src\styles" />
       <recent name="D:\Web\argos-frontend\src\components\windows" />
       <recent name="D:\Web\argos-frontend\src\components" />
       <recent name="D:\Web\argos-frontend\src\components\Main" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Web\argos-frontend\src\api\proxy" />
-      <recent name="D:\Web\argos-frontend\public" />
-      <recent name="D:\Web\argos-frontend\src\components\forms" />
-      <recent name="D:\Web\argos-frontend\src\translations\en" />
-      <recent name="D:\Web\argos-frontend\src\components\windows" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -159,6 +143,7 @@
       <workItem from="1570658117812" duration="16452000" />
       <workItem from="1570931211935" duration="2491000" />
       <workItem from="1572041631868" duration="23538000" />
+      <workItem from="1572522189864" duration="3977000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>

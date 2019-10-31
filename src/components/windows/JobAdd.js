@@ -19,7 +19,7 @@ import {
 import {EVENT_JOB_CREATED} from '../../events/jobs';
 import queryString from 'query-string';
 import getJob from "../../api/proxy/get-job";
-import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_INFO, showMessageBox} from '../../utils/showMessageBox';
+import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_ERROR, MSGBOX_TYPE_INFO, showMessageBox} from '../../utils/showMessageBox';
 const ipcRenderer = getIpcRenderer();
 
 const JobAddPath = '/job-add';
@@ -97,13 +97,16 @@ class JobAdd extends React.Component {
                 this.state.acceptedByCustomer,
                 this.state.loadedJob,
                 res => {
-                    if (isElectron() && res.status === 200)
+                    if (isElectron() && res.status === 200) {
                         ipcRenderer.send('event', EVENT_JOB_CREATED, res.data);
 
-                    showMessageBox('jobForms:added', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK, () => {
-                        closeCurrentElectronWindow();
-                    });
-
+                        showMessageBox('jobForms:added', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK, () => {
+                            closeCurrentElectronWindow();
+                        });
+                    } else if (res.status === 422) {
+                        showMessageBox('jobForms:duplicateJob', MSGBOX_TYPE_ERROR, MSGBOX_BUTTONS_OK);
+                        // TODO duplicate job
+                    }
                 }
             );
         } else {

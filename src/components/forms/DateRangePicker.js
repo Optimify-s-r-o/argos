@@ -45,10 +45,8 @@ class DateRangePicker extends React.Component {
             calendarIcon={<CalendarSelect state={this.state.isCalendarOpen ? 'open' : 'closed'}/>}
             onChange={this.handleDatesChange}
             onCalendarOpen={() => {
-                if (this.state.wasCalendarOpen === false) {
+                if (this.state.wasCalendarOpen === false)
                     this.onFirstCalendarOpen();
-                    this.setState({wasCalendarOpen: true});
-                }
 
                 this.setState({isCalendarOpen: true});
             }}

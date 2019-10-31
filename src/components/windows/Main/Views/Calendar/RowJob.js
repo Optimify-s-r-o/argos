@@ -4,17 +4,26 @@ import { isNonWorkingDay, getDateString } from '../../../../../utils/days';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { withTranslation } from 'react-i18next';
 import ucfirst from '../../../../../utils/ucfirst';
+import jobDelete from "../../../../../api/job-delete";
+import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_INFO, showMessageBox} from "../../../../../utils/showMessageBox";
 
 const mapStateToProps = (state, ownProps) => {
     return {
         days: state.days,
-        job: state.jobs[ownProps.jobId]
+        job: state.jobs[ownProps.jobId],
+        token: state.token,
     }
 };
 
 const phases = ['Saw', 'Press', 'Transport', 'Construction'];
 
 class RowJobComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleJobDelete = this.handleJobDelete.bind(this);
+    }
+
     onDragStart(e, data) { // TODO: change jobId to generated ID in drag & drop
         e.dataTransfer.setData(JSON.stringify(data), '');
         e.dataTransfer.setDragImage(new Image(), 0, 0);
@@ -58,6 +67,18 @@ class RowJobComponent extends React.Component {
         })
     }
 
+    handleJobDelete() {
+        jobDelete(this.props.token, this.props.job.Id, res => {
+            // todo
+            if (res.status === 200) {
+                // TODO refresh calendar
+                showMessageBox('jobForms:deleted', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK, () => {
+
+                })
+            }
+        });
+    }
+
     render () {
         const { t } = this.props;
 
@@ -79,7 +100,7 @@ class RowJobComponent extends React.Component {
                 <div className="JobStatus">
                     <small>{t('calendar:rowJob.header.status')}:</small>
                     <div className="status">
-                        <button title="Smazat">X</button>
+                        <button title="Smazat" onClick={this.handleJobDelete}>X</button>
                         <button>Ověřená</button>
                         <button>Dokončená</button>
                     </div>
