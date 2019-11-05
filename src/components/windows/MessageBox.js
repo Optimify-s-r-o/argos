@@ -3,7 +3,8 @@ import './MessageBox.css';
 import TitleBar from '../TitleBar';
 import queryString from 'query-string';
 import { withTranslation } from 'react-i18next';
-import {closeCurrentElectronWindow, setCurrentElectronWindowTitle} from '../../utils/electron';
+import {closeCurrentElectronWindow, getIpcRenderer, setCurrentElectronWindowTitle} from '../../utils/electron';
+const ipcRenderer = getIpcRenderer();
 
 const MessageBoxPath = '/message-box';
 
@@ -23,6 +24,11 @@ const MessageBoxSettings = {
 };
 
 class MessageBox extends React.Component {
+    onButtonClick(button) {
+        ipcRenderer.send('msgboxButtonClick', button);
+        closeCurrentElectronWindow();
+    }
+
     render() {
         const { t } = this.props;
         const params = queryString.parse(this.props.location.search);
@@ -35,15 +41,15 @@ class MessageBox extends React.Component {
 
         setCurrentElectronWindowTitle(t(params.key + '.title'));
         return [
-            <TitleBar key="titleBar" title={t(params.key + '.title')} icon={false} buttons={false}/>,
+            <TitleBar key="titleBar" title={t(params.key + '.title')} icon={false} buttons={false} colorClass={params.type}/>,
             <div key="content" className="row text">
                 <div className="column">
                     {t(params.key + '.text')}
                 </div>
             </div>,
-            <div key="buttons" className="row buttons">
+            <div key="buttons" className={'row buttons ' + params.type}>
                 {buttons.map(button => {
-                    return <button key={button} onClick={() => {closeCurrentElectronWindow()}} className={'btn btn-text btn-' + button}>{t('messageBox:buttons.' + button)}</button>;
+                    return <button key={button} onClick={() => {this.onButtonClick(button)}} className={'btn btn-text btn-' + button}>{t('messageBox:buttons.' + button)}</button>;
                 })}
             </div>
         ];

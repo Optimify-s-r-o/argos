@@ -16,8 +16,24 @@
     margin-left: 16px;
 }
 
-.btn-yes, .btn-ok {
+.row.buttons.warning .btn-yes, .row.buttons.warning .btn-ok {
+    border-color: #ffbc45;
+    color: #ffbc45;
+}
 
+.row.buttons.warning .btn-yes:hover, .row.buttons.warning .btn-ok:hover {
+    background-color: #ffbc45;
+    color: white;
+}
+
+.row.buttons.error .btn-yes, .row.buttons.error .btn-ok {
+    border-color: #ff4040;
+    color: #ff4040;
+}
+
+.row.buttons.error .btn-yes:hover, .row.buttons.error .btn-ok:hover {
+    background-color: #ff4040;
+    color: white;
 }
 
 .btn-no, .btn-cancel {

@@ -1,0 +1,9 @@
+{
+  "title": "Nastavení",
+  "common": {
+    "header": "Základní",
+    "pambaPath": "Cesta k databázi",
+    "pambaPathChange": "Změnit"
+  },
+  "save": "Uložit nastavení"
+}

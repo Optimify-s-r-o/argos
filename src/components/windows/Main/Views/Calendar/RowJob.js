@@ -5,7 +5,13 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import { withTranslation } from 'react-i18next';
 import ucfirst from '../../../../../utils/ucfirst';
 import jobDelete from "../../../../../api/job-delete";
-import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_INFO, showMessageBox} from "../../../../../utils/showMessageBox";
+import {
+    MSGBOX_BUTTON_YES,
+    MSGBOX_BUTTONS_OK, MSGBOX_BUTTONS_YES_NO,
+    MSGBOX_TYPE_INFO,
+    MSGBOX_TYPE_WARNING,
+    showMessageBox
+} from '../../../../../utils/showMessageBox';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -68,14 +74,15 @@ class RowJobComponent extends React.Component {
     }
 
     handleJobDelete() {
-        jobDelete(this.props.token, this.props.job.Id, res => {
-            // todo
-            if (res.status === 200) {
-                // TODO refresh calendar
-                showMessageBox('jobForms:deleted', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK, () => {
-
-                })
-            }
+        showMessageBox('jobForms:delete', MSGBOX_TYPE_WARNING, MSGBOX_BUTTONS_YES_NO, button => {
+            if (button === MSGBOX_BUTTON_YES)
+                jobDelete(this.props.token, this.props.job.Id, res => {
+                    // todo
+                    if (res.status === 200) {
+                        // TODO refresh calendar
+                        showMessageBox('jobForms:deleted', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
+                    }
+                });
         });
     }
 

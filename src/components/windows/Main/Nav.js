@@ -19,7 +19,10 @@ import classicCapacities from '../../../icons/style_capacities.png';
 import compact from '../../../icons/style_compact.png';
 import { withTranslation } from 'react-i18next';
 import { GenerateDocumentPath, GenerateDocumentSettings } from '../GenerateDocument';
-import { JobAddPath, JobAddSettings } from '../JobAdd';
+import getPlates from '../../../api/proxy/get-plates';
+import reloadPlates from '../../../api/reload-plates';
+import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_INFO, showMessageBox} from '../../../utils/showMessageBox';
+import {SettingsPath, SettingsSettings} from '../Settings';
 
 const mapStateToProps = state => {
     return {
@@ -29,6 +32,8 @@ const mapStateToProps = state => {
         capacitiesView: state.settings.capacitiesView,
         sortState: state.settings.sort,
         weeks: state.settings.weeks,
+        pambaPath: state.settings.pambaPath,
+        token: state.token,
     }
 };
 
@@ -43,6 +48,20 @@ function mapDispatchToProps(dispatch) {
 }
 
 class NavComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.reloadPlates = this.reloadPlates.bind(this);
+    }
+
+    reloadPlates() {
+        getPlates(data => {
+            reloadPlates(this.props.token, data.body, data => {
+                showMessageBox('plates:reloaded', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
+            });
+        });
+    }
+
     render() {
         const { t } = this.props;
         return <nav>
@@ -86,13 +105,6 @@ class NavComponent extends React.Component {
                             <img src={view} alt={t('nav:home.view.jobs')}/>
                             <span>{t('nav:home.view.jobs')}</span>
                         </button>
-
-                        <OpenWindow path={JobAddPath} windowSettings={JobAddSettings}>
-                            <button className="large-icon">
-                                <img alt="test"/>
-                                <span>test</span>
-                            </button>
-                        </OpenWindow>
                     </div>
                     <div className="section">
                         <div className="section-header">{t('nav:home.forms.header')}</div>
@@ -105,12 +117,22 @@ class NavComponent extends React.Component {
                         </OpenWindow>
                     </div>
                     <div className="section">
+                        <div className="section-header">{t('nav:home.actions.header')}</div>
+
+                        <button className="large-icon" onClick={this.reloadPlates}>
+                            <img src={null} alt={t('nav:home.actions.reloadPlates')}/>
+                            <span>{t('nav:home.actions.reloadPlates')}</span>
+                        </button>
+                    </div>
+                    <div className="section">
                         <div className="section-header">{t('nav:home.settings.header')}</div>
 
-                        <button className="large-icon">
-                            <img src={settings} alt={t('nav:home.settings.settings')}/>
-                            <span>{t('nav:home.settings.settings')}</span>
-                        </button>
+                        <OpenWindow path={SettingsPath + '?pambaPath=' + this.props.pambaPath} settings={SettingsSettings}>
+                            <button className="large-icon">
+                                <img src={settings} alt={t('nav:home.settings.settings')}/>
+                                <span>{t('nav:home.settings.settings')}</span>
+                            </button>
+                        </OpenWindow>
                     </div>
                 </div>
 

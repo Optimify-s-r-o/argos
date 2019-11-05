@@ -39,4 +39,13 @@ function setCurrentElectronWindowTitle(title) {
         window.require('electron').remote.getCurrentWindow().setTitle(title);
 }
 
-export {isElectron, getBrowserWindow, getIpcMain, getIpcRenderer, closeCurrentElectronWindow, setCurrentElectronWindowTitle};
+function getDialog() {
+    let dialog;
+
+    if (isElectron())
+        dialog = window.require('electron').remote.dialog;
+
+    return dialog;
+}
+
+export {isElectron, getBrowserWindow, getIpcMain, getIpcRenderer, closeCurrentElectronWindow, setCurrentElectronWindowTitle, getDialog};

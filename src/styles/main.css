@@ -36,6 +36,14 @@ body.border {
     -webkit-app-region: drag;
 }
 
+#TitleBar.error {
+    background-color: #ff4040;
+}
+
+#TitleBar.warning {
+    background-color: #ffbc45;
+}
+
 #TitleBar > div {
     flex-grow: 1;
     flex-shrink: 0;
@@ -339,7 +347,7 @@ nav #Content > div .section .large-icon span {
     display: none;
 
     background-color: rgba(0, 187, 255, .25);
-    background-image: url('/loader.gif');
+    background-image: url('../icons/loader.gif');
     background-position: center center;
     background-repeat: no-repeat;
 }

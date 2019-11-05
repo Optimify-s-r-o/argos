@@ -29,7 +29,7 @@ if (isElectron) {
 
 class TitleBar extends React.Component {
     render() {
-        return <div id="TitleBar">
+        return <div id="TitleBar" className={this.props.hasOwnProperty('colorClass') ? this.props.colorClass : ''}>
             {this.props.icon === false ? '' : <div id="Icon">&nbsp;</div>}
             <div id="AppName">{this.props.title}</div>
 

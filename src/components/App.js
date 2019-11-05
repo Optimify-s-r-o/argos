@@ -8,6 +8,7 @@ import {DayCapacityEdit, DayCapacityEditPath} from './windows/DayCapacityEdit';
 import {CreatePhase, CreatePhasePath} from './windows/CreatePhase';
 import {GenerateDocument, GenerateDocumentPath} from "./windows/GenerateDocument";
 import {MessageBox, MessageBoxPath} from './windows/MessageBox';
+import {Settings, SettingsPath} from './windows/Settings';
 
 function App() {
     return <HashRouter>
@@ -19,6 +20,7 @@ function App() {
             <Route path={CreatePhasePath} component={CreatePhase}/>
             <Route path={GenerateDocumentPath} component={GenerateDocument}/>
             <Route path={MessageBoxPath} component={MessageBox}/>
+            <Route path={SettingsPath} component={Settings}/>
         </HashRouter>;
 }
 

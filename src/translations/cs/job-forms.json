@@ -21,5 +21,13 @@
   "added": {
     "title": "OK",
     "text": "Zakázka byla přidána."
+  },
+  "delete": {
+    "title": "Pozor!",
+    "text": "Opravdu chcete tuto zakázku smazat?"
+  },
+  "deleted": {
+    "title": "Ok",
+    "text": "Zakázka byla smazána."
   }
 }

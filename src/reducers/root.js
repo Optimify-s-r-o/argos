@@ -9,9 +9,11 @@ import {
 import { ACTION_SWITCH_CAPACITIES_VIEW } from '../actions/capacities';
 import { ACTION_SWITCH_VIEW } from '../actions/view';
 import { ACTION_SET_CURRENT_NAV } from '../actions/nav';
-import { ACTION_APP_ACCOUNT_TOKEN_SET } from "../actions/app";
-import { isElectron } from '../utils/electron';
-import setDatabasePath from "../api/proxy/set-database-path";
+import {ACTION_APP_ACCOUNT_TOKEN_SET, ACTION_SET_PAMBA_PATH} from '../actions/app';
+import {getIpcRenderer, isElectron} from '../utils/electron';
+import setDatabasePath from '../api/proxy/set-database-path';
+
+const ipcRenderer = getIpcRenderer();
 
 function __getInitialSettings() {
     const defSettings = {
@@ -130,6 +132,22 @@ function rootReducer(state = initialState, action) {
                 weeks: action.weeks,
             }),
             days: newDays,
+        });
+    }
+
+    else if (action.type === ACTION_SET_PAMBA_PATH) {
+        __setSetting('pambaPath', action.path);
+
+        if (ipcRenderer) {
+            ipcRenderer.invoke('restartProxy').then((childProcess) => {
+                setDatabasePath(action.path);
+            });
+        }
+
+        return Object.assign({}, state, {
+            settings: Object.assign({}, state.settings, {
+                pambaPath: action.path,
+            }),
         });
     }
 

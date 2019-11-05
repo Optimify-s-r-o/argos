@@ -1,5 +1,5 @@
 {
-  "name": "argos-frontend",
+  "name": "argos",
   "version": "2.0.0-dev",
   "author": {
     "name": "Optimify s.r.o.",
@@ -10,17 +10,17 @@
   "private": true,
   "dependencies": {
     "@wojtekmaj/react-daterange-picker": "^2.4.0",
-    "electron-store": "^5.0.0",
-    "i18next": "^17.3.0",
+    "electron-store": "^5.1.0",
+    "i18next": "^17.3.1",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
-    "react": "^16.10.2",
-    "react-circular-progressbar": "^2.0.2",
-    "react-contextmenu": "^2.11.0",
+    "react": "^16.11.0",
+    "react-circular-progressbar": "^2.0.3",
+    "react-contextmenu": "^2.13.0",
     "react-date-picker": "^7.8.2",
-    "react-dom": "^16.10.2",
-    "react-i18next": "^10.13.1",
+    "react-dom": "^16.11.0",
+    "react-i18next": "^10.13.2",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.0.1",
@@ -71,7 +71,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^5.0.11",
+    "electron": "^7.0.1",
     "electron-builder": "^21.2.0",
     "typescript": "^3.6.4"
   }
