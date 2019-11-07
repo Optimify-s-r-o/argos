@@ -10,6 +10,7 @@ import document_forms_cs from './translations/cs/document-forms';
 import message_box_cs from './translations/cs/message-box';
 import plates_cs from './translations/cs/plates';
 import settings_cs from './translations/cs/settings';
+import warnings_cs from './translations/cs/warnings';
 
 import nav_en from './translations/en/nav'
 //import calendar_en from './translations/en/calendar';
@@ -36,6 +37,7 @@ i18n
                 messageBox: message_box_cs,
                 plates: plates_cs,
                 settings: settings_cs,
+                warnings: warnings_cs,
             },
             en: {
                 nav: nav_en,

@@ -1,0 +1,21 @@
+.warningBar {
+    z-index: 999;
+
+    padding: 8px 16px;
+
+    background-color: #ffbc45;
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, .25);
+    color: black;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.warningBar * {
+    display: inline-block;
+}
+
+.warningBar a {
+    text-decoration: underline;
+
+    cursor: pointer;
+}

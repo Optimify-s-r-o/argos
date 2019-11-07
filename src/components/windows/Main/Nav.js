@@ -23,6 +23,7 @@ import getPlates from '../../../api/proxy/get-plates';
 import reloadPlates from '../../../api/reload-plates';
 import {MSGBOX_BUTTONS_OK, MSGBOX_TYPE_INFO, showMessageBox} from '../../../utils/showMessageBox';
 import {SettingsPath, SettingsSettings} from '../Settings';
+import {setView} from '../../../actions/view';
 
 const mapStateToProps = state => {
     return {
@@ -40,6 +41,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
     return {
         setCurrentNav: (nav) => dispatch(setCurrentNav(nav)),
+        setView: (view) => dispatch(setView(view)),
         setWeeks: (weeks) => dispatch(setWeeks(weeks)),
         setCalendarView: (view) => dispatch(setCalendarView(view)),
         setCapacitiesView: (view) => dispatch(setCapacitiesView(view)),
@@ -96,12 +98,12 @@ class NavComponent extends React.Component {
                     <div className="section">
                         <div className="section-header">{t('nav:home.view.header')}</div>
 
-                        <button className={this.props.view === 'calendar' ? 'active large-icon' : 'large-icon'}>
+                        <button className={this.props.view === 'calendar' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setView('calendar')}>
                             <img src={weeks} alt={t('nav:home.view.calendar')}/>
                             <span>{t('nav:home.view.calendar')}</span>
                         </button>
 
-                        <button className={this.props.view === 'jobs' ? 'active large-icon' : 'large-icon'}>
+                        <button className={this.props.view === 'jobs' ? 'active large-icon' : 'large-icon'} onClick={() => this.props.setView('jobs')}>
                             <img src={view} alt={t('nav:home.view.jobs')}/>
                             <span>{t('nav:home.view.jobs')}</span>
                         </button>

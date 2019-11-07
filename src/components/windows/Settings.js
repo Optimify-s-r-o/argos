@@ -1,3 +1,4 @@
+import './Settings.css';
 import React from 'react';
 import '../../styles/main.css';
 import '../../styles/forms.css';
@@ -25,12 +26,22 @@ class Settings extends React.Component {
 
         this.state = {
             pambaPath: '',
+            pambaPathOriginal: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.openFolderSelection = this.openFolderSelection.bind(this);
+        this.revert = this.revert.bind(this);
+        this.save = this.save.bind(this);
     }
 
     componentDidMount() {
+        const params = queryString.parse(this.props.location.search);
+        this.setState({
+            pambaPath: params.pambaPath,
+            pambaPathOriginal: params.pambaPath,
+            saveEnabled: false,
+        });
     }
 
     handleInputChange(event) {
@@ -38,9 +49,7 @@ class Settings extends React.Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        });
+        this.setState({[name]: value});
     }
 
     openFolderSelection() {
@@ -49,14 +58,33 @@ class Settings extends React.Component {
                 properties: ['openDirectory']
             })[0];
 
-            ipcRenderer.send('setPambaPath', path);
+            this.setState({
+                pambaPath: path,
+                saveEnabled: path !== this.state.pambaPathOriginal,
+            });
         }
+    }
+
+    revert(setting) {
+        if (this.state.hasOwnProperty(setting) && this.state.hasOwnProperty(setting + 'Original')) {
+            let newState = {};
+            newState[setting] = this.state[setting + 'Original'];
+            this.setState(newState);
+        }
+    }
+
+    save() {
+        if (this.state.pambaPath !== this.state.pambaPathOriginal) {
+            ipcRenderer.send('setPambaPath', this.state.pambaPath);
+            this.setState({pambaPathOriginal: this.state.pambaPath});
+        }
+
+        this.setState({saveEnabled: false})
     }
 
     render() {
         const { t } = this.props;
         setCurrentElectronWindowTitle(t('settings:title'));
-        const params = queryString.parse(this.props.location.search);
         return [
             <TitleBar key="titleBar" title={t('settings:title')} icon={false}/>,
             <div key="content" className="row">
@@ -67,12 +95,20 @@ class Settings extends React.Component {
                         </div>
 
                         <FormRow title={t('settings:common.pambaPath')}>
-                            {params.pambaPath}
-                            <button className="btn btn-text" onClick={this.openFolderSelection}>{t('settings:common.pambaPathChange')}</button>
+                            <div className="settings-row">
+                                <div>
+                                    <div className="original padding">{this.state.pambaPathOriginal}</div>
+                                    {this.state.pambaPath !== this.state.pambaPathOriginal ? <div className="padding new">{this.state.pambaPath}</div> : ''}
+                                </div>
+                                <div>
+                                    <button className="btn btn-text change-setting" onClick={this.openFolderSelection}>{t('settings:common.pambaPathChange')}</button>
+                                    {this.state.pambaPath !== this.state.pambaPathOriginal ? <a onClick={() => this.revert('pambaPath')}>X</a> : ''}
+                                </div>
+                            </div>
                         </FormRow>
 
                         <FormRow border={false}>
-                            <button className="btn btn-text">{t('settings:save')}</button>
+                            <button disabled={!this.state.saveEnabled} className="btn btn-text" onClick={this.save}>{t('settings:save')}</button>
                         </FormRow>
                     </div>
                 </div>

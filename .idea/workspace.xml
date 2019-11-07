@@ -2,33 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/proxy/get-plates.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/reload-plates.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/Settings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/translations/cs/plates.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/translations/cs/settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/proxy/connected.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/WarningBar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/WarningBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/windows/Settings.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/translations/cs/warnings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/loader.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TitleBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/JobAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/JobAdd.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/MessageBox.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/MessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icons/loader.gif" beforeDir="false" afterPath="$PROJECT_DIR$/src/icons/loader.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/root.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/root.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/translations/cs/job-forms.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/job-forms.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/translations/cs/nav.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/nav.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/electron.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/electron.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/showMessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showMessageBox.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,30 +41,30 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/icons" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api/proxy" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.CoffeeScript" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="D:\Web\argos-frontend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Web\argos-frontend\src\api\proxy" />
+      <recent name="D:\Web\argos-frontend\src\icons" />
+      <recent name="D:\Web\argos-frontend\src\api" />
+      <recent name="C:\Web\argos-frontend\src\api" />
+      <recent name="D:\Web\argos-frontend\src\api\proxy" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Web\argos-frontend\src\translations\cs" />
       <recent name="D:\Web\argos-frontend\src\styles" />
       <recent name="D:\Web\argos-frontend\src\components\windows" />
       <recent name="D:\Web\argos-frontend\src\components" />
       <recent name="D:\Web\argos-frontend\src\components\Main" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Web\argos-frontend\src\icons" />
-      <recent name="D:\Web\argos-frontend\src\api" />
-      <recent name="C:\Web\argos-frontend\src\api" />
-      <recent name="D:\Web\argos-frontend\src\api\proxy" />
-      <recent name="D:\Web\argos-frontend\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -165,6 +150,7 @@
       <workItem from="1570931211935" duration="2491000" />
       <workItem from="1572041631868" duration="23538000" />
       <workItem from="1572522189864" duration="3977000" />
+      <workItem from="1573127278707" duration="2501000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
