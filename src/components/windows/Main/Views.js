@@ -26,8 +26,12 @@ class Views extends React.Component {
     render () {
         const { t } = this.props;
 
+        // TODO change to event listener (emitter is settings window)
         isConnected(data => {
-            this.setState({pambaConnectionWarningVisible: !data.body});
+            const showWarning = !data.body;
+
+            if (this.state.pambaConnectionWarningVisible !== showWarning)
+                this.setState({pambaConnectionWarningVisible: showWarning});
         });
 
         return <div id="Views">

@@ -12,6 +12,7 @@ import {
     MSGBOX_TYPE_WARNING,
     showMessageBox
 } from '../../../../../utils/showMessageBox';
+import {getNextState, JOB_STATE_CREATED, JOB_STATE_IN_ARCHIVE, jobSetState} from '../../../../../api/job-set-state';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -28,6 +29,7 @@ class RowJobComponent extends React.Component {
         super(props);
 
         this.handleJobDelete = this.handleJobDelete.bind(this);
+        this.handleNextState = this.handleNextState.bind(this);
     }
 
     onDragStart(e, data) { // TODO: change jobId to generated ID in drag & drop
@@ -86,6 +88,27 @@ class RowJobComponent extends React.Component {
         });
     }
 
+    handleNextState() {
+        const callback = res => {
+            if (res.status === 200)
+                showMessageBox('OK' /* TODO */, MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
+
+            // TODO: refresh calendar
+        };
+
+        if (this.props.job.State === JOB_STATE_CREATED)
+            showMessageBox('Recalculate?' /* TODO */, MSGBOX_TYPE_WARNING, MSGBOX_BUTTONS_YES_NO, button => {
+                if (button === MSGBOX_BUTTON_YES)
+                    jobSetState(this.props.token, this.props.job.Id, getNextState(this.props.job.State), res => {
+                        callback(res);
+                    });
+            });
+        else
+            jobSetState(this.props.token, this.props.job.Id, getNextState(this.props.job.State), res => {
+                callback(res);
+            });
+    }
+
     render () {
         const { t } = this.props;
 
@@ -108,8 +131,8 @@ class RowJobComponent extends React.Component {
                     <small>{t('calendar:rowJob.header.status')}:</small>
                     <div className="status">
                         <button title="Smazat" onClick={this.handleJobDelete}>X</button>
-                        <button>Ověřená</button>
-                        <button>Dokončená</button>
+                        <button>{t('calendar:rowJob.header.statuses.' + this.props.job.State)}</button>
+                        <button onClick={this.handleNextState}>{this.props.job.State !== JOB_STATE_IN_ARCHIVE && t('calendar:rowJob.header.statuses.' + getNextState(this.props.job.State))}</button>
                     </div>
                 </div>
             </div>

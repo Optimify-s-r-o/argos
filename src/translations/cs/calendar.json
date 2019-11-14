@@ -26,7 +26,13 @@
     "header": {
       "jobId": "ID",
       "deadline": "Deadline",
-      "status": "Stav"
+      "status": "Stav",
+      "statuses": {
+        "Created": "Nová",
+        "Verified": "Ověřená",
+        "Finished": "Dokončená",
+        "InArchive": "Archivovaná"
+      }
     },
     "phaseContextMenu": {
       "changeCapacity": "Změnit kapacitu",

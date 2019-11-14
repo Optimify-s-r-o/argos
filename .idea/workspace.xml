@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/proxy/connected.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/WarningBar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/WarningBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/Settings.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/translations/cs/warnings.json" afterDir="false" />
+    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="warning bar&#10;pamba path setting">
+      <change afterPath="$PROJECT_DIR$/src/api/job-set-state.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/translations/cs/calendar.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/calendar.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +34,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api/proxy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
@@ -52,19 +45,19 @@
     <property name="ts.external.directory.path" value="D:\Web\argos-frontend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Web\argos-frontend\src\api\proxy" />
-      <recent name="D:\Web\argos-frontend\src\icons" />
-      <recent name="D:\Web\argos-frontend\src\api" />
-      <recent name="C:\Web\argos-frontend\src\api" />
-      <recent name="D:\Web\argos-frontend\src\api\proxy" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Web\argos-frontend\src\translations\cs" />
       <recent name="D:\Web\argos-frontend\src\styles" />
       <recent name="D:\Web\argos-frontend\src\components\windows" />
       <recent name="D:\Web\argos-frontend\src\components" />
       <recent name="D:\Web\argos-frontend\src\components\Main" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Web\argos-frontend\src\api" />
+      <recent name="C:\Web\argos-frontend\src\api\proxy" />
+      <recent name="D:\Web\argos-frontend\src\icons" />
+      <recent name="D:\Web\argos-frontend\src\api" />
+      <recent name="D:\Web\argos-frontend\src\api\proxy" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -151,6 +144,10 @@
       <workItem from="1572041631868" duration="23538000" />
       <workItem from="1572522189864" duration="3977000" />
       <workItem from="1573127278707" duration="2501000" />
+      <workItem from="1573140225129" duration="785000" />
+      <workItem from="1573587119908" duration="3970000" />
+      <workItem from="1573732039709" duration="886000" />
+      <workItem from="1573745536706" duration="583000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
@@ -194,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571686840244</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="warning bar&#10;pamba path setting">
+      <created>1573140364704</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1573140364704</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +224,7 @@
     <MESSAGE value="context menu refactor" />
     <MESSAGE value="api login" />
     <MESSAGE value="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader" />
+    <MESSAGE value="warning bar&#10;pamba path setting" />
+    <option name="LAST_COMMIT_MESSAGE" value="warning bar&#10;pamba path setting" />
   </component>
 </project>
