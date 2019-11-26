@@ -7,28 +7,27 @@ import close from '../icons/close.png';
 const isElectron = typeof window.require === 'function';
 let w = null;
 
-if (isElectron) {
-    w = window.require('electron').remote.getCurrentWindow();
-
-    w.on('show', (e) => {
-        document.getElementById('Maximize').children[0].src = maximize;
-        document.body.classList.add('border');
-    });
-
-    w.on('maximize', (e) => {
-        document.getElementById('Maximize').children[0].src = maximized;
-        document.body.classList.remove('border');
-    });
-
-    w.on('unmaximize', (e) => {
-        document.getElementById('Maximize').children[0].src = maximize;
-        document.body.classList.add('border');
-    });
-}
-
-
 class TitleBar extends React.Component {
     render() {
+        if (isElectron) {
+            w = window.require('electron').remote.getCurrentWindow();
+
+            w.on('show', (e) => {
+                document.getElementById('Maximize').children[0].src = maximize;
+                document.body.classList.add('border');
+            });
+
+            w.on('maximize', (e) => {
+                document.getElementById('Maximize').children[0].src = maximized;
+                document.body.classList.remove('border');
+            });
+
+            w.on('unmaximize', (e) => {
+                document.getElementById('Maximize').children[0].src = maximize;
+                document.body.classList.add('border');
+            });
+        }
+
         return <div id="TitleBar" className={this.props.hasOwnProperty('colorClass') ? this.props.colorClass : ''}>
             {this.props.icon === false ? '' : <div id="Icon">&nbsp;</div>}
             <div id="AppName">{this.props.title}</div>

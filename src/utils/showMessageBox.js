@@ -1,6 +1,7 @@
 import {getBrowserWindow, getIpcMain, isElectron} from './electron';
 import {MessageBoxPath, MessageBoxSettings} from '../components/windows/MessageBox';
 import queryString from 'query-string';
+const uuid = require('uuid/v1');
 const path = require('path');
 const ipcMain = getIpcMain();
 
@@ -22,11 +23,13 @@ function showMessageBox(messageTranslationKey, type = MSGBOX_TYPE_INFO, buttons 
         const BrowserWindow = getBrowserWindow();
 
         let messageBox = new BrowserWindow(MessageBoxSettings);
+        let windowId = uuid();
 
         const queryParams = queryString.stringify({
             key: messageTranslationKey,
             type: type,
             buttons: buttons,
+            windowId: windowId,
         });
         messageBox.loadURL(`file://${path.join(__dirname, '../build/index.html#') + MessageBoxPath + '?' + queryParams}`);
 
@@ -34,7 +37,7 @@ function showMessageBox(messageTranslationKey, type = MSGBOX_TYPE_INFO, buttons 
             messageBox.show();
         });
 
-        ipcMain.once('msgboxButtonClick', (e, button) => {
+        ipcMain.once('msgboxButtonClick.' + windowId, (e, button) => {
             if (onClick)
                 onClick(button);
         });

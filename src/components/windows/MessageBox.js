@@ -24,8 +24,8 @@ const MessageBoxSettings = {
 };
 
 class MessageBox extends React.Component {
-    onButtonClick(button) {
-        ipcRenderer.send('msgboxButtonClick', button);
+    onButtonClick(button, windowId) {
+        ipcRenderer.send('msgboxButtonClick.' + windowId, button);
         closeCurrentElectronWindow();
     }
 
@@ -49,7 +49,7 @@ class MessageBox extends React.Component {
             </div>,
             <div key="buttons" className={'row buttons ' + params.type}>
                 {buttons.map(button => {
-                    return <button key={button} onClick={() => {this.onButtonClick(button)}} className={'btn btn-text btn-' + button}>{t('messageBox:buttons.' + button)}</button>;
+                    return <button key={button} onClick={() => {this.onButtonClick(button, params.windowId)}} className={'btn btn-text btn-' + button}>{t('messageBox:buttons.' + button)}</button>;
                 })}
             </div>
         ];

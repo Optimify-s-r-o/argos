@@ -13,6 +13,7 @@ import {
     showMessageBox
 } from '../../../../../utils/showMessageBox';
 import {getNextState, JOB_STATE_CREATED, JOB_STATE_IN_ARCHIVE, jobSetState} from '../../../../../api/job-set-state';
+import showPhaseMoveModal from '../../../../../utils/showPhaseMoveModal';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -32,19 +33,19 @@ class RowJobComponent extends React.Component {
         this.handleNextState = this.handleNextState.bind(this);
     }
 
-    onDragStart(e, data) { // TODO: change jobId to generated ID in drag & drop
+    onDragStart(e, data) {
         e.dataTransfer.setData(JSON.stringify(data), '');
         e.dataTransfer.setDragImage(new Image(), 0, 0);
     }
 
-    onDragOver(e, data) { // TODO: change jobId to generated ID in drag & drop
+    onDragOver(e, data) {
         const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
         if (draggedData.jobid === data.jobId.toLowerCase() && draggedData.phase === data.phase.toLowerCase() && draggedData.date !== data.date)
             e.preventDefault();
     }
 
-    onDragEnter(e, data) { // TODO: change jobId to generated ID in drag & drop
+    onDragEnter(e, data) {
         const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
         if (draggedData.jobid === data.jobId.toLowerCase() && draggedData.phase === data.phase.toLowerCase() && draggedData.date !== data.date)
@@ -55,24 +56,25 @@ class RowJobComponent extends React.Component {
         e.target.closest('.droppable').classList.remove('dropped');
     }
 
-    onDrop(e, data) { // TODO: change jobId to generated ID in drag & drop
+    onDrop(e, data) {
         e.target.closest('.droppable').classList.remove('dropped');
 
         const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-        const jobId = data.jobId;
-        const phase = data.phase;
-        const from = draggedData.date;
-        const to = data.date;
-        const capacityToMove = draggedData.capacitytomove;
+        if (data.phase !== 'Transport') {
+            showPhaseMoveModal(
+                this.props.job.Place + ', ' + this.props.job.Type,
+                data.phase,
+                draggedData.phaseid,
+                draggedData.date,
+                data.date,
+                result => {
 
-        console.log({
-            jobId: jobId,
-            phase: phase,
-            from: from,
-            to: to,
-            capacityToMove: capacityToMove,
-        })
+                }
+            );
+        } else {
+            // TODO: Transport
+        }
     }
 
     handleJobDelete() {
@@ -150,8 +152,9 @@ class RowJobComponent extends React.Component {
                         let phaseClass = {};
 
                         phases.forEach(phase => {
+
                             const dragData = {
-                                jobId: this.props.job.Id, // TODO: change jobId to generated ID
+                                jobId: this.props.job.Id,
                                 phase: phase,
                                 date: getDateString(day),
                             };
@@ -176,6 +179,8 @@ class RowJobComponent extends React.Component {
                                 else
                                     phaseClass[phase] += 'startEnd';
 
+                                const phaseObject = this.props.job.Phases[phase][phaseDatesToIndex[phase][getDateString(day)]];
+
                                 contents[phase] = <ContextMenuTrigger
                                     test="25"
                                     id={'Phase' + ucfirst(phase) + 'Menu'}
@@ -191,15 +196,15 @@ class RowJobComponent extends React.Component {
                                             <div
                                                 draggable
                                                 onDragStart={e => this.onDragStart(e, {
-                                                    jobId: this.props.job.Id, // TODO: change jobId to generated ID
+                                                    jobId: this.props.job.Id,
                                                     phase: phase,
+                                                    phaseId: phaseObject.Id,
                                                     date: getDateString(day),
-                                                    capacityToMove: 100, // TODO
                                                 })}
                                             >
                                                 <div className="classic" key={getDateString(day) + '-classic'}>
                                                     <span className="classicDay">{day.getDate()}</span>
-                                                    <span className="classicCapacity">{this.props.job.Phases[phase][phaseDatesToIndex[phase][getDateString(day)]].Consumption}</span>
+                                                    <span className="classicCapacity">{phaseObject.Consumption}</span>
                                                 </div>
                                                 <div className="compact" key={getDateString(day) + '-compact'}/>
                                             </div>

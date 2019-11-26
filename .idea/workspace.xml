@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="warning bar&#10;pamba path setting">
-      <change afterPath="$PROJECT_DIR$/src/api/job-set-state.js" afterDir="false" />
+    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TitleBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/translations/cs/calendar.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/calendar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/MessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/showMessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showMessageBox.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -148,6 +154,9 @@
       <workItem from="1573587119908" duration="3970000" />
       <workItem from="1573732039709" duration="886000" />
       <workItem from="1573745536706" duration="583000" />
+      <workItem from="1574473078145" duration="1304000" />
+      <workItem from="1574624186165" duration="9111000" />
+      <workItem from="1574721076409" duration="600000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
