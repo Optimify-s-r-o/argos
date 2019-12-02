@@ -1,30 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="fixed build and deploy paths">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Argos.Listener.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Argos.Listener.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Argos.Listener.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Argos.Listener.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Argos.Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Argos.Services.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Argos.Services.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Argos.Services.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/ArgosLocal.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/ArgosLocal.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/ArgosLocal.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/ArgosLocal.exe.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/ArgosLocal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/ArgosLocal.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Newtonsoft.Json.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Newtonsoft.Json.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Newtonsoft.Json.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Newtonsoft.Json.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Properties/Settings.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Properties/Settings.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/Properties/Settings.settings" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/Properties/Settings.settings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/System.Data.OleDb.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/System.Data.OleDb.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/proxy/System.Data.OleDb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proxy/System.Data.OleDb.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/job-delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/job-delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/OpenWindow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OpenWindow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/MoveCapacity.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/electron.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/electron.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/showMessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showMessageBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" afterDir="false" />
+    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +149,7 @@
       <workItem from="1574721076409" duration="632000" />
       <workItem from="1575092374729" duration="4888000" />
       <workItem from="1575212340431" duration="4650000" />
-      <workItem from="1575220773653" duration="16218000" />
+      <workItem from="1575220773653" duration="16389000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
@@ -236,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575246028152</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixed build and deploy paths&#10;added calendar refresh to RowJob events">
+      <created>1575250149453</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575250149453</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +250,7 @@
     <MESSAGE value="warning bar&#10;pamba path setting" />
     <MESSAGE value="WIP: phase move capacity" />
     <MESSAGE value="settings&#10;phase capacity drag &amp; drop" />
-    <option name="LAST_COMMIT_MESSAGE" value="settings&#10;phase capacity drag &amp; drop" />
+    <MESSAGE value="fixed build and deploy paths&#10;added calendar refresh to RowJob events" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed build and deploy paths&#10;added calendar refresh to RowJob events" />
   </component>
 </project>
