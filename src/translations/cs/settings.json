@@ -5,5 +5,17 @@
     "pambaPath": "Cesta k databázi",
     "pambaPathChange": "Změnit"
   },
-  "save": "Uložit nastavení"
+  "capacities": {
+    "header": "Kapacity",
+    "edit": "Upravit",
+    "saw": "Pila",
+    "press": "Lis",
+    "transport": "Transport",
+    "construction": "Montáž"
+  },
+  "save": "Uložit nastavení",
+  "saved": {
+    "title": "OK",
+    "text": "Nastavení bylo uloženo"
+  }
 }

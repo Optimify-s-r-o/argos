@@ -14,6 +14,7 @@ import {
 } from '../../../../../utils/showMessageBox';
 import {getNextState, JOB_STATE_CREATED, JOB_STATE_IN_ARCHIVE, jobSetState} from '../../../../../api/job-set-state';
 import showPhaseMoveModal from '../../../../../utils/showPhaseMoveModal';
+import movePhaseCapacity from '../../../../../api/move-phase-capacity';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -23,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const phases = ['Saw', 'Press', 'Transport', 'Construction'];
+const phases = ['Saw', 'Press', 'Transport', 'Construction']; // TODO: change to external constant
 
 class RowJobComponent extends React.Component {
     constructor(props) {
@@ -63,17 +64,27 @@ class RowJobComponent extends React.Component {
 
         if (data.phase !== 'Transport') {
             showPhaseMoveModal(
+                this.props.token,
                 this.props.job.Place + ', ' + this.props.job.Type,
                 data.phase,
                 draggedData.phaseid,
                 draggedData.date,
                 data.date,
-                result => {
-
-                }
+                draggedData.maxcapacity,
+                this.dragDropCallback
             );
         } else {
             // TODO: Transport
+            movePhaseCapacity(this.props.token, data.phase, '', draggedData.phaseid, data.date, 0, this.dragDropCallback);
+        }
+    }
+
+    dragDropCallback(result) {
+        console.log(result.status);
+        console.log(result.body);
+        if (result.status === 200) {
+            showMessageBox('calendar:rowJob.moveCapacity');
+            // TODO: refresh row
         }
     }
 
@@ -180,7 +191,6 @@ class RowJobComponent extends React.Component {
                                     phaseClass[phase] += 'startEnd';
 
                                 const phaseObject = this.props.job.Phases[phase][phaseDatesToIndex[phase][getDateString(day)]];
-
                                 contents[phase] = <ContextMenuTrigger
                                     test="25"
                                     id={'Phase' + ucfirst(phase) + 'Menu'}
@@ -200,6 +210,7 @@ class RowJobComponent extends React.Component {
                                                     phase: phase,
                                                     phaseId: phaseObject.Id,
                                                     date: getDateString(day),
+                                                    maxCapacity: phaseObject.Consumption,
                                                 })}
                                             >
                                                 <div className="classic" key={getDateString(day) + '-classic'}>

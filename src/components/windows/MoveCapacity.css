@@ -1,29 +1,139 @@
-.info {
+.moveCapacityInfo {
     width: 800px;
     height: 80px;
 
     padding: 16px 32px;
 }
 
-.info table {
+.moveCapacityInfo table {
     width: 100%;
 }
 
-.info table td {
+.moveCapacityInfo table td {
     padding: 6px 0;
 
     font-size: 18px;
     font-weight: 400;
 }
 
-.info table td:nth-child(1), .info table td:nth-child(3) {
+.moveCapacityInfo table td:nth-child(1), .moveCapacityInfo table td:nth-child(3) {
     width: 83px;
 
     font-weight: 600;
 }
 
-.info table td:nth-child(2), .info table td:nth-child(4) {
+.moveCapacityInfo table td:nth-child(2), .moveCapacityInfo table td:nth-child(4) {
     width: 280px;
+}
+
+.moveCapacityButtons > button, .moveCapacityButtons > .customCapacity {
+    flex-grow: 1;
+
+    width: 224px;
+
+    margin: 16px;
+
+    background-color: #F8F8F8;
+    border: 0;
+
+    transition: all .2s ease-in-out;
+}
+
+.moveCapacityButtons > button {
+    color: #0088CC;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.moveCapacityButtons > button:hover, .moveCapacityButtons > .customCapacity:hover {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
+}
+
+.moveCapacityButtons > button:hover {
+    background-color: #FFF;
+    color: #004466;
+}
+
+.customCapacity {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+.customCapacity .react-numeric-input {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 70%;
+    left: 0;
+}
+
+.customCapacity .react-numeric-input input {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    margin: 0;
+    padding-right: 50%;
+
+    background-color: #F8F8F8;
+    border: 0;
+    border-bottom: 1px solid #0088CC;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: right;
+
+    transition: all .2s ease-in-out;
+}
+
+.customCapacity .react-numeric-input input:hover {
+    background-color: #FFF;
+}
+
+.customCapacity .maxCapacity {
+    position: absolute;
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+
+    top: 0;
+    bottom: 70%;
+    left: 50%;
+
+    font-size: 18px;
+    font-weight: 400;
+    pointer-events: none;
+}
+
+.customCapacity button {
+    position: absolute;
+
+    top: 30%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+
+    background-color: #F8F8F8;
+    border: 0;
+    color: #0088CC;
+    cursor: pointer;
+    font-size: 18px;
+
+    transition: all .2s ease-in-out;
+}
+
+.customCapacity button:hover {
+    background-color: #FFF;
+    color: #004466;
 }
 
 .cancelRow {
@@ -38,7 +148,7 @@
     margin: 10px;
 }
 
-.buttons {
+.moveCapacityButtons {
     display: flex;
 
     flex-direction: row;
@@ -47,17 +157,4 @@
     height: 320px;
 
     padding: 16px;
-}
-
-.buttons > button, .buttons > .customCapacity {
-    flex-grow: 1;
-
-    margin: 16px;
-
-    background-color: white;
-    border: 0;
-}
-
-.buttons > button:hover, .buttons > .customCapacity:hover {
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
 }

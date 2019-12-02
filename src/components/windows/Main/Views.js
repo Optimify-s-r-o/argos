@@ -11,6 +11,7 @@ const mapStateToProps = state => {
     return {
         pambaPath: state.settings.pambaPath,
         view: state.settings.view,
+        toke: state.token,
     }
 };
 
@@ -40,8 +41,8 @@ class Views extends React.Component {
                 text={t('warnings:pambaConnection.text')}
                 action={
                     <OpenWindow
-                        path={SettingsPath + '?pambaPath=' + this.props.pambaPath}
-                        settings={SettingsSettings}
+                        path={SettingsPath + '?pambaPath=' + this.props.pambaPath + '&token=' + this.props.token}
+                        windowSettings={SettingsSettings}
                     >
                         <a>{t('warnings:pambaConnection.action')}</a>.
                     </OpenWindow>

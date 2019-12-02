@@ -10,5 +10,16 @@
     "press": "Lis",
     "transport": "Transport",
     "assembly": "Montáž"
+  },
+  "moveCapacity": {
+    "job": "Zakázka",
+    "phase": "Fáze",
+    "from": "Ze dne",
+    "to": "Na den",
+    "buttons": {
+      "all": "Celá kapacita",
+      "fill": "Vyplnit kapacitu dne",
+      "custom": "Výše uvedená"
+    }
   }
 }

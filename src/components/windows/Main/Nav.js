@@ -129,7 +129,7 @@ class NavComponent extends React.Component {
                     <div className="section">
                         <div className="section-header">{t('nav:home.settings.header')}</div>
 
-                        <OpenWindow path={SettingsPath + '?pambaPath=' + this.props.pambaPath} settings={SettingsSettings}>
+                        <OpenWindow path={SettingsPath + '?pambaPath=' + this.props.pambaPath + '&token=' + this.props.token} windowSettings={SettingsSettings}>
                             <button className="large-icon">
                                 <img src={settings} alt={t('nav:home.settings.settings')}/>
                                 <span>{t('nav:home.settings.settings')}</span>

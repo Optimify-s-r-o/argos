@@ -2,17 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/get-settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/move-phase-capacity.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/save-setting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TitleBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/MessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MessageBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/showMessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showMessageBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/MoveCapacity.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/windows/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/translations/cs/calendar.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/calendar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/translations/cs/phase-forms.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/phase-forms.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/translations/cs/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/translations/cs/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -156,7 +162,10 @@
       <workItem from="1573745536706" duration="583000" />
       <workItem from="1574473078145" duration="1304000" />
       <workItem from="1574624186165" duration="9111000" />
-      <workItem from="1574721076409" duration="600000" />
+      <workItem from="1574721076409" duration="632000" />
+      <workItem from="1575092374729" duration="4888000" />
+      <workItem from="1575212340431" duration="4650000" />
+      <workItem from="1575220773653" duration="12140000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
@@ -207,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573140364704</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="WIP: phase move capacity">
+      <created>1574757603070</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1574757603070</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +250,7 @@
     <MESSAGE value="api login" />
     <MESSAGE value="refactored api calls to async/await syntax&#10;bugfixes and code cleanup&#10;Calendar component loader" />
     <MESSAGE value="warning bar&#10;pamba path setting" />
-    <option name="LAST_COMMIT_MESSAGE" value="warning bar&#10;pamba path setting" />
+    <MESSAGE value="WIP: phase move capacity" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP: phase move capacity" />
   </component>
 </project>

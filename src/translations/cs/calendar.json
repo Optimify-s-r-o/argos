@@ -40,6 +40,10 @@
       "changeTransportInfo": "Změnit údaje o výjezdu",
       "removePhase": "Smazat fázi",
       "createPhase": "Vytvořit fázi"
+    },
+    "moveCapacity": {
+      "title": "OK",
+      "text": "Kapacita byla úspěšně přesunuta."
     }
   }
 }
