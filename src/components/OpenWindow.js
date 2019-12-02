@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getBrowserWindow} from '../utils/electron';
+import {getBrowserWindow, getPath, isElectron} from '../utils/electron';
 const path = require('path');
 
 const BrowserWindow = getBrowserWindow();
@@ -51,7 +51,7 @@ class OpenWindowComponent extends React.Component {
 
             let w = new BrowserWindow(options);
 
-            w.loadURL(`file://${path.join(__dirname, '../build/index.html#') + this.props.path}`);
+            w.loadURL(`file://${path.join(getPath(), '/build/index.html#') + this.props.path}`);
 
             w.once('ready-to-show', e => {
                 w.show();

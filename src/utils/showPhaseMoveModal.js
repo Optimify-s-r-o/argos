@@ -1,4 +1,4 @@
-import {getBrowserWindow, getIpcMain, isElectron} from './electron';
+import {getBrowserWindow, getIpcMain, getPath, isElectron} from './electron';
 import queryString from 'query-string';
 import {MoveCapacityPath, MoveCapacitySettings} from '../components/windows/MoveCapacity';
 const uuid = require('uuid/v1');
@@ -22,7 +22,7 @@ function showPhaseMoveModal(token, jobName, phase, phaseId, from, to, maxMovedCa
             windowId: windowId,
             maxCapacity: maxMovedCapacity,
         });
-        window.loadURL(`file://${path.join(__dirname, '../build/index.html#') + MoveCapacityPath + '?' + queryParams}`);
+        window.loadURL(`file://${path.join(getPath(), '/build/index.html#') + MoveCapacityPath + '?' + queryParams}`);
 
         window.once('ready-to-show', e => {
             window.show();

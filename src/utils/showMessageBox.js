@@ -1,4 +1,4 @@
-import {getBrowserWindow, getIpcMain, isElectron} from './electron';
+import {getBrowserWindow, getIpcMain, getPath, isElectron} from './electron';
 import {MessageBoxPath, MessageBoxSettings} from '../components/windows/MessageBox';
 import queryString from 'query-string';
 const uuid = require('uuid/v1');
@@ -31,7 +31,7 @@ function showMessageBox(messageTranslationKey, type = MSGBOX_TYPE_INFO, buttons 
             buttons: buttons,
             windowId: windowId,
         });
-        messageBox.loadURL(`file://${path.join(__dirname, '../build/index.html#') + MessageBoxPath + '?' + queryParams}`);
+        messageBox.loadURL(`file://${path.join(getPath(), '/build/index.html#') + MessageBoxPath + '?' + queryParams}`);
 
         messageBox.once('ready-to-show', e => {
             messageBox.show();

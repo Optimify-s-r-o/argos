@@ -11,7 +11,7 @@ async function jobDelete(token, jobId, callback) {
                 },
             }
         );
-        const data = {status: result.status, body: (await result.json())};
+        const data = {status: result.status};
         callback(data);
     } catch (e) {
         console.log(e);

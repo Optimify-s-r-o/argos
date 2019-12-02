@@ -48,4 +48,13 @@ function getDialog() {
     return dialog;
 }
 
-export {isElectron, getBrowserWindow, getIpcMain, getIpcRenderer, closeCurrentElectronWindow, setCurrentElectronWindowTitle, getDialog};
+function getPath() {
+    let path;
+
+    if (isElectron())
+        path = window.require('electron').remote.app.getAppPath();
+
+    return path;
+}
+
+export {isElectron, getBrowserWindow, getIpcMain, getIpcRenderer, closeCurrentElectronWindow, setCurrentElectronWindowTitle, getDialog, getPath};

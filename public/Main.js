@@ -38,9 +38,15 @@ function createWindow () {
 }
 
 function runProxyServer() {
-    return execFile(path.join(__dirname, '../build/proxy/ArgosLocal.exe'), (err, data) => {
-        console.log(err);
-        console.log(data.toString());
+    let pathLevel = '../';
+    if (process.argv[2] !== '--dev') {
+        pathLevel += '../../'
+    }
+
+    return execFile(path.join(__dirname, pathLevel + 'bin/proxy/ArgosLocal.exe'), (err, data) => {
+        //throw err;
+        /*console.log(err);
+        console.log(data.toString());*/
     });
 }
 

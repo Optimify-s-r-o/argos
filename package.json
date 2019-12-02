@@ -37,7 +37,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "preelectron-start": "npm run build",
-    "electron-start": "electron .",
+    "electron-start": "electron . --dev",
     "preelectron-pack": "npm run build",
     "electron-pack": "electron-builder build --win -c.extraMetadata.main=build/Main.js"
   },
@@ -47,6 +47,9 @@
     "files": [
       "build/**/*",
       "node_modules/**/*"
+    ],
+    "extraFiles": [
+      "bin/**/*"
     ],
     "directories": {
       "buildResources": "assets"

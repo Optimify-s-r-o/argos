@@ -15,6 +15,8 @@ import {
 import {getNextState, JOB_STATE_CREATED, JOB_STATE_IN_ARCHIVE, jobSetState} from '../../../../../api/job-set-state';
 import showPhaseMoveModal from '../../../../../utils/showPhaseMoveModal';
 import movePhaseCapacity from '../../../../../api/move-phase-capacity';
+import getCalendarDays from '../../../../../api/calendar-days';
+import {setCalendarData} from '../../../../../actions/calendar';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -24,6 +26,12 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
+function mapDispatchToProps(dispatch) {
+    return {
+        setCalendarData: (data) => dispatch(setCalendarData(data)),
+    }
+}
+
 const phases = ['Saw', 'Press', 'Transport', 'Construction']; // TODO: change to external constant
 
 class RowJobComponent extends React.Component {
@@ -32,6 +40,8 @@ class RowJobComponent extends React.Component {
 
         this.handleJobDelete = this.handleJobDelete.bind(this);
         this.handleNextState = this.handleNextState.bind(this);
+        this.dragDropCallback = this.dragDropCallback.bind(this);
+        this.fetchJobs = this.fetchJobs.bind(this);
     }
 
     onDragStart(e, data) {
@@ -74,17 +84,15 @@ class RowJobComponent extends React.Component {
                 this.dragDropCallback
             );
         } else {
-            // TODO: Transport
             movePhaseCapacity(this.props.token, data.phase, '', draggedData.phaseid, data.date, 0, this.dragDropCallback);
         }
     }
 
     dragDropCallback(result) {
-        console.log(result.status);
-        console.log(result.body);
         if (result.status === 200) {
+            this.fetchJobs();
+
             showMessageBox('calendar:rowJob.moveCapacity');
-            // TODO: refresh row
         }
     }
 
@@ -92,9 +100,9 @@ class RowJobComponent extends React.Component {
         showMessageBox('jobForms:delete', MSGBOX_TYPE_WARNING, MSGBOX_BUTTONS_YES_NO, button => {
             if (button === MSGBOX_BUTTON_YES)
                 jobDelete(this.props.token, this.props.job.Id, res => {
-                    // todo
+                    this.fetchJobs();
+
                     if (res.status === 200) {
-                        // TODO refresh calendar
                         showMessageBox('jobForms:deleted', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
                     }
                 });
@@ -103,10 +111,10 @@ class RowJobComponent extends React.Component {
 
     handleNextState() {
         const callback = res => {
+            this.fetchJobs();
+
             if (res.status === 200)
                 showMessageBox('OK' /* TODO */, MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
-
-            // TODO: refresh calendar
         };
 
         if (this.props.job.State === JOB_STATE_CREATED)
@@ -120,6 +128,20 @@ class RowJobComponent extends React.Component {
             jobSetState(this.props.token, this.props.job.Id, getNextState(this.props.job.State), res => {
                 callback(res);
             });
+    }
+
+    async fetchJobs() {
+        if (this.props.token !== null) {
+            await getCalendarDays(
+                this.props.token,
+                getDateString(this.props.days[0]),
+                getDateString(this.props.days[this.props.days.length - 1]),
+                res => {
+                    if (res.status === 200)
+                        this.props.setCalendarData(res.body);
+                }
+            );
+        }
     }
 
     render () {
@@ -263,6 +285,6 @@ class RowJobComponent extends React.Component {
     }
 }
 
-const RowJob = withTranslation()(connect(mapStateToProps)(RowJobComponent));
+const RowJob = withTranslation()(connect(mapStateToProps, mapDispatchToProps)(RowJobComponent));
 
 export default RowJob;
