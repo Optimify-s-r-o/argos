@@ -5,7 +5,7 @@ const uuid = require('uuid/v1');
 const path = require('path');
 const ipcMain = getIpcMain();
 
-function showPhaseMoveModal(token, jobName, phase, phaseId, from, to, maxMovedCapacity, onResult = null) {
+function showPhaseMoveModal(url, token, jobName, phase, phaseId, from, to, maxMovedCapacity, onResult = null) {
     if (isElectron()) {
         const BrowserWindow = getBrowserWindow();
 
@@ -13,6 +13,7 @@ function showPhaseMoveModal(token, jobName, phase, phaseId, from, to, maxMovedCa
         const windowId = uuid();
 
         const queryParams = queryString.stringify({
+            url: url,
             token: token,
             jobName: jobName,
             phase: phase,

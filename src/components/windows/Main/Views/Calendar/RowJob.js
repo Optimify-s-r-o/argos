@@ -7,7 +7,7 @@ import ucfirst from '../../../../../utils/ucfirst';
 import jobDelete from "../../../../../api/job-delete";
 import {
     MSGBOX_BUTTON_YES,
-    MSGBOX_BUTTONS_OK, MSGBOX_BUTTONS_YES_NO,
+    MSGBOX_BUTTONS_OK, MSGBOX_BUTTONS_YES_NO, MSGBOX_TYPE_ERROR,
     MSGBOX_TYPE_INFO,
     MSGBOX_TYPE_WARNING,
     showMessageBox
@@ -23,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
         days: state.days,
         job: state.jobs[ownProps.jobId],
         token: state.token,
+        settings: state.settings,
     }
 };
 
@@ -32,7 +33,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const phases = ['Saw', 'Press', 'Transport', 'Construction']; // TODO: change to external constant
+const phases = ['saw', 'press', 'transport', 'construction']; // TODO: change to external constant
 
 class RowJobComponent extends React.Component {
     constructor(props) {
@@ -72,10 +73,11 @@ class RowJobComponent extends React.Component {
 
         const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-        if (data.phase !== 'Transport') {
+        if (data.phase !== 'transport') {
             showPhaseMoveModal(
+                this.props.settings.url,
                 this.props.token,
-                this.props.job.Place + ', ' + this.props.job.Type,
+                this.props.job.place + ', ' + this.props.job.type,
                 data.phase,
                 draggedData.phaseid,
                 draggedData.date,
@@ -84,7 +86,7 @@ class RowJobComponent extends React.Component {
                 this.dragDropCallback
             );
         } else {
-            movePhaseCapacity(this.props.token, data.phase, '', draggedData.phaseid, data.date, 0, this.dragDropCallback);
+            movePhaseCapacity(this.props.settings.url, this.props.token, data.phase, '', draggedData.phaseid, data.date, 0, this.dragDropCallback);
         }
     }
 
@@ -93,13 +95,15 @@ class RowJobComponent extends React.Component {
             this.fetchJobs();
 
             showMessageBox('calendar:rowJob.moveCapacity');
+        } else {
+            showMessageBox('FAILED', MSGBOX_TYPE_ERROR);// TODO
         }
     }
 
     handleJobDelete() {
         showMessageBox('jobForms:delete', MSGBOX_TYPE_WARNING, MSGBOX_BUTTONS_YES_NO, button => {
             if (button === MSGBOX_BUTTON_YES)
-                jobDelete(this.props.token, this.props.job.Id, res => {
+                jobDelete(this.props.settings.url, this.props.token, this.props.job.id, res => {
                     this.fetchJobs();
 
                     if (res.status === 200) {
@@ -120,12 +124,12 @@ class RowJobComponent extends React.Component {
         if (this.props.job.State === JOB_STATE_CREATED)
             showMessageBox('Recalculate?' /* TODO */, MSGBOX_TYPE_WARNING, MSGBOX_BUTTONS_YES_NO, button => {
                 if (button === MSGBOX_BUTTON_YES)
-                    jobSetState(this.props.token, this.props.job.Id, getNextState(this.props.job.State), res => {
+                    jobSetState(this.props.settings.url, this.props.token, this.props.job.id, getNextState(this.props.job.state), res => {
                         callback(res);
                     });
             });
         else
-            jobSetState(this.props.token, this.props.job.Id, getNextState(this.props.job.State), res => {
+            jobSetState(this.props.settings.url, this.props.token, this.props.job.id, getNextState(this.props.job.state), res => {
                 callback(res);
             });
     }
@@ -133,6 +137,7 @@ class RowJobComponent extends React.Component {
     async fetchJobs() {
         if (this.props.token !== null) {
             await getCalendarDays(
+                this.props.settings.url,
                 this.props.token,
                 getDateString(this.props.days[0]),
                 getDateString(this.props.days[this.props.days.length - 1]),
@@ -151,23 +156,23 @@ class RowJobComponent extends React.Component {
         phases.forEach(phase => {
             phaseDatesToIndex[phase] = {};
 
-            if (this.props.job.Phases && this.props.job.Phases[phase])
-                this.props.job.Phases[phase].forEach((entry, index) => {
-                    phaseDatesToIndex[phase][entry.Date] = index;
+            if (this.props.job.phases && this.props.job.phases[phase])
+                this.props.job.phases[phase].forEach((entry, index) => {
+                    phaseDatesToIndex[phase][entry.date] = index;
                 });
         });
 
         return <div className="Row RowJob">
             <div className="RowHeader HeaderJob">
-                <div className="JobName">{this.props.job.Place}, {this.props.job.Type}</div>
-                <div className="JobID"><small>{t('calendar:rowJob.header.jobId')}:</small> {this.props.job.Identification}</div>
-                <div className="JobDeadline"><small>{t('calendar:rowJob.header.deadline')}:</small> {this.props.job.Deadline}</div>
+                <div className="JobName">{this.props.job.place}, {this.props.job.type}</div>
+                <div className="JobID"><small>{t('calendar:rowJob.header.jobId')}:</small> {this.props.job.identification}</div>
+                <div className="JobDeadline"><small>{t('calendar:rowJob.header.deadline')}:</small> {this.props.job.deadline}</div>
                 <div className="JobStatus">
                     <small>{t('calendar:rowJob.header.status')}:</small>
                     <div className="status">
                         <button title="Smazat" onClick={this.handleJobDelete}>X</button>
-                        <button>{t('calendar:rowJob.header.statuses.' + this.props.job.State)}</button>
-                        <button onClick={this.handleNextState}>{this.props.job.State !== JOB_STATE_IN_ARCHIVE && t('calendar:rowJob.header.statuses.' + getNextState(this.props.job.State))}</button>
+                        <button>{t('calendar:rowJob.header.statuses.' + this.props.job.state)}</button>
+                        <button onClick={this.handleNextState}>{this.props.job.state !== JOB_STATE_IN_ARCHIVE && t('calendar:rowJob.header.statuses.' + getNextState(this.props.job.state))}</button>
                     </div>
                 </div>
             </div>
@@ -185,15 +190,14 @@ class RowJobComponent extends React.Component {
                         let phaseClass = {};
 
                         phases.forEach(phase => {
-
                             const dragData = {
-                                jobId: this.props.job.Id,
+                                jobId: this.props.job.id,
                                 phase: phase,
                                 date: getDateString(day),
                             };
 
                             const attributes ={
-                                'job-id': this.props.job.Id,
+                                'job-id': this.props.job.id,
                                 'phase': phase,
                                 'day': getDateString(day),
                             };
@@ -212,7 +216,7 @@ class RowJobComponent extends React.Component {
                                 else
                                     phaseClass[phase] += 'startEnd';
 
-                                const phaseObject = this.props.job.Phases[phase][phaseDatesToIndex[phase][getDateString(day)]];
+                                const phaseObject = this.props.job.phases[phase][phaseDatesToIndex[phase][getDateString(day)]];
                                 contents[phase] = <ContextMenuTrigger
                                     test="25"
                                     id={'Phase' + ucfirst(phase) + 'Menu'}
@@ -228,16 +232,16 @@ class RowJobComponent extends React.Component {
                                             <div
                                                 draggable
                                                 onDragStart={e => this.onDragStart(e, {
-                                                    jobId: this.props.job.Id,
+                                                    jobId: this.props.job.id,
                                                     phase: phase,
-                                                    phaseId: phaseObject.Id,
+                                                    phaseId: phaseObject.id,
                                                     date: getDateString(day),
-                                                    maxCapacity: phaseObject.Consumption,
+                                                    maxCapacity: phaseObject.consumption,
                                                 })}
                                             >
                                                 <div className="classic" key={getDateString(day) + '-classic'}>
                                                     <span className="classicDay">{day.getDate()}</span>
-                                                    <span className="classicCapacity">{phaseObject.Consumption}</span>
+                                                    <span className="classicCapacity">{phaseObject.consumption}</span>
                                                 </div>
                                                 <div className="compact" key={getDateString(day) + '-compact'}/>
                                             </div>
@@ -263,19 +267,19 @@ class RowJobComponent extends React.Component {
                         return <div key={day} className={dayClasses}>
                             <div className="Contract"></div>
 
-                            <div className={phaseClass['Saw']}>
-                                {contents['Saw']}
+                            <div className={phaseClass['saw']}>
+                                {contents['saw']}
                             </div>
 
-                            <div className={phaseClass['Press']}>
-                                {contents['Press']}
+                            <div className={phaseClass['press']}>
+                                {contents['press']}
                             </div>
 
-                            <div className={phaseClass['Transport']}>
-                                {contents['Transport']}
+                            <div className={phaseClass['transport']}>
+                                {contents['transport']}
                             </div>
-                            <div className={phaseClass['Construction']}>
-                                {contents['Construction']}
+                            <div className={phaseClass['construction']}>
+                                {contents['construction']}
                             </div>
                         </div>
                     })

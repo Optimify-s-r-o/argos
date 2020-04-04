@@ -23,6 +23,7 @@ const mapStateToProps = state => {
         days: state.days,
         jobs: state.jobs,
         token: state.token,
+        settings: state.settings,
     }
 };
 
@@ -61,7 +62,7 @@ class CalendarComponent extends React.Component {
     }
 
     componentDidMount() {
-        accountGetToken(res => { // TODO: move to login
+        accountGetToken(this.props.settings.url, res => { // TODO: move to login
             if (res.status === 200)
                 this.props.setToken(res.body);
 
@@ -79,6 +80,7 @@ class CalendarComponent extends React.Component {
         if (this.props.token !== null) {
             this.setState({isLoadingJobs: true});
             await getCalendarDays(
+                this.props.settings.url,
                 this.props.token,
                 getDateString(this.props.days[0]),
                 getDateString(this.props.days[this.props.days.length - 1]),
@@ -152,7 +154,7 @@ class CalendarComponent extends React.Component {
                 }
 
                 <div id="RowJobAdd" className="Row">
-                    <OpenWindow path={JobAddPath + '?token=' + this.props.token} windowSettings={JobAddSettings}>
+                    <OpenWindow path={JobAddPath + '?url=' + this.props.settings.url + '&token=' + this.props.token} windowSettings={JobAddSettings}>
                         <div id="HeaderAddJob" className="RowHeader">
                             <img src={jobAddImg} alt={t('calendar:addJob')}/>
                             <span>{t('calendar:addJob')}</span>

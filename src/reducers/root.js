@@ -24,6 +24,7 @@ function __getInitialSettings() {
         sort: 'earliest',
         weeks: 4,
         pambaPath: '',
+        url: '104.248.41.203',
     };
 
     if (isElectron()) {
@@ -171,9 +172,9 @@ function rootReducer(state = initialState, action) {
         const sortConst = state.settings.sort === 'earliest' ? 1 : -1;
 
         return Object.assign({}, state, {
-            capacities: action.data.Capacities,
-            warnings: action.data.Warnings,
-            jobs: action.data.Jobs.sort((a, b) => a.Deadline > b.Deadline ? sortConst : -sortConst),
+            capacities: action.data.capacities,
+            warnings: action.data.warnings,
+            jobs: action.data.jobs.sort((a, b) => a.deadline > b.deadline ? sortConst : -sortConst),
         })
     }
 

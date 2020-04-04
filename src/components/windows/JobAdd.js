@@ -53,6 +53,8 @@ class JobAdd extends React.Component {
     }
 
     componentDidMount() {
+        const params = queryString.parse(this.props.location.search);
+
         getJobList(res => {
             let jobList = [];
             res.body.forEach(jobIdentification => {
@@ -65,7 +67,8 @@ class JobAdd extends React.Component {
         });
 
         this.setState({
-            token: queryString.parse(this.props.location.search).token,
+            token: params.token,
+            url: params.url,
         });
     }
 
@@ -90,6 +93,7 @@ class JobAdd extends React.Component {
             // TODO: validate inputs
             // TODO: fetch job from proxy
             jobCreate(
+                this.state.url,
                 this.state.token,
                 this.state.deadline,
                 this.state.contractDates[0],

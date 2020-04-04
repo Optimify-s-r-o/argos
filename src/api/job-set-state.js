@@ -10,10 +10,10 @@ const JOB_STATES = [
     JOB_STATE_IN_ARCHIVE,
 ];
 
-async function jobSetState(token, jobId, state, callback) {
+async function jobSetState(url, token, jobId, state, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Job/setState',
+            'http://' + url + '/api/job/state',
             {
                 method: 'POST',
                 headers: {
@@ -22,8 +22,8 @@ async function jobSetState(token, jobId, state, callback) {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    Id: jobId,
-                    State: state
+                    id: jobId,
+                    state: state
                 }),
             }
         );

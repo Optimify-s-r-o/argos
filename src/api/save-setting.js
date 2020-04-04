@@ -1,7 +1,7 @@
-async function saveSetting(token, setting, value, callback) {
+async function saveSetting(url, token, setting, value, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Configuration/set',
+            'http://' + url + '/api/configuration/update',
             {
                 method: 'POST',
                 headers: {
@@ -10,8 +10,8 @@ async function saveSetting(token, setting, value, callback) {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    Name: setting,
-                    Value: value,
+                    name: setting,
+                    value: value,
                 }),
             }
         );

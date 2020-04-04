@@ -55,7 +55,7 @@ class TitleBar extends React.Component {
     }
 
     handleClose() {
-        if (w !== null && w.isClosable())
+        if (w !== null && w.closable)
             w.close();
     }
 }

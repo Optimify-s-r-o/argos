@@ -1,33 +1,33 @@
 import {METHOD_CAPACITY_ALL, METHOD_CAPACITY_FILL} from '../components/windows/MoveCapacity';
 
-async function movePhaseCapacity(token, phase, method, phaseId, toDate, capacity = 0, callback = null) {
-    let endpoint = '/api/' + phase + 'WorkingPhasePart/';
+async function movePhaseCapacity(url, token, phase, method, phaseId, toDate, capacity = 0, callback = null) {
+    let endpoint = '/api/' + phase + 'workingphasepart/';
     let body = {
-        Id: phaseId,
-        Date: toDate
+        id: phaseId,
+        date: toDate
     };
 
     switch (method) {
         case METHOD_CAPACITY_ALL:
-            endpoint += 'moveAllCapacity';
+            endpoint += 'capacity/move';
             break;
 
         case METHOD_CAPACITY_FILL:
-            endpoint += 'moveCapacityToFill';
+            endpoint += 'capacity/fill';
             break;
 
         default:
-            if (phase === 'Transport') {
+            if (phase === 'transport') {
                 endpoint += 'move';
             } else {
-                endpoint += 'moveCapacity';
-                body['Capacity'] = capacity;
+                endpoint += 'capacity/update';
+                body['capacity'] = capacity;
             }
     }
 
     try {
         const result = await fetch(
-            'http://104.248.41.203' + endpoint,
+            'http://' + url + endpoint,
             {
                 method: 'POST',
                 headers: {

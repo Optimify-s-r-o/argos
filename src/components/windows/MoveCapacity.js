@@ -43,7 +43,7 @@ class MoveCapacity extends React.Component {
     onClick(method, windowId) {
         const params = queryString.parse(this.props.location.search);
 
-        movePhaseCapacity(params.token, params.phase, method, params.phaseId, params.to, this.state.customCapacity, (data) => {
+        movePhaseCapacity(params.url, params.token, params.phase, method, params.phaseId, params.to, this.state.customCapacity, (data) => {
             ipcRenderer.send('phaseMoveResult.' + windowId, data);
             closeCurrentElectronWindow();
         });

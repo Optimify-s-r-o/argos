@@ -34,6 +34,7 @@ const mapStateToProps = state => {
         sortState: state.settings.sort,
         weeks: state.settings.weeks,
         pambaPath: state.settings.pambaPath,
+        url: state.settings.url,
         token: state.token,
     }
 };
@@ -129,7 +130,7 @@ class NavComponent extends React.Component {
                     <div className="section">
                         <div className="section-header">{t('nav:home.settings.header')}</div>
 
-                        <OpenWindow path={SettingsPath + '?pambaPath=' + this.props.pambaPath + '&token=' + this.props.token} windowSettings={SettingsSettings}>
+                        <OpenWindow path={SettingsPath + '?url=' + this.props.url + '&pambaPath=' + this.props.pambaPath + '&token=' + this.props.token} windowSettings={SettingsSettings}>
                             <button className="large-icon">
                                 <img src={settings} alt={t('nav:home.settings.settings')}/>
                                 <span>{t('nav:home.settings.settings')}</span>

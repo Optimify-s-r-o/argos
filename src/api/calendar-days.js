@@ -1,7 +1,7 @@
-async function getCalendarDays(token, from, to, callback) {
+async function getCalendarDays(url, token, from, to, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Calendar/days?from=' + from + '&to=' + to,
+            'http://' + url + '/api/calendar/' + from + '/' + to + '/days',
             {
                 method: 'GET',
                 headers: {

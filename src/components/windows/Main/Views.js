@@ -10,8 +10,9 @@ import {withTranslation} from 'react-i18next';
 const mapStateToProps = state => {
     return {
         pambaPath: state.settings.pambaPath,
+        url: state.settings.url,
         view: state.settings.view,
-        toke: state.token,
+        token: state.token,
     }
 };
 
@@ -41,7 +42,7 @@ class Views extends React.Component {
                 text={t('warnings:pambaConnection.text')}
                 action={
                     <OpenWindow
-                        path={SettingsPath + '?pambaPath=' + this.props.pambaPath + '&token=' + this.props.token}
+                        path={SettingsPath + '?url=' + this.props.url + '&pambaPath=' + this.props.pambaPath + '&token=' + this.props.token}
                         windowSettings={SettingsSettings}
                     >
                         <a>{t('warnings:pambaConnection.action')}</a>.

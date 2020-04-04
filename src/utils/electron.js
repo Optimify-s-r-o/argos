@@ -29,7 +29,7 @@ function getIpcRenderer() {
 function closeCurrentElectronWindow() {
     if (isElectron()) {
         const w = window.require('electron').remote.getCurrentWindow();
-        w.setClosable(true);
+        w.closable =true;
         w.close();
     }
 }

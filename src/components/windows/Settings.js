@@ -79,13 +79,14 @@ class Settings extends React.Component {
     componentDidMount() {
         const params = queryString.parse(this.props.location.search);
         this.setState({
+            url: params.url,
             token: params.token,
             pambaPath: params.pambaPath,
             pambaPathOriginal: params.pambaPath,
             saveEnabled: false,
         });
 
-        getSettings(params.token, data => {
+        getSettings(params.url, params.token, data => {
             this.setState({ settings: data.body });
         });
     }
@@ -171,7 +172,7 @@ class Settings extends React.Component {
 
         if (Object.keys(this.state.settingsEdited).length > 0) {
             Object.keys(this.state.settingsEdited).map(key => {
-                saveSetting(this.state.token, key, this.state.settingsEdited[key], result => {
+                saveSetting(this.state.url, this.state.token, key, this.state.settingsEdited[key], result => {
                     if (result.status === 200) {
                         let settings = this.state.settings;
                         settings[key] = this.state.settingsEdited[key];

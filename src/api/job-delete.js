@@ -1,7 +1,7 @@
-async function jobDelete(token, jobId, callback) {
+async function jobDelete(url, token, jobId, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Job/delete?id=' + jobId,
+            'http://' + url + '/api/job/' + jobId,
             {
                 method: 'DELETE',
                 headers: {

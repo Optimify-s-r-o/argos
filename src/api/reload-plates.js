@@ -1,7 +1,7 @@
-async function reloadPlates(token, plates, callback) {
+async function reloadPlates(url, token, plates, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Plate/reload',
+            'http://' + url + '/api/plate/reload',
             {
                 method: 'POST',
                 headers: {

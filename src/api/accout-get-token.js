@@ -1,7 +1,7 @@
-async function accountGetToken(callback) {
+async function accountGetToken(url, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Account/getToken',
+            'http://' + url + '/api/account/token',
             {
                 method: 'POST',
                 headers: {

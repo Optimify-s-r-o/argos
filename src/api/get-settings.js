@@ -1,7 +1,7 @@
-async function getSettings(token, callback) {
+async function getSettings(url, token, callback) {
     try {
         const result = await fetch(
-            'http://104.248.41.203/api/Configuration/getAll',
+            'http://' + url + '/api/configuration',
             {
                 method: 'GET',
                 headers: {
