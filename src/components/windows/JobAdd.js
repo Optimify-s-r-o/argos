@@ -25,6 +25,8 @@ import {
   MSGBOX_TYPE_INFO,
   showMessageBox,
 } from '../../utils/showMessageBox';
+import { FormCard, FormCardHeader, FormColumn } from '../../styles/forms';
+import { Row } from '../../styles/global';
 
 const ipcRenderer = getIpcRenderer();
 
@@ -138,12 +140,10 @@ class JobAdd extends React.Component {
     setCurrentElectronWindowTitle(t('jobForms:add.title'));
     return [
       <TitleBar key='titleBar' title={t('jobForms:add.title')} icon={false} />,
-      <div key='content' className='row'>
-        <div className='column'>
-          <div className='form-card'>
-            <div className='form-card-header'>
-              {t('jobForms:common.commonInfo')}
-            </div>
+      <Row key='content'>
+        <FormColumn>
+          <FormCard>
+            <FormCardHeader>{t('jobForms:common.commonInfo')}</FormCardHeader>
 
             <FormRow title={t('jobForms:common.jobIdentification')}>
               <Select
@@ -214,9 +214,9 @@ class JobAdd extends React.Component {
               title={t('jobForms:common.trussTypes')}
               selectable={true}
             ></FormRow>
-          </div>
-        </div>
-      </div>,
+          </FormCard>
+        </FormColumn>
+      </Row>,
     ];
   }
 }

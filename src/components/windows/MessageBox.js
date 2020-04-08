@@ -1,5 +1,4 @@
 import React from 'react';
-import './MessageBox.css';
 import TitleBar from '../TitleBar';
 import queryString from 'query-string';
 import { withTranslation } from 'react-i18next';

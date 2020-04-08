@@ -6,6 +6,7 @@ import FormRow from '../FormRow';
 import Select from '../forms/Select';
 import DatePicker from '../forms/DatePicker';
 import { withTranslation } from 'react-i18next';
+import { TextButton } from '../../styles/global';
 
 const title = 'phaseForms:create.titleBar';
 
@@ -79,12 +80,12 @@ class CreatePhase extends React.Component {
             </FormRow>
 
             <FormRow border={false}>
-              <button
+              <TextButton
                 className='btn btn-text'
                 onClick={() => this.handleCreatePhase()}
               >
                 {t('phaseForms:create.create')}
-              </button>
+              </TextButton>
             </FormRow>
           </div>
         </div>

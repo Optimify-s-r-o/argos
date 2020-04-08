@@ -1,9 +1,10 @@
-import './Settings.css';
 import React from 'react';
-import '../../styles/main.css';
-import '../../styles/forms.css';
 import TitleBar from '../TitleBar';
-import FormRow from '../FormRow';
+import FormRow, {
+  FormCardRow,
+  FormCardRowHeader,
+  FormCardRowContent,
+} from '../FormRow';
 import { withTranslation } from 'react-i18next';
 import {
   getDialog,
@@ -15,6 +16,9 @@ import getSettings from '../../api/get-settings';
 import NumericInput from 'react-numeric-input';
 import saveSetting from '../../api/save-setting';
 import { showMessageBox } from '../../utils/showMessageBox';
+import { Row, TextButton } from '../../styles/global';
+import { FormColumn, FormCard, FormCardHeader } from '../../styles/forms';
+import styled from 'styled-components';
 var truncateMiddle = require('truncate-middle');
 
 const ipcRenderer = getIpcRenderer();
@@ -216,80 +220,72 @@ class Settings extends React.Component {
 
     return [
       <TitleBar key='titleBar' title={t('settings:title')} icon={false} />,
-      <div key='content' className='row'>
-        <div className='column settings-column'>
-          <div className='form-card'>
-            <div className='form-card-header'>
-              {t('settings:common.header')}
-            </div>
+      <Row key='content'>
+        <SettingsColumn>
+          <FormCard>
+            <FormCardHeader>{t('settings:common.header')}</FormCardHeader>
 
-            <div className='form-card-row pamba-path'>
-              <div className='form-card-row-header'>
+            <PambaRow>
+              <FormCardRowHeader>
                 {t('settings:common.pambaPath')}
-              </div>
-              <div className='form-card-row-content'>
-                <div className='settings-row'>
-                  <div className='pamba-path-column'>
-                    <div className='original padding'>
+              </FormCardRowHeader>
+              <FormCardRowContent>
+                <SettingsRow>
+                  <PambaPathColumn>
+                    <Original>
                       {truncateMiddle(
                         this.state.pambaPathOriginal,
                         30,
                         30,
                         '. . .'
                       )}
-                    </div>
+                    </Original>
                     {this.state.pambaPath !== this.state.pambaPathOriginal
                       ? [
-                          <div className='settings-vertical-arrow'>↓</div>,
-                          <div className='padding new'>
+                          <VerticalArrow>↓</VerticalArrow>,
+                          <New>
                             {truncateMiddle(
                               this.state.pambaPath,
                               30,
                               30,
                               '. . .'
                             )}
-                          </div>,
+                          </New>,
                         ]
                       : ''}
-                  </div>
-                  <div className='pamba-path-column'>
-                    <button
-                      className='btn btn-text change-setting'
-                      onClick={this.openFolderSelection}
-                    >
+                  </PambaPathColumn>
+                  <PambaPathColumn>
+                    <TextButton onClick={this.openFolderSelection}>
                       {t('settings:common.pambaPathChange')}
-                    </button>
+                    </TextButton>
                     {this.state.pambaPath !== this.state.pambaPathOriginal ? (
-                      <button
-                        className='cancel-editing no-margin'
+                      <CancelEditingPamba
                         onClick={() => this.revert('pambaPath')}
                       >
                         🞨
-                      </button>
+                      </CancelEditingPamba>
                     ) : (
                       ''
                     )}
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </PambaPathColumn>
+                </SettingsRow>
+              </FormCardRowContent>
+            </PambaRow>
 
-            <div className='form-card-header'>
-              {t('settings:capacities.header')}
-            </div>
+            <FormCardHeader>{t('settings:capacities.header')}</FormCardHeader>
 
             {phases.map((phase) => {
               return (
                 <FormRow title={t('settings:capacities.' + phase)}>
-                  <div className='settings-row-capacity'>
-                    <div className='original capacity'>
+                  <SettingsRowCapacity>
+                    <OriginalCapacity>
                       {this.state.settings[phase + 'DefaultCapacity']}
-                    </div>
+                    </OriginalCapacity>
                     {this.state.settingsEdited.hasOwnProperty(
                       phase + 'DefaultCapacity'
                     ) ? (
                       [
-                        <span className='settings-horizontal-arrow'>→</span>,
+                        <HorizontalArrow>→</HorizontalArrow>,
                         <NumericInput
                           value={
                             this.state.settingsEdited[phase + 'DefaultCapacity']
@@ -305,40 +301,37 @@ class Settings extends React.Component {
                           strict={true}
                           style={NumericInputStyles}
                         />,
-                        <button
-                          className='cancel-editing'
+                        <CancelEditing
                           onClick={() =>
                             this.cancelEdit(phase + 'DefaultCapacity')
                           }
                         >
                           🞨
-                        </button>,
+                        </CancelEditing>,
                       ]
                     ) : (
-                      <button
-                        className='btn btn-text change-setting'
+                      <TextButton
                         onClick={() => this.edit(phase + 'DefaultCapacity')}
                       >
                         {t('settings:capacities.edit')}
-                      </button>
+                      </TextButton>
                     )}
-                  </div>
+                  </SettingsRowCapacity>
                 </FormRow>
               );
             })}
 
             <FormRow border={false}>
-              <button
+              <TextButton
                 disabled={!this.state.saveEnabled}
-                className='btn btn-text'
                 onClick={this.save}
               >
                 {t('settings:save')}
-              </button>
+              </TextButton>
             </FormRow>
-          </div>
-        </div>
-      </div>,
+          </FormCard>
+        </SettingsColumn>
+      </Row>,
     ];
   }
 }
@@ -346,3 +339,138 @@ class Settings extends React.Component {
 Settings = withTranslation()(Settings);
 
 export { Settings, SettingsPath, SettingsSettings };
+
+const SettingsColumn = styled(FormColumn)`
+  width: 600px;
+  align-items: stretch;
+
+  ${FormCard} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  ${FormCardRow} {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+
+    ${FormCardRowHeader} {
+      width: 30%;
+    }
+
+    ${FormCardRowContent} {
+      width: 70%;
+    }
+  }
+`;
+
+const PambaRow = styled(FormCardRow)`
+  flex-direction: column !important;
+
+  ${FormCardRowHeader},
+  ${FormCardRowContent} {
+    width: 100% !important;
+  }
+`;
+
+const PambaPathColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SettingsRow = styled.div`
+  display: flex;
+
+  flex-direction: row;
+  justify-content: flex-end;
+
+  div:first-child {
+    flex-grow: 1;
+  }
+
+  div:last-child {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  ${TextButton} {
+    margin: -6px 16px;
+  }
+`;
+
+const SettingsRowCapacity = styled.div`
+  display: flex;
+
+  flex-direction: row;
+  justify-content: flex-end;
+
+  ${TextButton} {
+    margin: -6px 16px;
+  }
+
+  .react-numeric-input {
+    position: relative;
+
+    margin: -7px 6px -8px;
+  }
+
+  .react-numeric-input input {
+    margin: 0;
+
+    width: 76px;
+  }
+`;
+
+const CancelEditing = styled.button`
+  margin: -4px 42px -3px 30px !important;
+  padding: 3px 7px 5px 7px;
+
+  background-color: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: #004466;
+  cursor: pointer;
+  font-weight: 700;
+
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #004466;
+    color: #00bbff;
+  }
+`;
+
+const CancelEditingPamba = styled(CancelEditing)`
+  display: block;
+
+  margin: 0 0 -4px 0 !important;
+
+  width: 27px;
+`;
+
+const VerticalArrow = styled.div`
+  margin: 4px 0 -4px;
+`;
+
+const HorizontalArrow = styled.div`
+  margin: 0 4px;
+`;
+
+const Original = styled.div`
+  color: rgba(0, 0, 0, 0.4);
+  min-width: 30px;
+`;
+
+const OriginalCapacity = styled(Original)`
+  width: 40px;
+
+  text-align: right;
+`;
+
+const New = styled.div`
+  margin-top: 8px;
+`;
