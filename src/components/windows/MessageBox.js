@@ -8,6 +8,9 @@ import {
   getIpcRenderer,
   setCurrentElectronWindowTitle,
 } from '../../utils/electron';
+import styled from 'styled-components';
+import { Row, Column, TextButton } from '../../styles/global';
+
 const ipcRenderer = getIpcRenderer();
 
 const MessageBoxPath = '/message-box';
@@ -50,24 +53,25 @@ class MessageBox extends React.Component {
         buttons={false}
         colorClass={params.type}
       />,
-      <div key='content' className='row text'>
-        <div className='column'>{t(params.key + '.text')}</div>
-      </div>,
-      <div key='buttons' className={'row buttons ' + params.type}>
+      <Content key='content'>
+        <Column>{t(params.key + '.text')}</Column>
+      </Content>,
+      <Buttons key='buttons' type={params.type}>
         {buttons.map((button) => {
           return (
-            <button
+            <MsgBoxButton
               key={button}
+              type={params.type}
+              button={button}
               onClick={() => {
                 this.onButtonClick(button, params.windowId);
               }}
-              className={'btn btn-text btn-' + button}
             >
               {t('messageBox:buttons.' + button)}
-            </button>
+            </MsgBoxButton>
           );
         })}
-      </div>,
+      </Buttons>,
     ];
   }
 }
@@ -75,3 +79,83 @@ class MessageBox extends React.Component {
 MessageBox = withTranslation()(MessageBox);
 
 export { MessageBox, MessageBoxPath, MessageBoxSettings };
+
+const colors = {
+  info: {
+    yes: '#046',
+    ok: '#046',
+    no: 'rgba(0, 0, 0, 0.3)',
+    cancel: 'rgba(0, 0, 0, 0.3)',
+  },
+  warning: {
+    yes: '#ffbc45',
+    ok: '#ffbc45',
+    no: 'rgba(0, 0, 0, 0.3)',
+    cancel: 'rgba(0, 0, 0, 0.3)',
+  },
+  error: {
+    yes: '#ff4040',
+    ok: '#ff4040',
+    no: 'rgba(0, 0, 0, 0.3)',
+    cancel: 'rgba(0, 0, 0, 0.3)',
+  },
+};
+
+const Content = styled(Row)`
+  padding: 16px;
+
+  font-weight: 400;
+`;
+
+const Buttons = styled(Row)`
+  padding: 8px 16px;
+
+  justify-content: flex-end;
+
+  background-color: white;
+`;
+
+const MsgBoxButton = styled(TextButton)`
+  display: inline-block;
+
+  margin-left: 16px;
+
+  border-color: ${(props) => colors[props.type][props.button]};
+  color: ${(props) => colors[props.type][props.button]};
+
+  &:hover {
+    background-color: ${(props) =>
+      props.button === 'yes' || props.button === 'ok'
+        ? colors[props.type][props.button]
+        : 'rgba(0, 0, 0, 0.30)'};
+    border-color: ${(props) =>
+      props.button === 'yes' || props.button === 'ok'
+        ? colors[props.type][props.button]
+        : 'transparent'};
+    color: ${(props) =>
+      props.button === 'yes' || props.button === 'ok' ? '#fff' : '#046'};
+  }
+
+  &:active {
+    background-color: ${(props) =>
+      props.button === 'yes' || props.button === 'ok'
+        ? 'inherit'
+        : 'rgba(0, 0, 0, 0.30)'};
+    border-color: ${(props) =>
+      props.button === 'yes' || props.button === 'ok'
+        ? colors[props.type][props.button]
+        : 'transparent'};
+    color: ${(props) =>
+      props.button === 'yes' || props.button === 'ok' ? 'inherit' : '#046'};
+  }
+
+  &:focus {
+    outline: ${(props) =>
+      props.button === 'yes' || props.button === 'ok' ? 'inherit' : 0};
+
+    box-shadow: ${(props) =>
+      props.button === 'yes' || props.button === 'ok'
+        ? 'inherit'
+        : '0 0 10px 0 rgba(0, 0, 0, 0.1)'};
+  }
+`;
