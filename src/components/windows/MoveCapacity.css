@@ -1,164 +1,168 @@
 .moveCapacityInfo {
-    width: 800px;
-    height: 80px;
+  width: 800px;
+  height: 80px;
 
-    padding: 16px 32px;
+  padding: 16px 32px;
 }
 
 .moveCapacityInfo table {
-    width: 100%;
+  width: 100%;
 }
 
 .moveCapacityInfo table td {
-    padding: 6px 0;
+  padding: 6px 0;
 
-    font-size: 18px;
-    font-weight: 400;
+  font-size: 18px;
+  font-weight: 400;
 }
 
-.moveCapacityInfo table td:nth-child(1), .moveCapacityInfo table td:nth-child(3) {
-    width: 83px;
+.moveCapacityInfo table td:nth-child(1),
+.moveCapacityInfo table td:nth-child(3) {
+  width: 83px;
 
-    font-weight: 600;
+  font-weight: 600;
 }
 
-.moveCapacityInfo table td:nth-child(2), .moveCapacityInfo table td:nth-child(4) {
-    width: 280px;
+.moveCapacityInfo table td:nth-child(2),
+.moveCapacityInfo table td:nth-child(4) {
+  width: 280px;
 }
 
-.moveCapacityButtons > button, .moveCapacityButtons > .customCapacity {
-    flex-grow: 1;
+.moveCapacityButtons > button,
+.moveCapacityButtons > .customCapacity {
+  flex-grow: 1;
 
-    width: 224px;
+  width: 224px;
 
-    margin: 16px;
+  margin: 16px;
 
-    background-color: #F8F8F8;
-    border: 0;
+  background-color: #f8f8f8;
+  border: 0;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .moveCapacityButtons > button {
-    color: #0088CC;
-    cursor: pointer;
-    font-size: 18px;
+  color: #0088cc;
+  cursor: pointer;
+  font-size: 18px;
 }
 
-.moveCapacityButtons > button:hover, .moveCapacityButtons > .customCapacity:hover {
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
+.moveCapacityButtons > button:hover,
+.moveCapacityButtons > .customCapacity:hover {
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .moveCapacityButtons > button:hover {
-    background-color: #FFF;
-    color: #004466;
+  background-color: #fff;
+  color: #004466;
 }
 
 .customCapacity {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    position: relative;
+  position: relative;
 }
 
 .customCapacity .react-numeric-input {
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    right: 0;
-    bottom: 70%;
-    left: 0;
+  top: 0;
+  right: 0;
+  bottom: 70%;
+  left: 0;
 
-    margin: 0;
+  margin: 0;
 }
 
 .customCapacity .react-numeric-input input {
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    width: 100%;
+  width: 100%;
 
-    margin: 0;
-    padding-right: 50%;
+  margin: 0;
+  padding-right: 50%;
 
-    background-color: #F8F8F8;
-    border: 0;
-    border-bottom: 1px solid #0088CC;
-    font-size: 18px;
-    font-weight: 400;
-    text-align: right;
+  background-color: #f8f8f8;
+  border: 0;
+  border-bottom: 1px solid #0088cc;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: right;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .customCapacity .react-numeric-input input:hover {
-    background-color: #FFF;
+  background-color: #fff;
 }
 
 .customCapacity .maxCapacity {
-    position: absolute;
+  position: absolute;
 
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
 
-    top: 0;
-    bottom: 70%;
-    left: 50%;
+  top: 0;
+  bottom: 70%;
+  left: 50%;
 
-    font-size: 18px;
-    font-weight: 400;
-    pointer-events: none;
+  font-size: 18px;
+  font-weight: 400;
+  pointer-events: none;
 }
 
 .customCapacity button {
-    position: absolute;
+  position: absolute;
 
-    top: 30%;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  top: 30%;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    width: 100%;
+  width: 100%;
 
-    background-color: #F8F8F8;
-    border: 0;
-    color: #0088CC;
-    cursor: pointer;
-    font-size: 18px;
+  background-color: #f8f8f8;
+  border: 0;
+  color: #0088cc;
+  cursor: pointer;
+  font-size: 18px;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .customCapacity button:hover {
-    background-color: #FFF;
-    color: #004466;
+  background-color: #fff;
+  color: #004466;
 }
 
 .cancelRow {
-    width: 800px;
-    height: 50px;
+  width: 800px;
+  height: 50px;
 
-    background-color: white;
-    text-align: right;
+  background-color: white;
+  text-align: right;
 }
 
 .cancelRow > button {
-    margin: 10px;
+  margin: 10px;
 }
 
 .moveCapacityButtons {
-    display: flex;
+  display: flex;
 
-    flex-direction: row;
+  flex-direction: row;
 
-    width: 800px;
-    height: 320px;
+  width: 800px;
+  height: 320px;
 
-    padding: 16px;
+  padding: 16px;
 }

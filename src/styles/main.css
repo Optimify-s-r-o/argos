@@ -1,974 +1,1043 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html, body {
-    position: relative;
-    height: 100%;
-    width: 100%;
+html,
+body {
+  position: relative;
+  height: 100%;
+  width: 100%;
 
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: 300;
-    font-size: 14px;
-    color: #004466;
-    background-color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: #004466;
+  background-color: #f0f0f0;
 
-    -webkit-user-select: none;
+  -webkit-user-select: none;
 }
 
 body.border {
-    border: 1px solid #004466;
+  border: 1px solid #004466;
 }
 
 #TitleBar {
-    display: flex;
+  display: flex;
 
-    justify-content: space-between;
-    align-items: center;
+  justify-content: space-between;
+  align-items: center;
 
-    height: 32px;
+  height: 32px;
 
-    background-color: #004466;
-    color: white;
+  background-color: #004466;
+  color: white;
 
-    -webkit-app-region: drag;
+  -webkit-app-region: drag;
 }
 
 #TitleBar.error {
-    background-color: #ff4040;
+  background-color: #ff4040;
 }
 
 #TitleBar.warning {
-    background-color: #ffbc45;
+  background-color: #ffbc45;
 }
 
 #TitleBar > div {
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 33%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 33%;
 }
 
 #TitleBar #Icon + #AppName {
-    text-align: center;
+  text-align: center;
 }
 
 #TitleBar #AppName {
-    padding: 0 16px;
+  padding: 0 16px;
 
-    font-size: 12px;
-    font-weight: 400;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 #TitleBar #Buttons {
-    text-align: right;
+  text-align: right;
 }
 
 #TitleBar #Buttons.hidden {
-    display: none;
+  display: none;
 }
 
 #TitleBar #Buttons button {
-    height: 32px;
-    width: 46px;
+  height: 32px;
+  width: 46px;
 
-    border: 0;
-    background: transparent;
-    color: white;
+  border: 0;
+  background: transparent;
+  color: white;
 
-    transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 
-    -webkit-app-region: none;
+  -webkit-app-region: none;
 }
 
 #TitleBar #Buttons button:hover {
-    background-color: rgba(0, 0, 0, .2);
-    outline: none;
+  background-color: rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
-#TitleBar #Buttons button:active, #TitleBar #Buttons button:focus {
-    outline: none;
+#TitleBar #Buttons button:active,
+#TitleBar #Buttons button:focus {
+  outline: none;
 }
 
 #TitleBar #Buttons #Close:hover {
-    background-color: #ff2020;
+  background-color: #ff2020;
 }
 
 /* NAV */
 
 nav:not(.react-contextmenu) {
-    height: 120px;
+  height: 120px;
 
-    background-color: #f3f3f3;
-    border-bottom: 1px solid #b1b1b1;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #b1b1b1;
 }
 
 nav #Tabs {
-    display: flex;
+  display: flex;
 
-    justify-content: flex-start;
+  justify-content: flex-start;
 
-    height: 30px;
+  height: 30px;
 
-    background-color: #004466;
+  background-color: #004466;
 }
 
 nav #Tabs button {
-    height: 30px;
+  height: 30px;
 
-    margin-left: 2px;
-    padding: 0 13px;
+  margin-left: 2px;
+  padding: 0 13px;
 
-    background: transparent;
-    border: 0;
-    color: #f3f3f3;
-    font-size: 12px;
-    font-weight: 400;
+  background: transparent;
+  border: 0;
+  color: #f3f3f3;
+  font-size: 12px;
+  font-weight: 400;
 }
 
-nav #Tabs button.active, nav #Tabs button.special.active {
-    background: #f3f3f3;
-    color: #004466;
+nav #Tabs button.active,
+nav #Tabs button.special.active {
+  background: #f3f3f3;
+  color: #004466;
 }
 
 nav #Tabs button:not(.active):hover {
-    background-color: rgba(0, 0, 0, .15);
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
-nav #Tabs button:active, nav #Tabs button:focus {
-    outline: none;
+nav #Tabs button:active,
+nav #Tabs button:focus {
+  outline: none;
 }
 
 nav #Tabs button.special {
-    background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 nav #Tabs button.special:not(.active):hover {
-    background: rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 @keyframes nav-content-loaded {
-    from { opacity: 0; left: 10px; }
+  from {
+    opacity: 0;
+    left: 10px;
+  }
 
-    to { opacity: 1; left: 0; }
+  to {
+    opacity: 1;
+    left: 0;
+  }
 }
 
 nav #Content {
-    position: relative;
+  position: relative;
 
-    height: 90px;
+  height: 90px;
 
-    opacity: 0;
-    animation: nav-content-loaded .5s ease-in-out .5s;
-    animation-fill-mode: forwards;
+  opacity: 0;
+  animation: nav-content-loaded 0.5s ease-in-out 0.5s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes nav-content-show {
-    from {
-        left: 10px;
-        opacity: 0;
-    }
+  from {
+    left: 10px;
+    opacity: 0;
+  }
 
-    to {
-        left: 0;
-        opacity: 1;
-        visibility: visible;
-    }
+  to {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 @keyframes nav-content-hide {
-    from {
-        left: 0;
-        opacity: 1;
-    }
+  from {
+    left: 0;
+    opacity: 1;
+  }
 
-    to {
-        left: -10px;
-        opacity: 0;
-        visibility: hidden;
-    }
+  to {
+    left: -10px;
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 nav #Content > div {
-    position: absolute;
-    display: flex;
+  position: absolute;
+  display: flex;
 
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    visibility: visible;
-    animation: nav-content-hide .5s ease-in-out;
-    animation-fill-mode: forwards;
+  visibility: visible;
+  animation: nav-content-hide 0.5s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 nav #Content > div.active {
-    visibility: hidden;
-    animation: nav-content-show .5s ease-in-out;
-    animation-fill-mode: forwards;
+  visibility: hidden;
+  animation: nav-content-show 0.5s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 nav #Content > div .section {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
 
-    flex-direction: row;
+  flex-direction: row;
 
-    height: 100%;
-    min-width: 80px;
+  height: 100%;
+  min-width: 80px;
 
-    padding: 0 8px;
+  padding: 0 8px;
 }
 
 nav #Content > div .section:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 4px;
-    right: 0;
-    bottom: 6px;
+  top: 4px;
+  right: 0;
+  bottom: 6px;
 
-    width: 1px;
+  width: 1px;
 
-    background-color: #b1b1b1;
+  background-color: #b1b1b1;
 }
 
 nav #Content > div .section .section-header {
-    position: absolute;
+  position: absolute;
 
-    width: 100%;
+  width: 100%;
 
-    right: 0;
-    bottom: 0;
-    left: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    padding: 4px 0;
+  padding: 4px 0;
 
-    color: black;
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
+  color: black;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
 }
 
 nav #Content > div .section .large-icon {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 
-    height: 66px;
+  height: 66px;
 
-    margin: 4px 0 0;
-    padding: 0 6px;
+  margin: 4px 0 0;
+  padding: 0 6px;
 
-    background: transparent;
-    border: 1px solid transparent;
+  background: transparent;
+  border: 1px solid transparent;
 }
 
 nav #Content > div .section .large-icon:focus {
-    outline: 0;
+  outline: 0;
 }
 
 nav #Content > div .section .large-icon:hover {
-    background: rgba(0, 0, 0, .15);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 nav #Content > div .section .large-icon.active {
-    background: rgba(0, 0, 0, .15);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 nav #Content > div .section .large-icon.active:hover {
-    border: 1px solid rgba(0, 0, 0, .25);
+  border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 nav #Content > div .section .large-icon img {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 
-    opacity: .7;
+  opacity: 0.7;
 }
 
-nav #Content > div .section .large-icon:hover img, nav #Content > div .section .large-icon.active img {
-    opacity: .8;
+nav #Content > div .section .large-icon:hover img,
+nav #Content > div .section .large-icon.active img {
+  opacity: 0.8;
 }
 
 nav #Content > div .section .large-icon span {
-    display: block;
+  display: block;
 
-    color: black;
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-    white-space: pre-line;
+  color: black;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  white-space: pre-line;
 }
 
-#Views{
-    position: absolute;
+#Views {
+  position: absolute;
 
-    top: 152px;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  top: 152px;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 }
 
 #Views #View {
-    position: relative;
+  position: relative;
 
-    flex-grow: 1;
+  flex-grow: 1;
 }
-
 
 /* CALENDAR */
 
 #Calendar {
-    display: flex;
-    position: absolute;
+  display: flex;
+  position: absolute;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    background-color: #eeeeee;
+  background-color: #eeeeee;
 }
 
 #Calendar:after {
-    content: '';
+  content: '';
 
-    position: absolute;
-    z-index: 99999;
+  position: absolute;
+  z-index: 99999;
 
-    top: 60px; /* week selector */
-    right: 0;
-    bottom: 0;
-    left: 0;
+  top: 60px; /* week selector */
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    display: none;
+  display: none;
 
-    background-color: rgba(0, 187, 255, .25);
-    background-image: url('../icons/loader.gif');
-    background-position: center center;
-    background-repeat: no-repeat;
+  background-color: rgba(0, 187, 255, 0.25);
+  background-image: url('../icons/loader.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 #Calendar.loading:after {
-    display: block;
+  display: block;
 }
 
 .Row {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
 .RowHeader {
-    position: relative;
+  position: relative;
 
-    width: 200px;
+  width: 200px;
 
-    padding: 8px 16px;
+  padding: 8px 16px;
 }
 
 .RowHeader:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    right: 0;
-    bottom: 0;
-    left: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    height: 1px;
+  height: 1px;
 
-    background: rgba(0,0,0,0);
-    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.1)));
-    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
-    background: -o-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
-    background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
-    background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=1 );
+  background: rgba(0, 0, 0, 0);
+  background: -moz-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0%, rgba(0, 0, 0, 0)),
+    color-stop(100%, rgba(0, 0, 0, 0.1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=1 );
 }
 
 .btn {
-    height: 32px;
+  height: 32px;
 
-    background: transparent;
-    color: #004466;
+  background: transparent;
+  color: #004466;
 
-    border: 2px solid #004466;
-    border-radius: 16px;
+  border: 2px solid #004466;
+  border-radius: 16px;
 
-    transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .btn[disabled] {
-    opacity: .5;
+  opacity: 0.5;
 }
 
 .btn:hover {
-    background: #004466;
-    color: #00bbff;
+  background: #004466;
+  color: #00bbff;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    box-shadow: 0px 0px 10px 0px rgba(0,68,102,.5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 68, 102, 0.5);
 }
 
 .btn[disabled]:hover {
-    background: transparent;
-    box-shadow: none;
-    color: #004466;
-    cursor: default;
+  background: transparent;
+  box-shadow: none;
+  color: #004466;
+  cursor: default;
 }
 
 .btn:active {
-    background: #006699;
-    border-color: #006699;
-    color: #00bbff;
+  background: #006699;
+  border-color: #006699;
+  color: #00bbff;
 
-    box-shadow: 0px 0px 15px 0px rgba(0,68,102,.75);
+  box-shadow: 0px 0px 15px 0px rgba(0, 68, 102, 0.75);
 }
 
 .btn:focus {
-    outline: 0;
+  outline: 0;
 
-    box-shadow: 0px 0px 10px 0px rgba(0,68,102,.5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 68, 102, 0.5);
 }
 
 .btn-text {
-    padding: 0 16px;
+  padding: 0 16px;
 }
 
 .btn-char {
-    width: 32px;
+  width: 32px;
 }
 
-#RowDays, #RowEvents, #RowCapacities {
-    margin-right: 17px; /* scroll bar for jobs */
+#RowDays,
+#RowEvents,
+#RowCapacities {
+  margin-right: 17px; /* scroll bar for jobs */
 }
 
 /* CALENDAR > WEEK SELECTOR */
 
-
 #WeekSelector {
-    height: 60px;
-    min-height: 60px;
+  height: 60px;
+  min-height: 60px;
 
-    background-color: #00bbff;
+  background-color: #00bbff;
 }
 
 #CurrentWeek {
-    display: flex;
+  display: flex;
 
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 
-    padding: 0 32px;
+  padding: 0 32px;
 }
 
 #WeekSelector > * {
-    flex-grow: 1;
-    flex-basis: 0;
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 #Selector {
-    display: flex;
+  display: flex;
 
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #Selector span {
-    display: inline-block;
+  display: inline-block;
 
-    font-size: 18px;
+  font-size: 18px;
 
-    margin: 0 32px;
+  margin: 0 32px;
 }
 
 #Legend {
-    display: flex;
+  display: flex;
 
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
 
-    padding: 0 32px;
+  padding: 0 32px;
 }
 
 /* CALENDAR > DAY */
 
 .Day {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
-    flex-grow: 1;
-    flex-basis: 0;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
 
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .Day.weekStart {
-    border-left: 1px solid #004466;
+  border-left: 1px solid #004466;
 }
 
 .Day.nonWorkDay {
-    color: #ff4040;
-    background-color: rgba(0, 68, 102, .05);
+  color: #ff4040;
+  background-color: rgba(0, 68, 102, 0.05);
 }
 
 /* CALENDAR > DAYS */
 
 #RowDays {
-    background-color: white;
+  background-color: white;
 }
 
 #HeaderDays.RowHeader:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    right: 0;
-    bottom: 0;
-    left: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    height: 1px;
+  height: 1px;
 
-    background: rgba(0,187,255,0);
-    background: -moz-linear-gradient(left, rgba(0,187,255,0) 0%, rgba(0,187,255,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,187,255,0)), color-stop(100%, rgba(0,187,255,1)));
-    background: -webkit-linear-gradient(left, rgba(0,187,255,0) 0%, rgba(0,187,255,1) 100%);
-    background: -o-linear-gradient(left, rgba(0,187,255,0) 0%, rgba(0,187,255,1) 100%);
-    background: -ms-linear-gradient(left, rgba(0,187,255,0) 0%, rgba(0,187,255,1) 100%);
-    background: linear-gradient(to right, rgba(0,187,255,0) 0%, rgba(0,187,255,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bbff', endColorstr='#00bbff', GradientType=1 );
+  background: rgba(0, 187, 255, 0);
+  background: -moz-linear-gradient(
+    left,
+    rgba(0, 187, 255, 0) 0%,
+    rgba(0, 187, 255, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0%, rgba(0, 187, 255, 0)),
+    color-stop(100%, rgba(0, 187, 255, 1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(0, 187, 255, 0) 0%,
+    rgba(0, 187, 255, 1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(0, 187, 255, 0) 0%,
+    rgba(0, 187, 255, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(0, 187, 255, 0) 0%,
+    rgba(0, 187, 255, 1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(0, 187, 255, 0) 0%,
+    rgba(0, 187, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bbff', endColorstr='#00bbff', GradientType=1 );
 }
 
 #RowDaysColumns {
-    display: flex;
+  display: flex;
 
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .WeekNumber {
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: -100%;
-    right: -100%;
+  top: 0;
+  left: -100%;
+  right: -100%;
 
-    padding: 6px 0;
+  padding: 6px 0;
 
-    text-align: center;
+  text-align: center;
 }
 
 .Days {
-    display: flex;
+  display: flex;
 
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 #RowDays .Day {
-    position: relative;
+  position: relative;
 
-    border-bottom: 1px solid #00bbff;
+  border-bottom: 1px solid #00bbff;
 
-    padding-top: 24px;
+  padding-top: 24px;
 }
 
 #RowDays .Days > .Day > * {
-    text-align: center;
-    padding: 6px 0;
+  text-align: center;
+  padding: 6px 0;
 }
 
 #RowDays .WeekNumber {
-    color: #004466;
+  color: #004466;
 }
 
 #RowDays .DayInWeek {
-    font-size: 11px;
-    padding-bottom: 0 !important;
+  font-size: 11px;
+  padding-bottom: 0 !important;
 }
 
 /* CALENDAR > EVENTS */
 
 #RowEvents {
-    background-color: white;
+  background-color: white;
 }
 
 #RowEvents .Day {
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    align-items: center;
-    padding: 4px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  align-items: center;
+  padding: 4px 0;
 }
 
 /* CALENDAR > CAPACITIES */
 
 #RowCapacities {
-    background-color: white;
+  background-color: white;
 }
 
 .capacity-section {
-    position: relative;
+  position: relative;
 
-    height: 32px;
+  height: 32px;
 
-    margin: 4px 0;
+  margin: 4px 0;
 
-    font-weight: 400;
+  font-weight: 400;
 }
 
-.capacity-section .capacity-circle, .capacity-section .capacity-value {
-    position: absolute;
+.capacity-section .capacity-circle,
+.capacity-section .capacity-value {
+  position: absolute;
 
-    left: 50%;
+  left: 50%;
 
-    transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .capacity-section .capacity-circle {
-    top: 2px;
+  top: 2px;
 
-    width: 28px;
+  width: 28px;
 }
 
 .capacity-section .capacity-value {
-
-    width: 32px;
+  width: 32px;
 }
 
-.capacity-section .capacity-absolute, .capacity-section .capacity-percentage {
-    position: absolute;
+.capacity-section .capacity-absolute,
+.capacity-section .capacity-percentage {
+  position: absolute;
 
-    top: 50%;
-    left: 50%;
+  top: 50%;
+  left: 50%;
 
-    transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
-.capacity-section .capacity-absolute > span:first-child, .capacity-section .capacity-percentage > span:first-child {
-    position: absolute;
+.capacity-section .capacity-absolute > span:first-child,
+.capacity-section .capacity-percentage > span:first-child {
+  position: absolute;
 
-    top: -13px;
-    left: 50%;
+  top: -13px;
+  left: 50%;
 
-    transform: translateX(-50%);
-    font-size: 12px;
+  transform: translateX(-50%);
+  font-size: 12px;
 }
 
-.capacity-section .capacity-absolute > span:last-child, .capacity-section .capacity-percentage > span:last-child {
-    position: absolute;
+.capacity-section .capacity-absolute > span:last-child,
+.capacity-section .capacity-percentage > span:last-child {
+  position: absolute;
 
-    top: -1px;
-    left: 50%;
+  top: -1px;
+  left: 50%;
 
-    transform: translateX(-50%);
-    font-size: 10px;
+  transform: translateX(-50%);
+  font-size: 10px;
 }
 
 .capacity-section .capacity-absolute:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 1px;
-    left: -12px;
+  top: 1px;
+  left: -12px;
 
-    height: 1px;
-    width: 24px;
+  height: 1px;
+  width: 24px;
 }
 
 .capacity-section.capacity-saw {
-    color: #ff4040;
+  color: #ff4040;
 }
 
 .capacity-section.capacity-saw .capacity-absolute:after {
-    background-color: #ff4040;
+  background-color: #ff4040;
 }
 
 .capacity-section.capacity-press {
-    color: #00bbff;
+  color: #00bbff;
 }
 
 .capacity-section.capacity-press .capacity-absolute:after {
-    background-color: #00bbff;
+  background-color: #00bbff;
 }
 
 .capacity-section.capacity-construction {
-    color: #ffbc45;
+  color: #ffbc45;
 }
 
 .capacity-section.capacity-construction .capacity-absolute:after {
-    background-color: #ffbc45;
+  background-color: #ffbc45;
 }
 
 #RowCapacities.view-absolute .capacity-percentage {
-    display: none;
+  display: none;
 }
 
 #RowCapacities.view-percentage .capacity-absolute {
-    display: none;
+  display: none;
 }
 
 /* CALENDAR > JOBS */
 
 #Jobs {
-    display: block;
-    position: relative;
+  display: block;
+  position: relative;
 
-    flex-grow: 1;
+  flex-grow: 1;
 
-    overflow-y: scroll;
+  overflow-y: scroll;
 
-    transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 #Jobs.show-shadow {
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .RowJob {
-    background-color: white;
+  background-color: white;
 
-    transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .RowJob:hover {
-    z-index: 1;
+  z-index: 1;
 
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .2);
-    /*background-color: rgba(0, 187, 255, .1);*/
-}
-
-.HeaderJob {
-
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+  /*background-color: rgba(0, 187, 255, .1);*/
 }
 
 .HeaderJob .JobName {
-    font-weight: 500;
-    font-size: 16px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.HeaderJob .JobID, .HeaderJob .JobDeadline, .HeaderJob .JobStatus {
-    margin-top: 4px;
+.HeaderJob .JobID,
+.HeaderJob .JobDeadline,
+.HeaderJob .JobStatus {
+  margin-top: 4px;
 
-    font-weight: 400;
+  font-weight: 400;
 }
 
-.HeaderJob .JobID small, .HeaderJob .JobDeadline small, .HeaderJob .JobStatus small {
-    margin-right: 4px;
+.HeaderJob .JobID small,
+.HeaderJob .JobDeadline small,
+.HeaderJob .JobStatus small {
+  margin-right: 4px;
 
-    font-weight: 300;
+  font-weight: 300;
 }
 
 .HeaderJob .JobStatus .status {
-    display: inline-block;
+  display: inline-block;
 
-    margin-right: -6px;
+  margin-right: -6px;
 }
 
 .HeaderJob .JobStatus .status button {
-    position: relative;
+  position: relative;
 
-    background-color: transparent;
-    border: 1px solid black;
-    border-radius: 9px;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 11px;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 9px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 11px;
 }
 
 .HeaderJob .JobStatus .status button:focus {
-    outline: none;
+  outline: none;
 }
 
 .HeaderJob .JobStatus .status button:nth-child(1) {
-    z-index: 1;
+  z-index: 1;
 
-    padding: 0 18px 0 6px;
+  padding: 0 18px 0 6px;
 
-    border-color: #ff4040;
-    color: #ff4040;
-    opacity: .75;
+  border-color: #ff4040;
+  color: #ff4040;
+  opacity: 0.75;
 }
 
 .HeaderJob .JobStatus .status button:nth-child(1):hover {
-    background-color: #ff4040;
-    color: white;
+  background-color: #ff4040;
+  color: white;
 }
 
 .HeaderJob .JobStatus .status button:nth-child(2) {
-    z-index: 3;
+  z-index: 3;
 
-    margin-right: -16px;
-    margin-left: -16px;
+  margin-right: -16px;
+  margin-left: -16px;
 
-    padding: 1px 6px;
+  padding: 1px 6px;
 
-    background-color: #004466;
-    border-color: #004466;
-    color: white;
+  background-color: #004466;
+  border-color: #004466;
+  color: white;
 }
 
 .HeaderJob .JobStatus .status button:nth-child(3) {
-    z-index: 2;
+  z-index: 2;
 
-    padding: 0 6px 0 18px;
+  padding: 0 6px 0 18px;
 
-    border-color: #00bbff;
-    color: #00bbff;
+  border-color: #00bbff;
+  color: #00bbff;
 }
 
 .HeaderJob .JobStatus .status button:nth-child(3):hover {
-    background-color: #00bbff;
-    color: white;
+  background-color: #00bbff;
+  color: white;
 }
 
-.HeaderJob .JobStatus .status button:nth-child(1), .HeaderJob .JobStatus .status button:nth-child(3) {
-    opacity: .6;
+.HeaderJob .JobStatus .status button:nth-child(1),
+.HeaderJob .JobStatus .status button:nth-child(3) {
+  opacity: 0.6;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
-.HeaderJob .JobStatus .status button:nth-child(1):hover, .HeaderJob .JobStatus .status button:nth-child(3):hover {
-    cursor: pointer;
+.HeaderJob .JobStatus .status button:nth-child(1):hover,
+.HeaderJob .JobStatus .status button:nth-child(3):hover {
+  cursor: pointer;
 
-    opacity: 1;
+  opacity: 1;
 }
-
 
 #Jobs .Day {
-    align-items: center;
+  align-items: center;
 
-    color: white;
+  color: white;
 }
 
 #Jobs .Day.nonWorkDay {
-    color: white;
+  color: white;
 }
 
 #Jobs .Day > div {
-    position: relative;
+  position: relative;
 
-    width: 100%;
+  width: 100%;
 
-    margin: 2px 0;
+  margin: 2px 0;
 }
 
-#Jobs .Day .Saw > div > div > div > div:not(.empty), #Jobs .Day .Saw > div > div > div > div:not(.empty):after {
-    background-color: #ff4040;
+#Jobs .Day .Saw > div > div > div > div:not(.empty),
+#Jobs .Day .Saw > div > div > div > div:not(.empty):after {
+  background-color: #ff4040;
 }
 
-#Jobs .Day .Press > div > div > div > div:not(.empty), #Jobs .Day .Press > div > div > div > div:not(.empty):after {
-    background-color: #00bbff;
+#Jobs .Day .Press > div > div > div > div:not(.empty),
+#Jobs .Day .Press > div > div > div > div:not(.empty):after {
+  background-color: #00bbff;
 }
 
-#Jobs .Day .Transport > div > div > div > div:not(.empty), #Jobs .Day .Transport > div > div > div > div:not(.empty):after {
-    background-color: #66dd00;
+#Jobs .Day .Transport > div > div > div > div:not(.empty),
+#Jobs .Day .Transport > div > div > div > div:not(.empty):after {
+  background-color: #66dd00;
 }
 
-#Jobs .Day .Construction > div > div > div > div:not(.empty), #Jobs .Day .Construction > div > div > div > div:not(.empty):after {
-    background-color: #ffbc45;
+#Jobs .Day .Construction > div > div > div > div:not(.empty),
+#Jobs .Day .Construction > div > div > div > div:not(.empty):after {
+  background-color: #ffbc45;
 }
 
 #Jobs .Day .droppable {
-    position: relative;
+  position: relative;
 }
 
 #Jobs .Day .droppable:after {
-    content: '';
+  content: '';
 
-    box-sizing: border-box;
-    position: absolute;
+  box-sizing: border-box;
+  position: absolute;
 
-    height: 32px;
-    width: 32px;
+  height: 32px;
+  width: 32px;
 
-    top: -2px;
-    left: 50%;
+  top: -2px;
+  left: 50%;
 
-    transform: translateX(-50%);
+  transform: translateX(-50%);
 
-    background: rgba(0, 0, 0, .05);
-    border: 1px dashed rgba(0, 0, 0, .2);
-    border-radius: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
 
-    opacity: 0;
+  opacity: 0;
 }
 
 #Jobs .Day .droppable.dropped:after {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* CALENDAR VIEWS */
 
 #Jobs .Day .classic {
-    width: 28px;
-    height: 28px;
+  width: 28px;
+  height: 28px;
 
-    margin: auto;
+  margin: auto;
 
-    border-radius: 14px;
+  border-radius: 14px;
 
-    text-align: center;
+  text-align: center;
 }
 
 #Jobs .Day .classic > span {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 
-    top: 2px;
-    left: 2px;
+  top: 2px;
+  left: 2px;
 
-    display: block;
+  display: block;
 
-    height: 24px;
-    width: 24px;
-    line-height: 24px;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
 
-    border-radius: 14px;
+  border-radius: 14px;
 
-    transition: all .1s ease-out;
+  transition: all 0.1s ease-out;
 }
 
 #Jobs .Day .classic:hover > span {
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
-    background-color: rgba(255, 255, 255, .1);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
 
-    cursor: default;
+  cursor: default;
 }
 
 #Jobs .Day .classic .classicDay {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 #Jobs .Day .classic .classicCapacity {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 #Jobs .Day .compact {
-    width: 28px;
-    height: 6px;
+  width: 28px;
+  height: 6px;
 
-    margin: auto;
+  margin: auto;
 
-    border-radius: 3px;
+  border-radius: 3px;
 }
 
 #Jobs .Day .empty:active {
-    background-color: rgba(0, 187, 255, .2);
+  background-color: rgba(0, 187, 255, 0.2);
 }
 
 /*
@@ -977,103 +1046,102 @@ nav #Content > div .section .large-icon span {
 
 /* CONTINUOUS */
 #Jobs .Day .continuous .classic:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: 0;
-    right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
 
-    height: 28px;
+  height: 28px;
 }
 
 #Jobs .Day .continuous .compact:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: 0;
-    right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
 
-    height: 6px;
+  height: 6px;
 }
 
 /* START */
 #Jobs .Day .start .classic:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: 50%;
-    right: 0;
+  top: 0;
+  left: 50%;
+  right: 0;
 
-    height: 28px;
+  height: 28px;
 }
 
 #Jobs .Day .start .compact:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: 50%;
-    right: 0;
+  top: 0;
+  left: 50%;
+  right: 0;
 
-    height: 6px;
+  height: 6px;
 }
 
 /* END */
 #Jobs .Day .end .classic:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: 0;
-    right: 50%;
+  top: 0;
+  left: 0;
+  right: 50%;
 
-    height: 28px;
+  height: 28px;
 }
 
 #Jobs .Day .end .compact:after {
-    content: '';
+  content: '';
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    left: 0;
-    right: 50%;
+  top: 0;
+  left: 0;
+  right: 50%;
 
-    height: 6px;
+  height: 6px;
 }
 
 #HeaderAddJob {
-    padding: 24px 24px;
+  padding: 24px 24px;
 
-    opacity: .5;
+  opacity: 0.5;
 }
 
 #HeaderAddJob span {
-    position: relative;
+  position: relative;
 
-    top: -8px;
-    left: 8px;
+  top: -8px;
+  left: 8px;
 
-    font-size: 16px;
+  font-size: 16px;
 }
 
 #HeaderAddJob:hover {
-    cursor: pointer;
-    opacity: 1;
+  cursor: pointer;
+  opacity: 1;
 }
 
 #HeaderAddJob:after {
-    content: none;
+  content: none;
 }
-
 
 /*
     VIEWS SWITCHING
@@ -1082,175 +1150,175 @@ nav #Content > div .section .large-icon span {
 /* VIEW > CLASSIC DAYS */
 
 .viewClassicDays .classic {
-    display: block !important;
+  display: block !important;
 }
 
 .viewClassicDays .classic .classicDay {
-    display: block !important;
+  display: block !important;
 }
 
 .viewClassicDays .classic .classicCapacity {
-    display: none !important;
+  display: none !important;
 }
 
 .viewClassicDays .compact {
-    display: none !important;
+  display: none !important;
 }
 
 .viewClassicDays .empty {
-    height: 28px;
+  height: 28px;
 }
 
 /* VIEW > CLASSIC CAPACITIES */
 
 .viewClassicCapacities .classic {
-    display: block !important;
+  display: block !important;
 }
 
 .viewClassicCapacities .classic .classicDay {
-    display: none !important;
+  display: none !important;
 }
 
 .viewClassicCapacities .classic .classicCapacity {
-    display: block !important;
+  display: block !important;
 }
 
 .viewClassicCapacities .compact {
-    display: none;
+  display: none;
 }
 
 .viewClassicCapacities .empty {
-    height: 28px;
+  height: 28px;
 }
 
 /* VIEW > COMPACT */
 
-.viewCompact .JobName, .viewCompact .JobID {
-    display: inline;
+.viewCompact .JobName,
+.viewCompact .JobID {
+  display: inline;
 
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .viewCompact .JobID {
-    font-weight: 300;
-    font-size: 12px;
+  font-weight: 300;
+  font-size: 12px;
 }
 
 .viewCompact .JobID:before {
-    content: '; ';
+  content: '; ';
 }
 
 .viewCompact .JobID small {
-    display: none;
+  display: none;
 }
 
-.viewCompact .JobDeadline, .viewCompact .JobStatus {
-    display: none;
+.viewCompact .JobDeadline,
+.viewCompact .JobStatus {
+  display: none;
 }
 
 .viewCompact .classic {
-    display: none;
+  display: none;
 }
 
 .viewCompact .classic .classicDay {
-    display: none;
+  display: none;
 }
 
 .viewCompact .classic .classicCapacity {
-    display: none;
+  display: none;
 }
 
 .viewCompact .compact {
-    display: block;
+  display: block;
 }
 
 .viewCompact .empty {
-    height: 6px;
+  height: 6px;
 }
 
 /* REACT CONTEXT MENU */
 
 .react-contextmenu {
-    z-index: 9999;
+  z-index: 9999;
 
-    min-width: 160px;
+  min-width: 160px;
 
-    margin: 2px 0 0;
-    padding: 5px 0;
+  margin: 2px 0 0;
+  padding: 5px 0;
 
-    background-color: #fff;
-    background-clip: padding-box;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
-    color: #373a3c;
-    font-size: 14px;
-    outline: none;
-    opacity: 0;
-    pointer-events: none;
-    text-align: left;
+  background-color: #fff;
+  background-clip: padding-box;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  color: #373a3c;
+  font-size: 14px;
+  outline: none;
+  opacity: 0;
+  pointer-events: none;
+  text-align: left;
 
-    transition: opacity 250ms ease !important;
+  transition: opacity 250ms ease !important;
 }
 
 .react-contextmenu.react-contextmenu--visible {
-    opacity: 1;
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .react-contextmenu-item {
-    background: 0 0;
-    border: 0;
-    color: #373a3c;
-    cursor: pointer;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 3px 20px;
-    text-align: inherit;
-    white-space: nowrap;
+  background: 0 0;
+  border: 0;
+  color: #373a3c;
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 3px 20px;
+  text-align: inherit;
+  white-space: nowrap;
 }
 
 .react-contextmenu-item:focus {
-    outline: none;
+  outline: none;
 }
 
 .react-contextmenu-item.react-contextmenu-item--active,
 .react-contextmenu-item.react-contextmenu-item--selected {
-    color: #fff;
-    background-color: #004466;
-    text-decoration: none;
+  color: #fff;
+  background-color: #004466;
+  text-decoration: none;
 }
 
 .react-contextmenu-item.react-contextmenu-item--disabled,
 .react-contextmenu-item.react-contextmenu-item--disabled:hover {
-    background-color: transparent;
-    border-color: rgba(0,0,0,.15);
-    color: #878a8c;
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #878a8c;
 }
 
 .react-contextmenu-item--divider {
-    border-bottom: 1px solid rgba(0,0,0,.15);
-    cursor: inherit;
-    margin-bottom: 3px;
-    padding: 2px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  cursor: inherit;
+  margin-bottom: 3px;
+  padding: 2px 0;
 }
 .react-contextmenu-item--divider:hover {
-    background-color: transparent;
-    border-color: rgba(0,0,0,.15);
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 .react-contextmenu-item.react-contextmenu-submenu {
-    padding: 0;
+  padding: 0;
 }
 
-.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item {
-}
-
-.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item:after {
-    content: "▶";
-    display: inline-block;
-    position: absolute;
-    right: 7px;
+.react-contextmenu-item.react-contextmenu-submenu
+  > .react-contextmenu-item:after {
+  content: '▶';
+  display: inline-block;
+  position: absolute;
+  right: 7px;
 }
 
 .danger {
-    color: #ff4040;
+  color: #ff4040;
 }

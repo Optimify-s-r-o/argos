@@ -1,125 +1,125 @@
 .settings-column {
-    width: 600px;
-    align-items: stretch;
+  width: 600px;
+  align-items: stretch;
 }
 
 .settings-column .form-card {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .settings-column .form-card-row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    width: 100%;
+  width: 100%;
 }
 
 .settings-column .form-card-row.pamba-path {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .settings-column .form-card-row.pamba-path .form-card-row-header,
 .settings-column .form-card-row.pamba-path .form-card-row-content {
-    width: 100%;
+  width: 100%;
 }
 
 .settings-column .form-card-row-header {
-    width: 30%;
+  width: 30%;
 }
 
 .settings-column .form-card-row-content {
-    width: 70%;
+  width: 70%;
 }
 
 .pamba-path-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .original {
-    color: rgba(0, 0, 0, .4);
-    min-width: 30px;
+  color: rgba(0, 0, 0, 0.4);
+  min-width: 30px;
 }
 
 .original.capacity {
-    width: 40px;
+  width: 40px;
 
-    text-align: right;
-}
-
-.padding {
+  text-align: right;
 }
 
 .new {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
-.settings-row, .settings-row-capacity {
-    display: flex;
+.settings-row,
+.settings-row-capacity {
+  display: flex;
 
-    flex-direction: row;
-    justify-content: flex-end;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .settings-row div:first-child {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .settings-row div:last-child {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 }
 
-.settings-row button, .settings-row-capacity button {
-    margin: -6px 16px
+.settings-row button,
+.settings-row-capacity button {
+  margin: -6px 16px;
 }
 
 .settings-horizontal-arrow {
-    margin: 0 4px;
+  margin: 0 4px;
 }
 
 .react-numeric-input {
-    position: relative;
+  position: relative;
 
-    margin: -8px 6px;
+  margin: -8px 6px;
 }
 
 .react-numeric-input input {
-    margin: 0;
+  margin: 0;
 
-    width: 76px;
+  width: 76px;
 }
 
 .cancel-editing {
-    margin: -4px 42px -3px 30px;
-    padding: 4px 7px;
+  margin: -4px 42px -3px 30px !important;
+  padding: 3px 7px 5px 7px;
 
-    background-color: transparent;
-    border-radius: 50%;
-    color: #004466;
-    cursor: pointer;
-    font-weight: 700;
+  background-color: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: #004466;
+  cursor: pointer;
+  font-weight: 700;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .settings-vertical-arrow {
-    margin: 4px 0 -4px;
+  margin: 4px 0 -4px;
 }
 
 .pamba-path-column .cancel-editing {
-    display: block;
+  display: block;
 
-    margin: 20px 0 -8px 0;
+  margin: 20px 0 -8px 0;
 
-    width: 27px;
+  width: 27px;
 }
 
 .cancel-editing:hover {
-    background-color: #004466;
-    color: #00bbff;
+  background-color: #004466;
+  color: #00bbff;
 }

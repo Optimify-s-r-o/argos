@@ -6,15 +6,7 @@
   },
   "rowDays": {
     "week": "týden",
-    "days": [
-      "ne",
-      "po",
-      "út",
-      "st",
-      "čt",
-      "pá",
-      "so"
-    ]
+    "days": ["ne", "po", "út", "st", "čt", "pá", "so"]
   },
   "rowEvents": {
     "header": "Události"

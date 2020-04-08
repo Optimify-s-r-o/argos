@@ -1,284 +1,290 @@
 .row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    padding: 16px;
+  padding: 16px;
 }
 
 .form-card {
-    background: #FFFFFF;
-    border-radius: 16px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .form-card-header {
-    padding: 16px 24px;
+  padding: 16px 24px;
 
-    background: rgba(0, 68, 102, .05);
-    border-top: 1px solid rgba(0, 68, 102, .2);
-    font-weight: 500;
-    text-transform: uppercase;
+  background: rgba(0, 68, 102, 0.05);
+  border-top: 1px solid rgba(0, 68, 102, 0.2);
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .form-card-header:first-child {
-    border-top: 0;
+  border-top: 0;
 
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .form-card-row {
-    display: table-row;
-    flex-direction: row;
+  display: table-row;
+  flex-direction: row;
 }
 
-.form-card-row-header, .form-card-row-content {
-    display: table-cell;
+.form-card-row-header,
+.form-card-row-content {
+  display: table-cell;
 
-    padding: 16px 0 16px 24px;
+  padding: 16px 0 16px 24px;
 
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .form-card-row-header {
-    width: 200px;
+  width: 200px;
 
-    color: rgba(0, 68, 102, .65);
-    font-weight: 400;
+  color: rgba(0, 68, 102, 0.65);
+  font-weight: 400;
 }
 
 .form-card-row-content {
-    width: 269px;
+  width: 269px;
 
-    color: #004466;
-    font-weight: 400;
+  color: #004466;
+  font-weight: 400;
 }
 
-.form-card-row:last-child .form-card-row-header, .form-card-row:last-child .form-card-row-content,
-.form-card-row:last-of-type .form-card-row-header, .form-card-row:last-of-type .form-card-row-content,
-.form-card-row.no-border .form-card-row-header, .form-card-row.no-border .form-card-row-content {
-    border: 0;
+.form-card-row:last-child .form-card-row-header,
+.form-card-row:last-child .form-card-row-content,
+.form-card-row:last-of-type .form-card-row-header,
+.form-card-row:last-of-type .form-card-row-content,
+.form-card-row.no-border .form-card-row-header,
+.form-card-row.no-border .form-card-row-content {
+  border: 0;
 }
 
 .selectable {
-    user-select: all;
+  user-select: all;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="number"] {
-    width: 100%;
+input[type='text'],
+input[type='date'],
+input[type='number'] {
+  width: 100%;
 
-    margin: -8px -16px;
-    padding: 8px 16px;
+  margin: -8px -16px;
+  padding: 8px 16px;
 
-    background: rgba(0, 68, 102, .05);
-    border: 1px solid transparent;
-    color: #004466;
-    font-family: 'Segoe UI';
+  background: rgba(0, 68, 102, 0.05);
+  border: 1px solid transparent;
+  color: #004466;
+  font-family: 'Segoe UI';
 
-    transition: border .2s ease-in-out;
+  transition: border 0.2s ease-in-out;
 }
 
-input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
-    border: 1px solid rgba(0, 68, 102, .2);
-    outline: 0;
+input[type='text']:focus,
+input[type='date']:focus,
+input[type='number']:focus {
+  border: 1px solid rgba(0, 68, 102, 0.2);
+  outline: 0;
 }
-
 
 /** SELECT */
 
 .react-select-container {
-    width: 100%;
+  width: 100%;
 
-    margin: -8px -16px;
+  margin: -8px -16px;
 }
 
 .react-select__control {
-    background: rgba(0, 68, 102, .05) !important;
-    border: 1px solid transparent !important;
-    border-radius: 0 !important;
+  background: rgba(0, 68, 102, 0.05) !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
 }
 
 .react-select__control--is-focused {
-    border: 1px solid rgba(0, 68, 102, .2) !important;
-    box-shadow: none !important;
-    outline: 0 !important;
+  border: 1px solid rgba(0, 68, 102, 0.2) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
 }
 
 .react-select__single-value {
-    color: #004466 !important;
+  color: #004466 !important;
 }
 
 .react-select__menu {
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .react-select__option--is-focused {
-    background-color: rgba(0, 68, 102, .1) !important;
+  background-color: rgba(0, 68, 102, 0.1) !important;
 }
 
 .react-select__option--is-selected {
-    background-color: #00bbff !important;
+  background-color: #00bbff !important;
 }
 
 .react-select__input > input {
-    margin: 0;
+  margin: 0;
 }
-
 
 /** CALENDAR */
 
 .react-calendar {
-    width: 245px !important;
+  width: 245px !important;
 
-    border: 0 !important;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
-    font-family: 'Segoe UI' !important;
+  border: 0 !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI' !important;
 }
 
 .react-calendar > button {
-    font-family: 'Segoe UI' !important;
+  font-family: 'Segoe UI' !important;
 }
 
 .react-date-picker__calendar,
 .react-daterange-picker__calendar {
-    width: 245px !important;
+  width: 245px !important;
 }
 
 .react-calendar__navigation {
-    height: 32px !important;
+  height: 32px !important;
 
-    margin: 0 0 8px !important;
+  margin: 0 0 8px !important;
 }
 
 .react-calendar__navigation button {
-    min-width: 32px !important;
+  min-width: 32px !important;
 
-    color: #00bbff !important;
-    font-family: 'Segoe UI' !important;
+  color: #00bbff !important;
+  font-family: 'Segoe UI' !important;
 }
 
 .react-calendar__navigation button:hover {
-    background-color: rgba(0, 68, 102, .05) !important;
+  background-color: rgba(0, 68, 102, 0.05) !important;
 }
 
 button.react-calendar__navigation__label {
-    color: #004466 !important;
+  color: #004466 !important;
 }
 
 .react-calendar__month-view__weekdays {
-    margin: 0 0 8px;
+  margin: 0 0 8px;
 
-    font-weight: 300 !important;
-    font-family: 'Segoe UI' !important;
-    text-transform: lowercase !important;
+  font-weight: 300 !important;
+  font-family: 'Segoe UI' !important;
+  text-transform: lowercase !important;
 }
 
 .react-calendar__month-view__weekdays abbr[title] {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .react-calendar__tile {
-    padding: 0.675em 0.5em !important;
-    color: #004466;
-    font-weight: 300 !important;
-    font-family: 'Segoe UI' !important;
+  padding: 0.675em 0.5em !important;
+  color: #004466;
+  font-weight: 300 !important;
+  font-family: 'Segoe UI' !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
-    color: rgba(0, 68, 102, .25) !important;
+  color: rgba(0, 68, 102, 0.25) !important;
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: #ff4040 !important;
+  color: #ff4040 !important;
 }
 
 .react-calendar__tile--active.react-calendar__month-view__days__day--weekend {
-    color: #ffdddd !important;
+  color: #ffdddd !important;
 }
 
 .react-calendar__tile--active {
-    background: #00bbff !important;
+  background: #00bbff !important;
 }
 
 .react-calendar__tile:enabled:hover:not(.react-calendar__tile--active),
 .react-calendar__tile:enabled:focus:not(.react-calendar__tile--active),
-.react-calendar--selectRange .react-calendar__tile--hover:not(.react-calendar__tile--active) {
-    background-color: rgba(0, 68, 102, .05) !important;
-
+.react-calendar--selectRange
+  .react-calendar__tile--hover:not(.react-calendar__tile--active) {
+  background-color: rgba(0, 68, 102, 0.05) !important;
 }
 
 .react-calendar__tile:enabled:hover.react-calendar__tile--active,
 .react-calendar__tile:enabled:focus.react-calendar__tile--active,
-.react-calendar--selectRange .react-calendar__tile--hover.react-calendar__tile--active {
-    background-color: #00a8eb !important;
+.react-calendar--selectRange
+  .react-calendar__tile--hover.react-calendar__tile--active {
+  background-color: #00a8eb !important;
 }
 
-.react-calendar__decade-view__years__year, .react-calendar__year-view__months__month {
-    border-radius: 22px !important;
+.react-calendar__decade-view__years__year,
+.react-calendar__year-view__months__month {
+  border-radius: 22px !important;
 }
 
 .react-calendar__tile--now {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .react-calendar__tile--rangeStart {
-    border-bottom-left-radius: 50%;
-    border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
 }
 
 .react-calendar__tile--rangeEnd {
-    border-bottom-right-radius: 50%;
-    border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
 }
 
 /** DATE PICKER */
 
 .react-date-picker,
 .react-daterange-picker {
-    width: 100%;
+  width: 100%;
 
-    margin: -8px -16px;
+  margin: -8px -16px;
 
-    color: #004466;
-    font-family: 'Segoe UI';
+  color: #004466;
+  font-family: 'Segoe UI';
 }
 
 .react-daterange-picker__wrapper,
 .react-date-picker__wrapper {
-    width: 100%;
+  width: 100%;
 }
 
 .react-date-picker input,
 .react-daterange-picker input {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 
-    background: 0;
-    border: 0;
+  background: 0;
+  border: 0;
 }
 
 .react-daterange-picker input:focus,
 .react-date-picker input:focus {
-    border: 0;
+  border: 0;
 }
 
 .react-daterange-picker .react-daterange-picker__wrapper,
 .react-date-picker .react-date-picker__wrapper {
-    border: 0;
+  border: 0;
 }
 
 .react-daterange-picker__calendar-button,
 .react-date-picker__calendar-button {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 /*.react-daterange-picker__calendar-button > svg,
@@ -293,7 +299,7 @@ button.react-calendar__navigation__label {
 
 .react-daterange-picker__calendar-button:enabled:focus,
 .react-date-picker__calendar-button:enabled:focus {
-    outline: 0;
+  outline: 0;
 }
 
 /*.react-daterange-picker__calendar-button:enabled:focus svg.react-daterange-picker__button__icon,
@@ -307,18 +313,18 @@ button.react-calendar__navigation__label {
 }*/
 
 .react-daterange-picker__inputGroup:first-child {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .react-date-picker__inputGroup {
-    justify-content: center;
+  justify-content: center;
 }
 
 .react-daterange-picker__range-divider {
-    margin: 3px 2px 0;
+  margin: 3px 2px 0;
 }
 
 /** SWITCH */
 .react-switch {
-    margin: -6px -16px -10px !important;
+  margin: -6px -16px -10px !important;
 }

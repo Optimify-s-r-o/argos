@@ -5,22 +5,22 @@ import * as serviceWorker from './serviceWorker';
 import store from './store/index';
 import { Provider } from 'react-redux';
 import './i18n';
-import {getIpcMain} from './utils/electron';
-import {setPambaPath} from './actions/app';
+import { getIpcMain } from './utils/electron';
+import { setPambaPath } from './actions/app';
 const ipcMain = getIpcMain();
 
 // global event listeners
 if (ipcMain) {
-    ipcMain.on('setPambaPath', (e, path) => {
-        store.dispatch(setPambaPath(path));
-    });
+  ipcMain.on('setPambaPath', (e, path) => {
+    store.dispatch(setPambaPath(path));
+  });
 }
 
 ReactDOM.render(
-        <Provider store={store}>
-            <App />
-        </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -8,56 +8,72 @@ const isElectron = typeof window.require === 'function';
 let w = null;
 
 class TitleBar extends React.Component {
-    render() {
-        if (isElectron) {
-            w = window.require('electron').remote.getCurrentWindow();
+  render() {
+    if (isElectron) {
+      w = window.require('electron').remote.getCurrentWindow();
 
-            w.on('show', (e) => {
-                document.getElementById('Maximize').children[0].src = maximize;
-                document.body.classList.add('border');
-            });
+      w.on('show', (e) => {
+        document.getElementById('Maximize').children[0].src = maximize;
+        document.body.classList.add('border');
+      });
 
-            w.on('maximize', (e) => {
-                document.getElementById('Maximize').children[0].src = maximized;
-                document.body.classList.remove('border');
-            });
+      w.on('maximize', (e) => {
+        document.getElementById('Maximize').children[0].src = maximized;
+        document.body.classList.remove('border');
+      });
 
-            w.on('unmaximize', (e) => {
-                document.getElementById('Maximize').children[0].src = maximize;
-                document.body.classList.add('border');
-            });
+      w.on('unmaximize', (e) => {
+        document.getElementById('Maximize').children[0].src = maximize;
+        document.body.classList.add('border');
+      });
+    }
+
+    return (
+      <div
+        id='TitleBar'
+        className={
+          this.props.hasOwnProperty('colorClass') ? this.props.colorClass : ''
         }
+      >
+        {this.props.icon === false ? '' : <div id='Icon'>&nbsp;</div>}
+        <div id='AppName'>{this.props.title}</div>
 
-        return <div id="TitleBar" className={this.props.hasOwnProperty('colorClass') ? this.props.colorClass : ''}>
-            {this.props.icon === false ? '' : <div id="Icon">&nbsp;</div>}
-            <div id="AppName">{this.props.title}</div>
-
-            <div id="Buttons" className={!this.props.hasOwnProperty('buttons') || this.props.buttons ? '' : 'hidden'}>
-                <button id="Minimize" tabIndex={-1} onClick={this.handleMinimize}><img src={minimize} alt="Minimize"/></button>
-                <button id="Maximize" tabIndex={-1} onClick={this.handleMaximize}><img src={maximized} alt="Maximized"/></button>
-                <button id="Close" tabIndex={-1} onClick={this.handleClose}><img src={close} alt="Close"/></button>
-            </div>
+        <div
+          id='Buttons'
+          className={
+            !this.props.hasOwnProperty('buttons') || this.props.buttons
+              ? ''
+              : 'hidden'
+          }
+        >
+          <button id='Minimize' tabIndex={-1} onClick={this.handleMinimize}>
+            <img src={minimize} alt='Minimize' />
+          </button>
+          <button id='Maximize' tabIndex={-1} onClick={this.handleMaximize}>
+            <img src={maximized} alt='Maximized' />
+          </button>
+          <button id='Close' tabIndex={-1} onClick={this.handleClose}>
+            <img src={close} alt='Close' />
+          </button>
         </div>
-    }
+      </div>
+    );
+  }
 
-    handleMinimize() {
-        if (w !== null && w.isMinimizable())
-            w.minimize();
-    }
+  handleMinimize() {
+    if (w !== null && w.isMinimizable()) w.minimize();
+  }
 
-    handleMaximize() {
-        if (w !== null && w.isMaximizable()) {
-            if (w.isMaximized())
-                w.unmaximize();
-            else
-                w.maximize();
-        }
+  handleMaximize() {
+    if (w !== null && w.isMaximizable()) {
+      if (w.isMaximized()) w.unmaximize();
+      else w.maximize();
     }
+  }
 
-    handleClose() {
-        if (w !== null && w.closable)
-            w.close();
-    }
+  handleClose() {
+    if (w !== null && w.closable) w.close();
+  }
 }
 
 export default TitleBar;

@@ -6,9 +6,9 @@ import Views from './Main/Views';
 
 function Main() {
   return [
-      <TitleBar key="titleBar" title="Argos"/>,
-      <Nav key="nav"/>,
-      <Views key="views"/>
+    <TitleBar key='titleBar' title='Argos' />,
+    <Nav key='nav' />,
+    <Views key='views' />,
   ];
 }
 
