@@ -6,17 +6,21 @@ function createWindow() {
   let proxyServer = runProxyServer();
 
   let window = new BrowserWindow({
-    minWidth: 1024,
+    maximizable: false,
+    minimizable: false,
+    resizable: false,
     show: false,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
     },
-    backgroundColor: '#FFFFFF',
     title: 'Argos planner',
+    backgroundColor: '#004466',
+    width: 640,
+    height: 480,
   });
 
-  window.maximize();
+  //window.maximize();
 
   //window.loadURL('http://localhost:3000/');
   window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
@@ -26,7 +30,14 @@ function createWindow() {
   });
 
   ipcMain.on('event', (e, event, data) => {
-    window.webContents.send('event-fired', event, data);
+    const windows = BrowserWindow.getAllWindows();
+    windows.forEach((w) => {
+      w.webContents.send('event-fired', event, data);
+    });
+  });
+
+  ipcMain.on('close-app', () => {
+    app.exit();
   });
 
   ipcMain.handle('restartProxy', (e) => {

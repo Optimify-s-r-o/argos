@@ -9,6 +9,12 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "@types/node": "^13.11.1",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router": "^5.1.5",
+    "@types/react-router-dom": "^5.1.4",
     "@wojtekmaj/react-daterange-picker": "^2.5.0",
     "electron-store": "^5.1.1",
     "i18next": "^17.3.1",
@@ -24,7 +30,7 @@
     "react-numeric-input": "^2.2.3",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.4.1",
     "react-select": "^3.1.0",
     "react-switch": "^5.0.1",
     "redux": "^4.0.5",
@@ -44,7 +50,7 @@
   },
   "build": {
     "productName": "Argos",
-    "copyright": "Copyright © 2018-2019 Optimify s.r.o.",
+    "copyright": "Copyright © 2018-2020 Optimify s.r.o.",
     "files": [
       "build/**/*",
       "node_modules/**/*"

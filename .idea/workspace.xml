@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/accout-get-token.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/accout-get-token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/calendar-days.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/calendar-days.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/get-settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/get-settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/job-create.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/job-create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/job-delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/job-delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/job-set-state.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/job-set-state.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/move-phase-capacity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/move-phase-capacity.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reload-plates.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reload-plates.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/save-setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/save-setting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TitleBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/JobAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/JobAdd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Nav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowCapacities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowCapacities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Main/Views/Calendar/RowJob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/MoveCapacity.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/windows/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/windows/Settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/root.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/root.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/electron.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/electron.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/showPhaseMoveModal.js" afterDir="false" />
-    </list>
+    <list default="true" id="abce1d1d-5d20-49b8-879b-aa9ac6a0e41a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,6 +151,7 @@
       <workItem from="1576434240595" duration="40000" />
       <workItem from="1581946830736" duration="659000" />
       <workItem from="1586018003985" duration="5645000" />
+      <workItem from="1586461380508" duration="4000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1564512880338</created>
