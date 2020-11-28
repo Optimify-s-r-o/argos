@@ -27,7 +27,17 @@ const Submit = (
   }, [props.children]);
 
   return (
-    <StyledSubmit {...props} childrenDimensions={childrenDimensions}>
+    <StyledSubmit
+      {...props}
+      onClick={(e) => {
+        let target = e.target;
+        while (target.nodeName !== 'BUTTON') target = target.parentNode;
+        target.blur();
+
+        props.onClick && props.onClick(e);
+      }}
+      childrenDimensions={childrenDimensions}
+    >
       <LoaderImage visible={props.isLoading} src={loaderDark32} />
       <Content ref={childrenEl} visible={!props.isLoading}>
         {props.children}
