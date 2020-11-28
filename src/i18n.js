@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import login_cs from './translations/cs/login';
 import nav_cs from './translations/cs/nav';
 import calendar_cs from './translations/cs/calendar';
 import job_forms_cs from './translations/cs/job-forms';
@@ -12,6 +13,7 @@ import plates_cs from './translations/cs/plates';
 import settings_cs from './translations/cs/settings';
 import warnings_cs from './translations/cs/warnings';
 
+import login_en from './translations/en/login';
 import nav_en from './translations/en/nav';
 //import calendar_en from './translations/en/calendar';
 import job_forms_en from './translations/en/job-forms';
@@ -26,6 +28,7 @@ i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false }, // React already does escaping
   resources: {
     cs: {
+      login: login_cs,
       nav: nav_cs,
       calendar: calendar_cs,
       jobForms: job_forms_cs,
@@ -38,6 +41,7 @@ i18n.use(initReactI18next).init({
       warnings: warnings_cs,
     },
     en: {
+      login: login_en,
       nav: nav_en,
       jobForms: job_forms_en,
     },

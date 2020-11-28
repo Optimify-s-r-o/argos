@@ -1,0 +1,14 @@
+{
+    "header": "Login",
+    "fields": {
+        "email": "Email",
+        "password": "Password",
+        "login": "Log in"
+    },
+    "errors": {
+        "emptyEmail": "Email must be filled",
+        "emptyPassword": "Password must be filled",
+        "invalidCredentials": "Credentials are not valid",
+        "serviceUnavailable": "Server is unavailable"
+    }
+}

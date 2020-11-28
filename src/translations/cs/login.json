@@ -1,0 +1,14 @@
+{
+    "header": "Přihlášení",
+    "fields": {
+        "email": "Email",
+        "password": "Heslo",
+        "login": "Přihlásit se"
+    },
+    "errors": {
+        "emptyEmail": "Email musí být vyplněn",
+        "emptyPassword": "Heslo musí být vyplněno",
+        "invalidCredentials": "Zadaná kombinace není správná",
+        "serviceUnavailable": "Server není dostupný"
+    }
+}
