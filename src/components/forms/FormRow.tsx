@@ -12,10 +12,8 @@ const FormRow = (props) => {
 
   return (
     <FormCardRow className={showBorder ? '' : 'no-border'}>
-      <FormCardRowHeader className='form-card-row-header'>
-        {props.title}
-      </FormCardRowHeader>
-      <FormCardRowContent className='form-card-row-content'>
+      <FormCardRowHeader>{props.title}</FormCardRowHeader>
+      <FormCardRowContent>
         {selectable ? (
           <Selectable className='selectable'>{props.children}</Selectable>
         ) : (

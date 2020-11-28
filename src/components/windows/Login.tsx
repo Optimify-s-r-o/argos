@@ -1,10 +1,9 @@
 import closeBlack from '../../icons/close_black.png';
+import LoginForm from './Login/LoginForm';
 import optimifyLogo from '../../icons/optimify_logo_dark-bg.svg';
 import React from 'react';
 import styled from 'styled-components';
 import { closeCurrentElectronWindow } from '../../utils/electron';
-import { MainPath, MainSettings } from './Main';
-import { openWindow } from '../OpenWindow';
 
 export const Login = () => {
   return (
@@ -14,24 +13,18 @@ export const Login = () => {
           onClick={() => {
             closeCurrentElectronWindow();
           }}
+          tabIndex='-1'
         >
           <img src={closeBlack} />
         </CloseButton>
       </TopBar>
       <Row key='content'>
         <LogoPanel>
+          <ProductName>Argos</ProductName>
           <OptimifyLogo src={optimifyLogo} alt='Optimify s. r. o.' />
         </LogoPanel>
         <LoginPanel>
-          <button
-            onClick={() => {
-              openWindow(MainPath, MainSettings, (w) => {
-                closeCurrentElectronWindow();
-              });
-            }}
-          >
-            open main
-          </button>
+          <LoginForm />
         </LoginPanel>
       </Row>
     </>
@@ -107,6 +100,41 @@ const LogoPanel = styled(Item)`
     rgba(0, 170, 238, 1) 30%,
     rgba(0, 68, 102, 1) 100%
   );
+
+  overflow: hidden;
+`;
+
+/*const Welcome = styled.div`
+  position: absolute;
+
+  top: 10rem;
+  left: 2.05rem;
+
+  line-height: 32px;
+
+  padding: 0 1rem;
+
+  color: ${(props) => props.theme.colors.white};
+  font-size: 2rem;
+  font-weight: 300;
+`;*/
+
+const ProductName = styled.div`
+  position: absolute;
+
+  top: 14rem;
+  left: -9rem;
+
+  line-height: 32px;
+
+  padding: 0 1rem;
+
+  color: ${(props) => props.theme.colors.white};
+  font-size: 16rem;
+  font-weight: 500;
+
+  opacity: 0.1;
+  transform: rotate(60deg);
 `;
 
 const OptimifyLogo = styled.img`
@@ -119,4 +147,11 @@ const OptimifyLogo = styled.img`
   height: 24px;
 `;
 
-const LoginPanel = styled(Item)``;
+const LoginPanel = styled(Item)`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  padding: 0 2rem 2rem;
+`;

@@ -540,6 +540,8 @@ const Droppable = styled.div`
     border-radius: 16px;
 
     opacity: 0;
+
+    pointer-events: none;
   }
 
   &.dropped:after {

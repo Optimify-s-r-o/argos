@@ -1,4 +1,3 @@
-import accountGetToken from '../../../../api/accout-get-token';
 import getCalendarDays from '../../../../api/calendar-days';
 import jobAddImg from '../../../../icons/add.png';
 import OpenWindow from '../../../OpenWindow';
@@ -68,10 +67,10 @@ const CalendarComponent = (props: CalendarProps) => {
       });
     }
 
-    accountGetToken(props.settings.url, (res) => {
+    /*userAuth(props.settings.url, (res) => {
       // TODO: move to login
       if (res.status === 200) props.setToken(res.body);
-    });
+    });*/
   }, []);
 
   useEffect(() => {
@@ -296,7 +295,7 @@ const Jobs = styled.div`
 
   box-shadow: ${(props) =>
     props.showShadow
-      ? '0 0 16px 0 ' + getColorWithOpacity(props.theme.colors.black, 0.2)
+      ? '0 0 16px 0 ' + getColorWithOpacity(props.theme.colors.black, 20)
       : 'none'};
 `;
 

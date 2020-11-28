@@ -16,6 +16,7 @@
     "@types/react-router": "^5.1.5",
     "@types/react-router-dom": "^5.1.4",
     "@wojtekmaj/react-daterange-picker": "^2.5.0",
+    "concurrently": "^5.3.0",
     "electron-store": "^5.1.1",
     "i18next": "^17.3.1",
     "moment": "^2.24.0",
@@ -36,9 +37,13 @@
     "redux": "^4.0.5",
     "styled-components": "^5.1.0",
     "truncate-middle": "^1.0.6",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "watch": "^1.0.2"
   },
   "scripts": {
+    "dev": "concurrently \"yarn watch\" \"electron . --dev\"",
+    "watch": "watch \"yarn build\" ./src",
+    "postdev": "watch \"yarn build\" ./src",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -86,6 +91,7 @@
   "devDependencies": {
     "electron": "^7.2.1",
     "electron-builder": "^21.2.0",
+    "electron-reloader": "^1.0.1",
     "typescript": "^3.8.3"
   }
 }

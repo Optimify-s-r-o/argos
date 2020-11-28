@@ -2,6 +2,14 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const execFile = require('child_process').execFile;
 
+try {
+  require('electron-reloader')(module, {
+    watchRenderer: true,
+  });
+} catch (_) {
+  console.log('Error');
+}
+
 function createWindow() {
   let proxyServer = runProxyServer();
 

@@ -7,6 +7,7 @@ import { defaultTheme } from '../../styles/theme';
 import '../../styles/main.css';
 
 export const MainPath = '/main';
+export const MainPathWithParams = (token: string) => '/main?token=' + token;
 
 export const MainSettings: BrowserWindowConstructorOptions = {
   minWidth: 1024,

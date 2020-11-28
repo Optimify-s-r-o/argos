@@ -29,7 +29,7 @@ function __getInitialSettings(): SettingsType {
     sort: 'earliest',
     weeks: 4,
     pambaPath: '',
-    url: '104.248.41.203',
+    url: 'localhost:44387',
   };
 
   if (isElectron()) {
@@ -155,8 +155,6 @@ function rootReducer(state = initialState, action) {
     });
   } else if (action.type === ACTION_SET_CALENDAR_DATA) {
     const sortConst = state.settings.sort === 'earliest' ? 1 : -1;
-
-    console.log(action.data);
 
     return Object.assign({}, state, {
       capacities: action.data.capacities,

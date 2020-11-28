@@ -80,12 +80,9 @@ const Settings = () => {
   const [settingsEdited, setSettingsEdited] = useState({});
 
   useEffect(() => {
-    if (
-      params.hasOwnProperty('url') &&
-      params.url &&
-      params.hasOwnProperty('token') &&
-      params.token
-    )
+    const params = queryString.parse(location.search);
+
+    if (params.url && params.token)
       getSettings(params.url as string, params.token as string, (data) => {
         setSettings(data.body);
       });

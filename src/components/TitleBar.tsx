@@ -25,20 +25,29 @@ const TitleBar = (props: TitleBarProps) => {
 
     if (w) {
       w.on('show', (e) => {
-        ((document.getElementById('Maximize') as HTMLElement)
-          .children[0] as HTMLImageElement).src = maximize;
+        const maximizeElement = document.getElementById(
+          'Maximize'
+        ) as HTMLElement;
+        if (maximizeElement)
+          (maximizeElement.children[0] as HTMLImageElement).src = maximize;
         document.body.classList.add('border');
       });
 
       w.on('maximize', (e) => {
-        ((document.getElementById('Maximize') as HTMLElement)
-          .children[0] as HTMLImageElement).src = maximized;
+        const maximizeElement = document.getElementById(
+          'Maximize'
+        ) as HTMLElement;
+        if (maximizeElement)
+          (maximizeElement.children[0] as HTMLImageElement).src = maximized;
         document.body.classList.remove('border');
       });
 
       w.on('unmaximize', (e) => {
-        ((document.getElementById('Maximize') as HTMLElement)
-          .children[0] as HTMLImageElement).src = maximize;
+        const maximizeElement = document.getElementById(
+          'Maximize'
+        ) as HTMLElement;
+        if (maximizeElement)
+          (maximizeElement.children[0] as HTMLImageElement).src = maximize;
         document.body.classList.add('border');
       });
     }
