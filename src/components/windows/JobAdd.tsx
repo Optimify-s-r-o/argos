@@ -61,7 +61,7 @@ const JobAdd = () => {
 
     getJobList((res) => {
       let jobList: Array<{ label: string; value: string }> = [];
-      res.body.forEach((jobIdentification: string) => {
+      res.body.jobs.forEach((jobIdentification: string) => {
         jobList.push({
           label: jobIdentification,
           value: jobIdentification,
@@ -81,6 +81,7 @@ const JobAdd = () => {
   const handleJobSelected = (event) => {
     // TODO: add loader
     getJob(event.value, (res) => {
+      console.log(res);
       setLoadedJob(res.body);
       // TODO: remove loader
     });
@@ -194,10 +195,10 @@ const JobAdd = () => {
               {t('jobForms:common.detailedInfo')}
             </div>
             <FormRow title={t('jobForms:common.location')} selectable={true}>
-              {loadedJob ? loadedJob.Place : ''}
+              {loadedJob ? loadedJob.address : ''}
             </FormRow>
             <FormRow title={t('jobForms:common.description')} selectable={true}>
-              {loadedJob ? loadedJob.Type : ''}
+              {loadedJob ? loadedJob.type : ''}
             </FormRow>
             <FormRow title='Sněhová oblast' selectable={true}></FormRow>
             <FormRow title='Zatížení' selectable={true}></FormRow>

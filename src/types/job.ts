@@ -46,6 +46,7 @@ export enum PhaseTypeEnum {
 export type WarningType = '';
 
 export type LoadedJobType = {
-  Place: string;
-  Type: string;
+  address: string;
+  name: string;
+  type: string;
 };
