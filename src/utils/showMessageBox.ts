@@ -18,7 +18,7 @@ export const MSGBOX_TYPE_INFO = 'info';
 export const MSGBOX_TYPE_WARNING = 'warning';
 export const MSGBOX_TYPE_ERROR = 'error';
 
-type Type = 'info' | 'warning' | 'error';
+type Type = 'success' | 'info' | 'warning' | 'error';
 
 export const MSGBOX_BUTTON_OK = 'ok';
 export const MSGBOX_BUTTON_YES = 'yes';

@@ -1,14 +1,21 @@
 import queryString from 'query-string';
 import React from 'react';
 import styled from 'styled-components';
-import TitleBar from '../TitleBar';
 import { BrowserWindowConstructorOptions } from 'electron';
-import { Column, Row, TextButton } from '../../styles/global';
 import { defaultTheme, getColorWithOpacity } from '../../styles/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Row, TextButton } from '../../styles/global';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
+  faCheckCircle,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import {
   closeCurrentElectronWindow,
+  getCurrentElectronWindow,
   getIpcRenderer,
   setCurrentElectronWindowTitle,
 } from '../../utils/electron';
@@ -30,8 +37,10 @@ const MessageBoxSettings: BrowserWindowConstructorOptions = {
   backgroundColor: '#f0f0f0',
   show: false,
   useContentSize: true,
-  width: 320,
-  height: 133,
+  width: 480,
+  height: 240,
+  parent: getCurrentElectronWindow(),
+  modal: true,
 };
 
 const MessageBox = (props: MessageBoxProps) => {
@@ -52,16 +61,24 @@ const MessageBox = (props: MessageBoxProps) => {
   setCurrentElectronWindowTitle(t(params.key + '.title'));
 
   return (
-    <>
-      <TitleBar
-        title={t(params.key + '.title')}
-        icon={false}
-        buttons={false}
-        colorClass={params.type as string}
-      />
-      <Content>
-        <Column>{t(params.key + '.text')}</Column>
-      </Content>
+    <Wrapper type={params.type}>
+      <TextWrapper>
+        <Title>{t(params.key + '.title')}</Title>
+        <Content>{t(params.key + '.text')}</Content>
+      </TextWrapper>
+      <Symbol>
+        <FontAwesomeIcon
+          icon={
+            params.type === 'success'
+              ? faCheckCircle
+              : params.type === 'warning'
+              ? faExclamationTriangle
+              : params.type === 'error' || params.type === 'danger'
+              ? faExclamationCircle
+              : faInfoCircle
+          }
+        />
+      </Symbol>
       <Buttons>
         {buttons.map((button) => {
           return (
@@ -69,101 +86,135 @@ const MessageBox = (props: MessageBoxProps) => {
               key={button}
               buttonType={params.type}
               button={button}
+              type={params.type}
               onClick={() => {
                 onButtonClick(button, params.windowId as string);
               }}
+              autoFocus={button === 'yes' || button === 'ok'}
             >
               {t('messageBox:buttons.' + button)}
             </MsgBoxButton>
           );
         })}
       </Buttons>
-    </>
+    </Wrapper>
   );
 };
 
 export { MessageBox, MessageBoxPath, MessageBoxSettings };
 
-const colors = {
-  info: {
-    yes: defaultTheme.colors.primary,
-    ok: defaultTheme.colors.primary,
-    no: getColorWithOpacity(defaultTheme.colors.black, 25),
-    cancel: getColorWithOpacity(defaultTheme.colors.black, 25),
-  },
-  warning: {
-    yes: defaultTheme.colors.warning,
-    ok: defaultTheme.colors.warning,
-    no: getColorWithOpacity(defaultTheme.colors.black, 25),
-    cancel: getColorWithOpacity(defaultTheme.colors.black, 25),
-  },
-  error: {
-    yes: defaultTheme.colors.danger,
-    ok: defaultTheme.colors.danger,
-    no: getColorWithOpacity(defaultTheme.colors.black, 25),
-    cancel: getColorWithOpacity(defaultTheme.colors.black, 25),
-  },
-};
+const Wrapper = styled.div<{ type: string }>`
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-const Content = styled(Row)`
-  padding: 16px;
+  height: 100%;
 
+  padding: 16px 32px;
+
+  background-color: ${(props) =>
+    props.type === 'info'
+      ? props.theme.colors.primary
+      : props.theme.colors[props.type]};
+  color: ${(props) => props.theme.colors.white};
   font-weight: 400;
+
+  overflow: hidden;
+`;
+
+const Symbol = styled.div`
+  position: absolute;
+
+  top: -48px;
+  right: -48px;
+
+  line-height: 256px;
+
+  font-size: 256px;
+
+  opacity: 0.2;
+  pointer-events: none;
+  transform: rotate(20deg);
+`;
+
+const TextWrapper = styled.div`
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.div`
+  margin-bottom: 24px;
+
+  font-size: 32px;
+  font-weight: 300;
+`;
+
+const Content = styled.div`
+  flex-grow: 1;
+
+  font-size: 16px;
 `;
 
 const Buttons = styled(Row)`
   padding: 8px 16px;
 
-  justify-content: flex-end;
-
-  background-color: white;
+  justify-content: center;
 `;
 
-const MsgBoxButton = styled(TextButton)`
+const MsgBoxButton = styled(TextButton)<{ type: string }>`
   display: inline-block;
 
-  margin-left: 16px;
+  margin: 0 0.5rem;
 
-  border-color: ${(props) => colors[props.buttonType][props.button]};
-  color: ${(props) => colors[props.buttonType][props.button]};
+  background-color: ${(props) =>
+    props.button === 'yes' || props.button === 'ok'
+      ? props.theme.colors.white
+      : 'transparent'};
+  border: none;
+  color: ${(props) =>
+    props.button === 'yes' || props.button === 'ok'
+      ? props.theme.colors[props.type]
+      : props.theme.colors.white};
 
   &:hover {
     background-color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? colors[props.buttonType][props.button]
-        : getColorWithOpacity(defaultTheme.colors.black, 25)};
-    border-color: ${(props) =>
-      props.button === 'yes' || props.button === 'ok'
-        ? colors[props.buttonType][props.button]
-        : 'transparent'};
+        ? props.theme.colors.white
+        : getColorWithOpacity(props.theme.colors.black, 10)};
+    box-shadow: 0 0 10px 0
+      ${(props) =>
+        props.button === 'yes' || props.button === 'ok'
+          ? getColorWithOpacity(props.theme.colors.black, 20)
+          : getColorWithOpacity(props.theme.colors.black, 10)};
     color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? props.theme.colors.white
-        : props.theme.colors.primary};
+        ? props.theme.colors[props.type]
+        : props.theme.colors.white};
   }
 
   &:active {
     background-color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? 'inherit'
-        : getColorWithOpacity(defaultTheme.colors.black, 25)};
-    border-color: ${(props) =>
-      props.button === 'yes' || props.button === 'ok'
-        ? colors[props.buttonType][props.button]
-        : 'transparent'};
+        ? '#eeeeee'
+        : getColorWithOpacity(props.theme.colors.black, 20)};
     color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? 'inherit'
-        : props.theme.colors.primary};
+        ? props.theme.colors[props.type]
+        : props.theme.colors.white};
   }
 
   &:focus {
     outline: ${(props) =>
       props.button === 'yes' || props.button === 'ok' ? 'inherit' : 0};
 
-    box-shadow: ${(props) =>
+    background-color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? 'inherit'
-        : '0 0 10px 0 ' + getColorWithOpacity(props.theme.colors.black, 10)};
+        ? props.theme.colors.white
+        : getColorWithOpacity(defaultTheme.colors.black, 20)};
+
+    box-shadow: 0 0 20px 2px
+      ${(props) => getColorWithOpacity(props.theme.colors.black, 20)};
   }
 `;

@@ -100,14 +100,6 @@ const TitleBarWrapper = styled.div`
   color: ${(props) => props.theme.colors.white};
 
   -webkit-app-region: drag;
-
-  &.error {
-    background-color: ${(props) => props.theme.colors.danger};
-  }
-
-  &.warning {
-    background-color: ${(props) => props.theme.colors.warning};
-  }
 `;
 
 const TitleBarItem = styled.div`

@@ -313,6 +313,75 @@ const NavComponent = (props: NavComponentProps) => {
       isVisible: true, // TODO
       sections: [],
     },
+    {
+      name: 'dev',
+      title: 'Developement',
+      isSpecial: false,
+      isVisible: true,
+      sections: [
+        {
+          header: 'Message boxes',
+          items: [
+            {
+              type: 'largeIcon',
+              onClick: () => {
+                showMessageBox('Success message', 'success', [
+                  'yes',
+                  'no',
+                  'ok',
+                  'cancel',
+                ]);
+              },
+              active: false,
+              src: '',
+              title: 'Success',
+            },
+            {
+              type: 'largeIcon',
+              onClick: () => {
+                showMessageBox('Info message', 'info', [
+                  'yes',
+                  'no',
+                  'ok',
+                  'cancel',
+                ]);
+              },
+              active: false,
+              src: '',
+              title: 'Info',
+            },
+            {
+              type: 'largeIcon',
+              onClick: () => {
+                showMessageBox('Warning message', 'warning', [
+                  'yes',
+                  'no',
+                  'ok',
+                  'cancel',
+                ]);
+              },
+              active: false,
+              src: '',
+              title: 'Warning',
+            },
+            {
+              type: 'largeIcon',
+              onClick: () => {
+                showMessageBox('Error message', 'error', [
+                  'yes',
+                  'no',
+                  'ok',
+                  'cancel',
+                ]);
+              },
+              active: false,
+              src: '',
+              title: 'Error',
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   return (

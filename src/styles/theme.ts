@@ -30,6 +30,7 @@ export const defaultTheme = {
     success: 'rgba(102, 221, 0)',
     warning: 'rgba(255, 188, 69, 1)',
     danger: 'rgba(255, 64, 64, 1)',
+    error: 'rgba(255, 64, 64, 1)',
     black: 'rgba(0, 0, 0, 1)',
     white: 'rgba(255, 255, 255, 1)',
   },
