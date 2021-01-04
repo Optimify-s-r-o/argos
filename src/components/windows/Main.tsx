@@ -1,9 +1,13 @@
 import Nav from './Main/Nav';
-import React from 'react';
+import queryString from 'query-string';
+import React, { useEffect } from 'react';
 import TitleBar from '../TitleBar';
 import Views from './Main/Views';
+import { appAccountTokenSet } from '../../actions/app';
 import { BrowserWindowConstructorOptions } from 'electron';
+import { connect } from 'react-redux';
 import { defaultTheme } from '../../styles/theme';
+import { useLocation } from 'react-router';
 import '../../styles/main.css';
 
 export const MainPath = '/main';
@@ -20,7 +24,24 @@ export const MainSettings: BrowserWindowConstructorOptions = {
   title: 'Argos planner',
 };
 
-export const Main = () => {
+interface MainProps {
+  setToken: (token: string) => void;
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setToken: (token: string) => dispatch(appAccountTokenSet(token)),
+  };
+};
+
+const MainComponent = (props: MainProps) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = queryString.parse(location.search);
+    props.setToken(params.token as string);
+  }, []);
+
   return (
     <>
       <TitleBar title='Argos planner' />
@@ -29,5 +50,7 @@ export const Main = () => {
     </>
   );
 };
+
+const Main = connect(null, mapDispatchToProps)(MainComponent);
 
 export default Main;
