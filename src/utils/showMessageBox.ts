@@ -14,11 +14,13 @@ const uuid = require('uuid/v1');
 const path = require('path');
 const ipcMain = getIpcMain();
 
+export const MSGBOX_TYPE_SUCCESS = 'success';
 export const MSGBOX_TYPE_INFO = 'info';
 export const MSGBOX_TYPE_WARNING = 'warning';
+export const MSGBOX_TYPE_QUESTION = 'question';
 export const MSGBOX_TYPE_ERROR = 'error';
 
-type Type = 'success' | 'info' | 'warning' | 'error';
+type Type = 'success' | 'info' | 'warning' | 'question' | 'error';
 
 export const MSGBOX_BUTTON_OK = 'ok';
 export const MSGBOX_BUTTON_YES = 'yes';

@@ -32,75 +32,74 @@ const LoginForm = () => {
 
   return (
     <>
-      <LoginHeader>{t('login:header')}</LoginHeader>
-      <LoginFormItem>
-        <label htmlFor={FIELD_EMAIL}>{t('login:fields.email')}</label>
-        <Input
-          type='email'
-          id={FIELD_EMAIL}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          hasError={errors.includes(ERROR_EMPTY_EMAIL)}
-        />
-        <ErrorBox>
-          {errors.includes(ERROR_EMPTY_EMAIL) &&
-            t('login:errors.' + ERROR_EMPTY_EMAIL)}
-        </ErrorBox>
-      </LoginFormItem>
-      <LoginFormItem>
-        <label htmlFor={FIELD_PASSWORD}>{t('login:fields.password')}</label>
-        <Input
-          type='password'
-          id={FIELD_PASSWORD}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          hasError={errors.includes(ERROR_EMPTY_PASSWORD)}
-        />
-        <ErrorBox>
-          {errors.includes(ERROR_EMPTY_PASSWORD) &&
-            t('login:errors.' + ERROR_EMPTY_PASSWORD)}
-          {errors.includes(ERROR_INVALID_CREDENTIALS) && (
-            <Center>{t('login:errors.' + ERROR_INVALID_CREDENTIALS)}</Center>
-          )}
-          {errors.includes(ERROR_SERVICE_UNAVAILABLE) && (
-            <Center>{t('login:errors.' + ERROR_SERVICE_UNAVAILABLE)}</Center>
-          )}
-        </ErrorBox>
-      </LoginFormItem>
-      <LoginFormItem>
-        <Submit
-          isLoading={isLoading}
-          onClick={() => {
-            setLoading(true);
-            setErrors([]);
-            userAuth(email, password, state.settings.url, (data) => {
-              setLoading(false);
-              if (data.status === 200) {
-                openWindow(
-                  MainPathWithParams(data.body.token),
-                  MainSettings,
-                  (w) => {
-                    closeCurrentElectronWindow();
-                  }
-                );
-              } else if (data.status === 400) {
-                const newErrors: Array<ErrorType> = [];
-                if (data.body.errors.hasOwnProperty('Email'))
-                  newErrors.push(ERROR_EMPTY_EMAIL);
-                if (data.body.errors.hasOwnProperty('Password'))
-                  newErrors.push(ERROR_EMPTY_PASSWORD);
-                setErrors(newErrors);
-              } else if (data.status === 422) {
-                setErrors([ERROR_INVALID_CREDENTIALS]);
-              } else if (data.status === 503) {
-                setErrors([ERROR_SERVICE_UNAVAILABLE]);
-              }
-            });
-          }}
-        >
-          {t('login:fields.login')}
-        </Submit>
-      </LoginFormItem>
+      <form
+        onSubmit={() => {
+          setLoading(true);
+          setErrors([]);
+          userAuth(email, password, state.settings.url, (data) => {
+            setLoading(false);
+            if (data.status === 200) {
+              openWindow(
+                MainPathWithParams(data.body.token),
+                MainSettings,
+                (w) => {
+                  closeCurrentElectronWindow();
+                }
+              );
+            } else if (data.status === 400) {
+              const newErrors: Array<ErrorType> = [];
+              if (data.body.errors.hasOwnProperty('Email'))
+                newErrors.push(ERROR_EMPTY_EMAIL);
+              if (data.body.errors.hasOwnProperty('Password'))
+                newErrors.push(ERROR_EMPTY_PASSWORD);
+              setErrors(newErrors);
+            } else if (data.status === 422) {
+              setErrors([ERROR_INVALID_CREDENTIALS]);
+            } else if (data.status === 503) {
+              setErrors([ERROR_SERVICE_UNAVAILABLE]);
+            }
+          });
+        }}
+      >
+        <LoginHeader>{t('login:header')}</LoginHeader>
+        <LoginFormItem>
+          <label htmlFor={FIELD_EMAIL}>{t('login:fields.email')}</label>
+          <Input
+            type='email'
+            id={FIELD_EMAIL}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            hasError={errors.includes(ERROR_EMPTY_EMAIL)}
+          />
+          <ErrorBox>
+            {errors.includes(ERROR_EMPTY_EMAIL) &&
+              t('login:errors.' + ERROR_EMPTY_EMAIL)}
+          </ErrorBox>
+        </LoginFormItem>
+        <LoginFormItem>
+          <label htmlFor={FIELD_PASSWORD}>{t('login:fields.password')}</label>
+          <Input
+            type='password'
+            id={FIELD_PASSWORD}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            hasError={errors.includes(ERROR_EMPTY_PASSWORD)}
+          />
+          <ErrorBox>
+            {errors.includes(ERROR_EMPTY_PASSWORD) &&
+              t('login:errors.' + ERROR_EMPTY_PASSWORD)}
+            {errors.includes(ERROR_INVALID_CREDENTIALS) && (
+              <Center>{t('login:errors.' + ERROR_INVALID_CREDENTIALS)}</Center>
+            )}
+            {errors.includes(ERROR_SERVICE_UNAVAILABLE) && (
+              <Center>{t('login:errors.' + ERROR_SERVICE_UNAVAILABLE)}</Center>
+            )}
+          </ErrorBox>
+        </LoginFormItem>
+        <LoginFormItem>
+          <Submit isLoading={isLoading}>{t('login:fields.login')}</Submit>
+        </LoginFormItem>
+      </form>
     </>
   );
 };

@@ -1,17 +1,22 @@
 import queryString from 'query-string';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BrowserWindowConstructorOptions } from 'electron';
-import { defaultTheme, getColorWithOpacity } from '../../styles/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, TextButton } from '../../styles/global';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
+  defaultTheme,
+  getColorWithOpacity,
+  getMultipliedColor,
+} from '../../styles/theme';
+import {
   faCheckCircle,
   faExclamationCircle,
   faExclamationTriangle,
   faInfoCircle,
+  faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   closeCurrentElectronWindow,
@@ -48,6 +53,8 @@ const MessageBox = (props: MessageBoxProps) => {
   const location = useLocation();
   const params = queryString.parse(location.search);
 
+  const [type] = useState(params.type);
+
   const onButtonClick = (button: string, windowId: string) => {
     ipcRenderer.send('msgboxButtonClick.' + windowId, button);
     closeCurrentElectronWindow();
@@ -61,20 +68,22 @@ const MessageBox = (props: MessageBoxProps) => {
   setCurrentElectronWindowTitle(t(params.key + '.title'));
 
   return (
-    <Wrapper type={params.type}>
+    <Wrapper type={type}>
       <TextWrapper>
         <Title>{t(params.key + '.title')}</Title>
         <Content>{t(params.key + '.text')}</Content>
       </TextWrapper>
-      <Symbol>
+      <Symbol type={type}>
         <FontAwesomeIcon
           icon={
-            params.type === 'success'
+            type === 'success'
               ? faCheckCircle
-              : params.type === 'warning'
+              : type === 'warning'
               ? faExclamationTriangle
-              : params.type === 'error' || params.type === 'danger'
+              : type === 'error' || type === 'danger'
               ? faExclamationCircle
+              : type === 'question'
+              ? faQuestionCircle
               : faInfoCircle
           }
         />
@@ -84,9 +93,8 @@ const MessageBox = (props: MessageBoxProps) => {
           return (
             <MsgBoxButton
               key={button}
-              buttonType={params.type}
               button={button}
-              type={params.type}
+              type={type}
               onClick={() => {
                 onButtonClick(button, params.windowId as string);
               }}
@@ -113,16 +121,14 @@ const Wrapper = styled.div<{ type: string }>`
   padding: 16px 32px;
 
   background-color: ${(props) =>
-    props.type === 'info'
-      ? props.theme.colors.primary
-      : props.theme.colors[props.type]};
+    getMultipliedColor(props.theme.colors[props.type], 0.9)};
   color: ${(props) => props.theme.colors.white};
   font-weight: 400;
 
   overflow: hidden;
 `;
 
-const Symbol = styled.div`
+const Symbol = styled.div<{ type: string }>`
   position: absolute;
 
   top: -48px;
@@ -130,14 +136,17 @@ const Symbol = styled.div`
 
   line-height: 256px;
 
+  color: ${(props) => props.theme.colors[props.type]};
   font-size: 256px;
 
-  opacity: 0.2;
   pointer-events: none;
   transform: rotate(20deg);
 `;
 
 const TextWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+
   flex-grow: 1;
 
   display: flex;
@@ -175,7 +184,7 @@ const MsgBoxButton = styled(TextButton)<{ type: string }>`
   border: none;
   color: ${(props) =>
     props.button === 'yes' || props.button === 'ok'
-      ? props.theme.colors[props.type]
+      ? getMultipliedColor(props.theme.colors[props.type], 0.8)
       : props.theme.colors.white};
 
   &:hover {
@@ -190,7 +199,7 @@ const MsgBoxButton = styled(TextButton)<{ type: string }>`
           : getColorWithOpacity(props.theme.colors.black, 10)};
     color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? props.theme.colors[props.type]
+        ? getMultipliedColor(props.theme.colors[props.type], 0.8)
         : props.theme.colors.white};
   }
 
@@ -201,7 +210,7 @@ const MsgBoxButton = styled(TextButton)<{ type: string }>`
         : getColorWithOpacity(props.theme.colors.black, 20)};
     color: ${(props) =>
       props.button === 'yes' || props.button === 'ok'
-        ? props.theme.colors[props.type]
+        ? getMultipliedColor(props.theme.colors[props.type], 0.8)
         : props.theme.colors.white};
   }
 

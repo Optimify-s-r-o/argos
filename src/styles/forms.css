@@ -96,51 +96,9 @@ input[type='number']:focus {
   outline: 0;
 }*/
 
-/** SELECT */
-
-.react-select-container {
-  width: 100%;
-
-  margin: -8px -16px;
-}
-
-.react-select__control {
-  background: rgba(0, 68, 102, 0.05) !important;
-  border: 1px solid transparent !important;
-  border-radius: 0 !important;
-}
-
-.react-select__control--is-focused {
-  border: 1px solid rgba(0, 68, 102, 0.2) !important;
-  box-shadow: none !important;
-  outline: 0 !important;
-}
-
-.react-select__single-value {
-  color: #004466 !important;
-}
-
-.react-select__menu {
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
-}
-
-.react-select__option--is-focused {
-  background-color: rgba(0, 68, 102, 0.1) !important;
-}
-
-.react-select__option--is-selected {
-  background-color: #00bbff !important;
-}
-
-.react-select__input > input {
-  margin: 0;
-}
-
 /** CALENDAR */
 
-.react-calendar {
+/*.react-calendar {
   width: 245px !important;
 
   border: 0 !important;
@@ -244,11 +202,11 @@ button.react-calendar__navigation__label {
 .react-calendar__tile--rangeEnd {
   border-bottom-right-radius: 50%;
   border-top-right-radius: 50%;
-}
+}*/
 
 /** DATE PICKER */
 
-.react-date-picker,
+/*.react-date-picker,
 .react-daterange-picker {
   width: 100%;
 
@@ -297,7 +255,7 @@ button.react-calendar__navigation__label {
     stroke: #00bbff;
 }*/
 
-.react-daterange-picker__calendar-button:enabled:focus,
+/*.react-daterange-picker__calendar-button:enabled:focus,
 .react-date-picker__calendar-button:enabled:focus {
   outline: 0;
 }
@@ -312,7 +270,7 @@ button.react-calendar__navigation__label {
     fill: #00bbff;
 }*/
 
-.react-daterange-picker__inputGroup:first-child {
+/*.react-daterange-picker__inputGroup:first-child {
   justify-content: flex-end;
 }
 
@@ -322,9 +280,9 @@ button.react-calendar__navigation__label {
 
 .react-daterange-picker__range-divider {
   margin: 3px 2px 0;
-}
+}*/
 
 /** SWITCH */
-.react-switch {
+/*.react-switch {
   margin: -6px -16px -10px !important;
-}
+}*/

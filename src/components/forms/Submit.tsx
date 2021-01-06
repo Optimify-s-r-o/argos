@@ -1,6 +1,6 @@
 import loaderDark32 from '../../icons/loader-dark-32px.svg';
 import styled from 'styled-components';
-import { getMultipliedColor } from '../../styles/theme';
+import { getColorWithOpacity, getMultipliedColor } from '../../styles/theme';
 import React, {
   ButtonHTMLAttributes,
   useEffect,
@@ -10,6 +10,7 @@ import React, {
 
 interface SubmitProps {
   isLoading?: boolean;
+  hideDisabled?: boolean;
 }
 
 const Submit = (
@@ -72,7 +73,8 @@ const Content = styled.span<{ visible: boolean }>`
 `;
 
 const StyledSubmit = styled.button<{
-  isLoading: boolean;
+  isLoading?: boolean;
+  hideDisabled?: boolean;
   childrenDimensions: { width: number; height: number };
 }>`
   position: relative;
@@ -97,7 +99,7 @@ const StyledSubmit = styled.button<{
   cursor: pointer;
   transition: all 0.2s ease-out;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: ${(props) =>
       getMultipliedColor(props.theme.colors.accent, 1.1)};
     box-shadow: 0 5px 25px -10px rgba(0, 0, 0, 0.5);
@@ -109,5 +111,13 @@ const StyledSubmit = styled.button<{
     box-shadow: 0 5px 25px -5px ${(props) => props.theme.colors.accent};
 
     outline: 0;
+  }
+
+  &:disabled {
+    background: ${(props) =>
+      getColorWithOpacity(props.theme.colors.accent, 75)};
+
+    cursor: default;
+    opacity: ${(props) => (props.hideDisabled ? 0 : 100)};
   }
 `;

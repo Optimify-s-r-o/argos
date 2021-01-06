@@ -30,7 +30,7 @@ import {
 } from '../GenerateDocument';
 import {
   MSGBOX_BUTTONS_OK,
-  MSGBOX_TYPE_INFO,
+  MSGBOX_TYPE_SUCCESS,
   showMessageBox,
 } from '../../../utils/showMessageBox';
 import {
@@ -116,7 +116,11 @@ const NavComponent = (props: NavComponentProps) => {
     alert('TODO: fix'); // TODO
     getPlates((data) => {
       reloadPlates(props.url, props.token, data.body, (data) => {
-        showMessageBox('plates:reloaded', MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
+        showMessageBox(
+          'plates:reloaded',
+          MSGBOX_TYPE_SUCCESS,
+          MSGBOX_BUTTONS_OK
+        );
       });
     });
   };
@@ -325,12 +329,7 @@ const NavComponent = (props: NavComponentProps) => {
             {
               type: 'largeIcon',
               onClick: () => {
-                showMessageBox('Success message', 'success', [
-                  'yes',
-                  'no',
-                  'ok',
-                  'cancel',
-                ]);
+                showMessageBox('Success message', 'success', ['ok']);
               },
               active: false,
               src: '',
@@ -339,12 +338,7 @@ const NavComponent = (props: NavComponentProps) => {
             {
               type: 'largeIcon',
               onClick: () => {
-                showMessageBox('Info message', 'info', [
-                  'yes',
-                  'no',
-                  'ok',
-                  'cancel',
-                ]);
+                showMessageBox('Info message', 'info', ['ok']);
               },
               active: false,
               src: '',
@@ -353,12 +347,7 @@ const NavComponent = (props: NavComponentProps) => {
             {
               type: 'largeIcon',
               onClick: () => {
-                showMessageBox('Warning message', 'warning', [
-                  'yes',
-                  'no',
-                  'ok',
-                  'cancel',
-                ]);
+                showMessageBox('Warning message', 'warning', ['ok', 'cancel']);
               },
               active: false,
               src: '',
@@ -367,16 +356,20 @@ const NavComponent = (props: NavComponentProps) => {
             {
               type: 'largeIcon',
               onClick: () => {
-                showMessageBox('Error message', 'error', [
-                  'yes',
-                  'no',
-                  'ok',
-                  'cancel',
-                ]);
+                showMessageBox('Error message', 'error', ['ok']);
               },
               active: false,
               src: '',
               title: 'Error',
+            },
+            {
+              type: 'largeIcon',
+              onClick: () => {
+                showMessageBox('Question message', 'question', ['yes', 'no']);
+              },
+              active: false,
+              src: '',
+              title: 'Question',
             },
           ],
         },

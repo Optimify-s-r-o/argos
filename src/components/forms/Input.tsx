@@ -1,5 +1,6 @@
 import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
+import { getColorWithOpacity } from '../../styles/theme';
 
 interface InputProps {
   hasError?: boolean;
@@ -17,13 +18,15 @@ const StyledInput = styled.input`
 
   border: 0;
   border-radius: 999px;
-  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.25) ${(props) => (props.hasError ? ', inset 0 0 0 1px ' + props.theme.colors.danger : '')};
+  box-shadow: 0 5px 10px -5px ${(props) =>
+      getColorWithOpacity(props.theme.colors.primary, 25)} ${(props) => (props.hasError ? ', inset 0 0 0 1px ' + props.theme.colors.danger : '')};
   font-family: 'Segoe UI';
 
   transition: box-shadow 0.2s ease-out;
 
   &:focus {
-    box-shadow: 0 5px 25px -10px rgba(0, 0, 0, 0.5) ${(props) => (props.hasError ? ', inset 0 0 0 1px ' + props.theme.colors.danger : '')};
+    box-shadow: 0 5px 25px -10px ${(props) =>
+        getColorWithOpacity(props.theme.colors.accent, 50)} ${(props) => (props.hasError ? ', inset 0 0 0 1px ' + props.theme.colors.danger : '')};
 
     outline: 0;
   }

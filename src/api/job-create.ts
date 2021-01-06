@@ -18,7 +18,7 @@ const jobCreate = async (
   contractEnd = getFormattedDate(contractEnd);
 
   try {
-    const result = await fetch('http://' + url + '/api/job', {
+    const result = await fetch('https://' + url + '/api/v1/jobs/import', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

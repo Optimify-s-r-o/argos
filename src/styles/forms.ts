@@ -1,14 +1,21 @@
 import styled from 'styled-components';
 import { Column } from './global';
 
+export const FormBackground = styled.div`
+  height: 100%;
+
+  background: ${(props) => props.theme.colors.primary};
+`;
+
 export const FormColumn = styled(Column)`
-  padding: 16px;
+  padding: 32px;
 `;
 
 export const FormCard = styled.div`
-  background: ${(props) => props.theme.colors.white};
-  border-radius: 16px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 8px 16px;
+
+  background-color: ${(props) => props.theme.colors.background};
+  box-shadow: 0 0 48px -8px rgba(0, 0, 0, 0.75);
 `;
 
 export const FormCardHeader = styled.div`
@@ -25,4 +32,12 @@ export const FormCardHeader = styled.div`
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
   }
+`;
+
+export const FormCardButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 16px 0 0;
 `;
