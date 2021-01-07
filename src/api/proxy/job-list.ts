@@ -2,7 +2,7 @@ import { CallbackType } from '../../types/api';
 
 const getJobList = async (callback: CallbackType) => {
   try {
-    const result = await fetch('https://localhost:44394/api/v1/jobs/list', {
+    const result = await fetch('http://localhost:65432/api/v1/jobs/list', {
       method: 'GET',
       headers: {
         Accept: 'application/json',

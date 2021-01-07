@@ -2,7 +2,7 @@ import { CallbackType } from '../../types/api';
 
 const getPlates = async (callback: CallbackType) => {
   try {
-    const result = await fetch('https://localhost:44394/api/v1/plates', {
+    const result = await fetch('http://localhost:65432/api/v1/plates', {
       method: 'GET',
       headers: {
         Accept: 'application/json',

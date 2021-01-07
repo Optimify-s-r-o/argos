@@ -7,7 +7,7 @@ const reloadPlates = async (
   callback: CallbackType
 ) => {
   try {
-    const result = await fetch('https://' + url + '/api/v1/plates', {
+    const result = await fetch(url + '/api/v1/plates', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

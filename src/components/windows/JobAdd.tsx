@@ -38,6 +38,7 @@ import {
   MSGBOX_TYPE_INFO,
   showMessageBox,
 } from '../../utils/showMessageBox';
+import { getDateString } from '../../utils/days';
 
 const ipcRenderer = getIpcRenderer();
 
@@ -93,7 +94,6 @@ const JobAdd = () => {
   const handleJobSelected = (event) => {
     // TODO: add loader
     getJob(event.value, (res) => {
-      console.log(res);
       setLoadedJob(res.body);
       // TODO: remove loader
     });
@@ -101,37 +101,34 @@ const JobAdd = () => {
 
   const handleAddJob = () => {
     if (token && url && loadedJob) {
-      // TODO: validate inputs
-      jobCreate(
-        url,
-        token,
-        deadline,
-        contractDates.startDate,
-        contractDates.endDate,
-        customerId,
-        acceptedByCustomer,
-        loadedJob,
-        (res) => {
-          if (isElectron() && res.status === 200) {
-            ipcRenderer.send('event', EVENT_JOB_CREATED, res.body);
+      // edit loadedJob
+      loadedJob.customer = customerId;
+      loadedJob.contractStart = getDateString(contractDates.startDate);
+      loadedJob.contractEnd = getDateString(contractDates.endDate);
+      loadedJob.deadline = getDateString(deadline);
 
-            showMessageBox(
-              'jobForms:added',
-              MSGBOX_TYPE_INFO,
-              MSGBOX_BUTTONS_OK,
-              () => {
-                closeCurrentElectronWindow();
-              }
-            );
-          } else if (res.status === 422) {
-            showMessageBox(
-              'jobForms:duplicateJob',
-              MSGBOX_TYPE_ERROR,
-              MSGBOX_BUTTONS_OK
-            );
-          }
+      // TODO: validate inputs
+      jobCreate(url, token, loadedJob, (res) => {
+        // TODO: review error codes
+        if (isElectron() && res.status === 200) {
+          ipcRenderer.send('event', EVENT_JOB_CREATED, res.body);
+
+          showMessageBox(
+            'jobForms:added',
+            MSGBOX_TYPE_INFO,
+            MSGBOX_BUTTONS_OK,
+            () => {
+              closeCurrentElectronWindow();
+            }
+          );
+        } else if (res.status === 422) {
+          showMessageBox(
+            'jobForms:duplicateJob',
+            MSGBOX_TYPE_ERROR,
+            MSGBOX_BUTTONS_OK
+          );
         }
-      );
+      });
     } else {
       console.error('Not logged in!');
       alert('ERROR in JobAdd component!');

@@ -29,7 +29,7 @@ function __getInitialSettings(): SettingsType {
     sort: 'earliest',
     weeks: 4,
     pambaPath: '',
-    url: 'localhost:44387',
+    url: 'http://localhost:5000',
   };
 
   if (isElectron()) {

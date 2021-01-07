@@ -7,7 +7,7 @@ const userAuth = async (
   callback: CallbackType
 ) => {
   try {
-    const result = await fetch('https://' + url + '/api/v1/users/auth', {
+    const result = await fetch(url + '/api/v1/users/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
