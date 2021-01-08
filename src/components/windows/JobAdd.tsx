@@ -11,9 +11,11 @@ import styled from 'styled-components';
 import Submit from '../forms/Submit';
 import Switch from '../forms/Switch';
 import TitleBar from '../TitleBar';
+import { callReloadPlates } from '../../utils/helper-functions';
 import { DatePicker, DateRangePicker } from '../forms/Calendar';
 import { EVENT_JOB_CREATED } from '../../events/jobs';
 import { getColorWithOpacity } from '../../styles/theme';
+import { getDateString } from '../../utils/days';
 import { LoadedJobType } from '../../types/job';
 import { Row } from '../../styles/global';
 import { useLocation } from 'react-router';
@@ -28,7 +30,6 @@ import {
 } from '../../styles/forms';
 import {
   getIpcRenderer,
-  isElectron,
   closeCurrentElectronWindow,
   setCurrentElectronWindowTitle,
 } from '../../utils/electron';
@@ -38,7 +39,6 @@ import {
   MSGBOX_TYPE_INFO,
   showMessageBox,
 } from '../../utils/showMessageBox';
-import { getDateString } from '../../utils/days';
 
 const ipcRenderer = getIpcRenderer();
 
@@ -110,7 +110,7 @@ const JobAdd = () => {
       // TODO: validate inputs
       jobCreate(url, token, loadedJob, (res) => {
         // TODO: review error codes
-        if (isElectron() && res.status === 200) {
+        if (res.status === 200) {
           ipcRenderer.send('event', EVENT_JOB_CREATED, res.body);
 
           showMessageBox(
@@ -121,9 +121,15 @@ const JobAdd = () => {
               closeCurrentElectronWindow();
             }
           );
-        } else if (res.status === 422) {
+        } else if (
+          res.status === 422 &&
+          res.body.errorCode === 'PlateNameNotExists'
+        ) {
+          callReloadPlates(url, token);
+          handleAddJob();
+        } else {
           showMessageBox(
-            'jobForms:duplicateJob',
+            'Uncatched error!',
             MSGBOX_TYPE_ERROR,
             MSGBOX_BUTTONS_OK
           );

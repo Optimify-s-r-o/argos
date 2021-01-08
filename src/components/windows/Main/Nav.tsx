@@ -6,15 +6,14 @@ import compact from '../../../icons/style_compact.png';
 import deadlineEarliest from '../../../icons/deadline_earliest.png';
 import deadlineLatest from '../../../icons/deadline_latest.png';
 import generateDocument from '../../../icons/generate_special.png';
-import getPlates from '../../../api/proxy/get-plates';
 import inventory from '../../../icons/inventure.png';
 import months from '../../../icons/months.png';
 import React from 'react';
-import reloadPlates from '../../../api/reload-plates';
 import settings from '../../../icons/settings-icon.png';
 import styled, { keyframes } from 'styled-components';
 import view from '../../../icons/view.png';
 import weeks from '../../../icons/weeks.png';
+import { callReloadPlates } from '../../../utils/helper-functions';
 import { connect } from 'react-redux';
 import { getColorWithOpacity, getMultipliedColor } from '../../../styles/theme';
 import { openWindow } from '../../OpenWindow';
@@ -25,14 +24,14 @@ import { SettingsPath, SettingsSettings } from '../Settings';
 import { setView } from '../../../actions/view';
 import { useTranslation } from 'react-i18next';
 import {
-  GenerateDocumentPath,
-  GenerateDocumentSettings,
-} from '../GenerateDocument';
-import {
   MSGBOX_BUTTONS_OK,
   MSGBOX_TYPE_SUCCESS,
   showMessageBox,
 } from '../../../utils/showMessageBox';
+import {
+  GenerateDocumentPath,
+  GenerateDocumentSettings,
+} from '../GenerateDocument';
 import {
   ViewType,
   CalendarViewType,
@@ -112,19 +111,6 @@ const mapDispatchToProps = (dispatch) => {
 const NavComponent = (props: NavComponentProps) => {
   const { t } = useTranslation();
 
-  const callReloadPlates = () => {
-    alert('TODO: fix'); // TODO
-    getPlates((data) => {
-      reloadPlates(props.url, props.token, data.body, (data) => {
-        showMessageBox(
-          'plates:reloaded',
-          MSGBOX_TYPE_SUCCESS,
-          MSGBOX_BUTTONS_OK
-        );
-      });
-    });
-  };
-
   const nav: NavDefinition = [
     {
       name: 'home',
@@ -167,7 +153,14 @@ const NavComponent = (props: NavComponentProps) => {
           items: [
             {
               type: 'largeIcon',
-              onClick: () => callReloadPlates(),
+              onClick: () =>
+                callReloadPlates(props.url, props.token, () => {
+                  showMessageBox(
+                    'plates:reloaded',
+                    MSGBOX_TYPE_SUCCESS,
+                    MSGBOX_BUTTONS_OK
+                  );
+                }),
               src: '',
               title: t('nav:home.actions.reloadPlates'),
             },
