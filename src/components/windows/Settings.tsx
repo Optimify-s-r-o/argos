@@ -5,31 +5,25 @@ import React, { useEffect, useState } from 'react';
 import saveSetting from '../../api/save-setting';
 import styled from 'styled-components';
 import TitleBar from '../TitleBar';
-import truncateMiddle from 'truncate-middle';
-import { FormCard, FormCardHeader, FormColumn } from '../../styles/forms';
+import { FormCard, FormBackground } from '../../styles/forms';
 import { getColorWithOpacity } from '../../styles/theme';
 import { Row, TextButton } from '../../styles/global';
 import { showMessageBox } from '../../utils/showMessageBox';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import FormRow, {
-  FormCardRow,
-  FormCardRowHeader,
-  FormCardRowContent,
-} from '../forms/FormRow';
+import FormRow from '../forms/FormRow';
+import { setCurrentElectronWindowTitle } from '../../utils/electron';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  getDialog,
-  getIpcRenderer,
-  setCurrentElectronWindowTitle,
-} from '../../utils/electron';
-
-const ipcRenderer = getIpcRenderer();
-const dialog = getDialog();
+  faCogs,
+  faSlidersH,
+  faBriefcase,
+} from '@fortawesome/free-solid-svg-icons';
 
 const SettingsPath = '/settings';
 
 const SettingsSettings = {
-  width: 602,
+  width: 657,
   height: 542,
   maximizable: false,
   resizable: false,
@@ -72,10 +66,6 @@ const Settings = () => {
   const [token] = useState(params.token as string);
   const [url] = useState(params.url as string);
   const [saveEnabled, setSaveEnabled] = useState(false);
-  const [pambaPath, setPambaPath] = useState(params.pambaPath as string);
-  const [pambaPathOriginal, setPambaPathOriginal] = useState(
-    params.pambaPath as string
-  );
   const [settings, setSettings] = useState({});
   const [settingsEdited, setSettingsEdited] = useState({});
 
@@ -91,14 +81,10 @@ const Settings = () => {
 
   useEffect(() => {
     setSaveStatus();
-  }, [pambaPath, pambaPathOriginal, settingsEdited]);
+  }, [settingsEdited]);
 
   const setSaveStatus = () => {
-    if (
-      pambaPath !== pambaPathOriginal ||
-      Object.keys(settingsEdited).length > 0
-    )
-      setSaveEnabled(true);
+    if (Object.keys(settingsEdited).length > 0) setSaveEnabled(true);
     else setSaveEnabled(false);
   };
 
@@ -108,20 +94,6 @@ const Settings = () => {
         [setting]: value,
       })
     );
-  };
-
-  const openFolderSelection = () => {
-    if (dialog) {
-      let path = dialog.showOpenDialogSync({
-        properties: ['openDirectory'],
-      })[0];
-
-      setPambaPath(path);
-    }
-  };
-
-  const revertPambaPath = () => {
-    setPambaPath(pambaPathOriginal);
   };
 
   const edit = (setting) => {
@@ -140,11 +112,6 @@ const Settings = () => {
   };
 
   const save = () => {
-    if (pambaPath !== pambaPathOriginal) {
-      ipcRenderer.send('setPambaPath', pambaPath);
-      setPambaPathOriginal(pambaPath);
-    }
-
     if (Object.keys(settingsEdited).length > 0) {
       Object.keys(settingsEdited).map((key) => {
         saveSetting(url, token, key, settingsEdited[key], (result) => {
@@ -171,60 +138,23 @@ const Settings = () => {
   const phases = ['saw', 'press', 'construction']; // TODO: change to external constant
 
   return (
-    <>
+    <FormBackground>
       <TitleBar title={t('settings:title')} icon={false} />
       <Row>
-        <SettingsColumn>
-          <FormCard>
-            <FormCardHeader>{t('settings:common.header')}</FormCardHeader>
+        <SettingsWrapper>
+          <SettingsCategories>
+            <Category isActive>
+              <FontAwesomeIcon icon={faCogs} /> Obecné
+            </Category>
+            <Category>
+              <FontAwesomeIcon icon={faSlidersH} /> Kapacity
+            </Category>
+            <Category>
+              <FontAwesomeIcon icon={faBriefcase} /> Směny
+            </Category>
+          </SettingsCategories>
 
-            <PambaRow>
-              <FormCardRowHeader>
-                {t('settings:common.pambaPath')}
-              </FormCardRowHeader>
-              <FormCardRowContent>
-                <SettingsRow>
-                  <PambaPathColumn>
-                    <Original>
-                      {truncateMiddle(
-                        pambaPathOriginal ? pambaPathOriginal : '',
-                        30,
-                        30,
-                        '. . .'
-                      )}
-                    </Original>
-                    {pambaPath !== pambaPathOriginal
-                      ? [
-                          <VerticalArrow>↓</VerticalArrow>,
-                          <New>
-                            {truncateMiddle(
-                              pambaPath ? pambaPath : '',
-                              30,
-                              30,
-                              '. . .'
-                            )}
-                          </New>,
-                        ]
-                      : ''}
-                  </PambaPathColumn>
-                  <PambaPathColumn>
-                    <TextButton onClick={openFolderSelection}>
-                      {t('settings:common.pambaPathChange')}
-                    </TextButton>
-                    {pambaPath !== pambaPathOriginal ? (
-                      <CancelEditingPamba onClick={() => revertPambaPath()}>
-                        🞨
-                      </CancelEditingPamba>
-                    ) : (
-                      ''
-                    )}
-                  </PambaPathColumn>
-                </SettingsRow>
-              </FormCardRowContent>
-            </PambaRow>
-
-            <FormCardHeader>{t('settings:capacities.header')}</FormCardHeader>
-
+          <SettingsContent>
             {phases.map((phase) => {
               return (
                 <FormRow title={t('settings:capacities.' + phase)}>
@@ -273,75 +203,51 @@ const Settings = () => {
                 {t('settings:save')}
               </TextButton>
             </FormRow>
-          </FormCard>
-        </SettingsColumn>
+          </SettingsContent>
+        </SettingsWrapper>
       </Row>
-    </>
+    </FormBackground>
   );
 };
 
 export { Settings, SettingsPath, SettingsSettings };
 
-const SettingsColumn = styled(FormColumn)`
-  width: 600px;
+const SettingsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   align-items: stretch;
 
-  ${FormCard} {
-    display: flex;
-    flex-direction: column;
+  padding: 32px;
+`;
+
+const SettingsCategories = styled.div`
+  width: 200px;
+
+  background: ${(props) => getColorWithOpacity(props.theme.colors.white, 10)};
+`;
+
+const Category = styled.div<{ isActive: boolean }>`
+  padding: 16px 24px;
+
+  background: ${(props) =>
+    props.isActive
+      ? getColorWithOpacity(props.theme.colors.white, 10)
+      : 'transparent'};
+  color: ${(props) => getColorWithOpacity(props.theme.colors.white, 80)};
+
+  transition: all 0.2s ease-out;
+
+  svg {
+    margin-right: 8px;
   }
 
-  ${FormCardRow} {
-    display: flex;
-    flex-direction: row;
-
-    width: 100%;
-
-    ${FormCardRowHeader} {
-      width: 30%;
-    }
-
-    ${FormCardRowContent} {
-      width: 70%;
-    }
+  &:hover {
+    color: ${(props) => props.theme.colors.white};
   }
 `;
 
-const PambaRow = styled(FormCardRow)`
-  flex-direction: column !important;
-
-  ${FormCardRowHeader},
-  ${FormCardRowContent} {
-    width: 100% !important;
-  }
-`;
-
-const PambaPathColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const SettingsRow = styled.div`
-  display: flex;
-
-  flex-direction: row;
-  justify-content: flex-end;
-
-  div:first-child {
-    flex-grow: 1;
-  }
-
-  div:last-child {
-    display: flex;
-
-    flex-direction: column;
-  }
-
-  ${TextButton} {
-    margin: -6px 16px;
-  }
+const SettingsContent = styled(FormCard)`
+  width: 392px;
 `;
 
 const SettingsRowCapacity = styled.div`
@@ -386,17 +292,9 @@ const CancelEditing = styled.button`
   }
 `;
 
-const CancelEditingPamba = styled(CancelEditing)`
-  display: block;
-
-  margin: 0 0 -4px 0 !important;
-
-  width: 27px;
-`;
-
-const VerticalArrow = styled.div`
+/*const VerticalArrow = styled.div`
   margin: 4px 0 -4px;
-`;
+`;*/
 
 const HorizontalArrow = styled.div`
   margin: 0 4px;
@@ -411,8 +309,4 @@ const OriginalCapacity = styled(Original)`
   width: 40px;
 
   text-align: right;
-`;
-
-const New = styled.div`
-  margin-top: 8px;
 `;
