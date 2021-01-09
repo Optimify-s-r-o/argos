@@ -1,4 +1,4 @@
-import getCalendarDays from '../../../../api/calendar-days';
+import getCalendarDays from '../../../../api/calendar/overwiev';
 import jobAddImg from '../../../../icons/add.png';
 import OpenWindow from '../../../OpenWindow';
 import React, { useEffect, useState } from 'react';

@@ -1,11 +1,11 @@
 {
   "tabs": {
-    "home": "Domů",
+    "common": "Obecné",
     "material": "Materiál",
     "calendarView": "Zobrazení kalendáře",
     "jobsView": "Zakázky"
   },
-  "home": {
+  "common": {
     "view": {
       "header": "Zobrazení",
       "calendar": "Kalendář",

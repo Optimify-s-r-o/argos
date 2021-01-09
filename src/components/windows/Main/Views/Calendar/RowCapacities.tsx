@@ -52,26 +52,30 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
           phases.forEach((phase) => {
             capacities[phase] = {
               absolute: {
-                used: props.capacities[key]
-                  ? props.capacities[key][phase].used
-                  : null,
-                available: props.capacities[key]
-                  ? props.capacities[key][phase].available
-                  : null,
-                full: props.capacities[key]
-                  ? props.capacities[key][phase].used +
-                    props.capacities[key][phase].available
-                  : null,
+                used:
+                  props.capacities && props.capacities[key]
+                    ? props.capacities[key][phase].used
+                    : null,
+                available:
+                  props.capacities && props.capacities[key]
+                    ? props.capacities[key][phase].available
+                    : null,
+                full:
+                  props.capacities && props.capacities[key]
+                    ? props.capacities[key][phase].used +
+                      props.capacities[key][phase].available
+                    : null,
               },
-              percentage: props.capacities[key]
-                ? 100 -
-                  Math.round(
-                    (props.capacities[key][phase].used /
-                      (props.capacities[key][phase].used +
-                        props.capacities[key][phase].available)) *
-                      100
-                  )
-                : null, // TODO: dividing by 0
+              percentage:
+                props.capacities && props.capacities[key]
+                  ? 100 -
+                    Math.round(
+                      (props.capacities[key][phase].used /
+                        (props.capacities[key][phase].used +
+                          props.capacities[key][phase].available)) *
+                        100
+                    )
+                  : null, // TODO: dividing by 0
             };
           });
 

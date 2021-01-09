@@ -36,7 +36,7 @@ import {
 import {
   MSGBOX_BUTTONS_OK,
   MSGBOX_TYPE_ERROR,
-  MSGBOX_TYPE_INFO,
+  MSGBOX_TYPE_SUCCESS,
   showMessageBox,
 } from '../../utils/showMessageBox';
 
@@ -115,7 +115,7 @@ const JobAdd = () => {
 
           showMessageBox(
             'jobForms:added',
-            MSGBOX_TYPE_INFO,
+            MSGBOX_TYPE_SUCCESS,
             MSGBOX_BUTTONS_OK,
             () => {
               closeCurrentElectronWindow();
@@ -125,8 +125,9 @@ const JobAdd = () => {
           res.status === 422 &&
           res.body.errorCode === 'PlateNameNotExists'
         ) {
-          callReloadPlates(url, token);
-          handleAddJob();
+          callReloadPlates(url, token, () => {
+            handleAddJob();
+          });
         } else {
           showMessageBox(
             'Uncatched error!',

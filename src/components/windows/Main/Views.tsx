@@ -1,8 +1,8 @@
-import Calendar from './Views/Calendar';
 import isConnected from '../../../api/proxy/connected';
 import OpenWindow from '../../OpenWindow';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import views from '../../../enums/views';
 import WarningBar from './Views/WarningBar';
 import { connect } from 'react-redux';
 import { SettingsPath, SettingsSettings } from '../Settings';
@@ -61,7 +61,7 @@ const Views = (props: ViewsProps) => {
           </OpenWindow>
         }
       />
-      <View>{props.view === 'calendar' ? <Calendar /> : ''}</View>
+      <View>{views.hasOwnProperty(props.view) && views[props.view]}</View>
     </ViewsWrapper>
   );
 };

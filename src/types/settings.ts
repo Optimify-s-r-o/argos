@@ -1,6 +1,6 @@
 export interface SettingsType {
   currentNav: NavType;
-  view: ViewType;
+  view: string;
   calendarView: CalendarViewType;
   capacitiesView: CapacitiesViewType;
   sort: SortType;
@@ -10,8 +10,6 @@ export interface SettingsType {
 }
 
 export type NavType = 'home' | 'material' | 'calendarView' | 'jobsView';
-
-export type ViewType = 'calendar' | 'jobs';
 
 export type CalendarViewType = 'classicDays' | 'classicCapacities' | 'compact';
 

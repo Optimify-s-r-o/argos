@@ -1,4 +1,4 @@
-import { CallbackType } from '../types/api';
+import { CallbackType } from '../../types/api';
 
 const getCalendarDays = async (
   url: string,
@@ -9,7 +9,7 @@ const getCalendarDays = async (
 ) => {
   try {
     const result = await fetch(
-      'http://' + url + '/api/calendar/' + from + '/' + to + '/days',
+      url + '/api/v1/calendar/overview/full?from=' + from + '&to=' + to,
       {
         method: 'GET',
         headers: {

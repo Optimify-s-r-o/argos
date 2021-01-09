@@ -1,39 +1,14 @@
-import capacitiesAbsolute from '../../../icons/capacities_absolute.png';
-import capacitiesPercentual from '../../../icons/capacities_percentual.png';
-import classicCapacities from '../../../icons/style_capacities.png';
-import classicDays from '../../../icons/style_dates.png';
-import compact from '../../../icons/style_compact.png';
-import deadlineEarliest from '../../../icons/deadline_earliest.png';
-import deadlineLatest from '../../../icons/deadline_latest.png';
-import generateDocument from '../../../icons/generate_special.png';
-import inventory from '../../../icons/inventure.png';
-import months from '../../../icons/months.png';
+import nav, { LargeIconDefinition } from '../../../enums/nav';
 import React from 'react';
-import settings from '../../../icons/settings-icon.png';
 import styled, { keyframes } from 'styled-components';
-import view from '../../../icons/view.png';
-import weeks from '../../../icons/weeks.png';
-import { callReloadPlates } from '../../../utils/helper-functions';
 import { connect } from 'react-redux';
 import { getColorWithOpacity, getMultipliedColor } from '../../../styles/theme';
-import { openWindow } from '../../OpenWindow';
 import { setCalendarView, setWeeks, sort } from '../../../actions/calendar';
 import { setCapacitiesView } from '../../../actions/capacities';
 import { setCurrentNav } from '../../../actions/nav';
-import { SettingsPath, SettingsSettings } from '../Settings';
 import { setView } from '../../../actions/view';
 import { useTranslation } from 'react-i18next';
 import {
-  MSGBOX_BUTTONS_OK,
-  MSGBOX_TYPE_SUCCESS,
-  showMessageBox,
-} from '../../../utils/showMessageBox';
-import {
-  GenerateDocumentPath,
-  GenerateDocumentSettings,
-} from '../GenerateDocument';
-import {
-  ViewType,
   CalendarViewType,
   CapacitiesViewType,
   SortType,
@@ -51,34 +26,11 @@ interface NavComponentProps {
   url: string;
   token: string;
   setCurrentNav: (nav: NavType) => void;
-  setView: (string: ViewType) => void;
+  setView: (string: string) => void;
   setWeeks: (weeks: number) => void;
   setCalendarView: (view: CalendarViewType) => void;
   setCapacitiesView: (view: CapacitiesViewType) => void;
   sort: (string: SortType) => void;
-}
-
-type NavDefinition = Array<TabDefinition>;
-
-interface TabDefinition {
-  name: string;
-  title: string;
-  isSpecial?: boolean;
-  isVisible?: boolean;
-  sections: Array<SectionDefinition>;
-}
-
-interface SectionDefinition {
-  header: string;
-  items: Array<LargeIconDefinition>;
-}
-
-interface LargeIconDefinition {
-  type: 'largeIcon';
-  onClick: () => void;
-  active?: boolean;
-  src: string;
-  title: string;
 }
 
 const mapStateToProps = (state) => {
@@ -98,7 +50,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentNav: (nav: NavType) => dispatch(setCurrentNav(nav)),
-    setView: (view: ViewType) => dispatch(setView(view)),
+    setView: (view: string) => dispatch(setView(view)),
     setWeeks: (weeks: number) => dispatch(setWeeks(weeks)),
     setCalendarView: (view: CalendarViewType) =>
       dispatch(setCalendarView(view)),
@@ -111,269 +63,23 @@ const mapDispatchToProps = (dispatch) => {
 const NavComponent = (props: NavComponentProps) => {
   const { t } = useTranslation();
 
-  const nav: NavDefinition = [
-    {
-      name: 'home',
-      title: t('nav:tabs.home'),
-      sections: [
-        {
-          header: t('nav:home.view.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => props.setView('calendar'),
-              active: props.view === 'calendar',
-              src: weeks,
-              title: t('nav:home.view.calendar'),
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => props.setView('jobs'),
-              active: props.view === 'jobs',
-              src: view,
-              title: t('nav:home.view.jobs'),
-            },
-          ],
-        },
-        {
-          header: t('nav:home.forms.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                openWindow(GenerateDocumentPath, GenerateDocumentSettings);
-              },
-              src: generateDocument,
-              title: t('nav:home.forms.generateDocument'),
-            },
-          ],
-        },
-        {
-          header: t('nav:home.actions.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () =>
-                callReloadPlates(props.url, props.token, () => {
-                  showMessageBox(
-                    'plates:reloaded',
-                    MSGBOX_TYPE_SUCCESS,
-                    MSGBOX_BUTTONS_OK
-                  );
-                }),
-              src: '',
-              title: t('nav:home.actions.reloadPlates'),
-            },
-          ],
-        },
-        {
-          header: t('nav:home.settings.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () =>
-                openWindow(
-                  SettingsPath +
-                    '?url=' +
-                    props.url +
-                    '&pambaPath=' +
-                    props.pambaPath +
-                    '&token=' +
-                    props.token,
-                  SettingsSettings
-                ),
-              src: settings,
-              title: t('nav:home.settings.settings'),
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'material',
-      title: t('nav:tabs.material'),
-      sections: [
-        {
-          header: t('nav:material.inventory.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => alert('TODO'),
-              src: inventory,
-              title: t('nav:material.inventory.inventory'),
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'calendarView',
-      title: t('nav:tabs.calendarView'),
-      isSpecial: true,
-      isVisible: true, // TODO
-      sections: [
-        {
-          header: t('nav:calendarView.period.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => props.setWeeks(4),
-              active: props.weeks === 4,
-              src: months,
-              title: t('nav:calendarView.period.months'),
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => props.setWeeks(1),
-              active: props.weeks === 1,
-              src: weeks,
-              title: t('nav:calendarView.period.weeks'),
-            },
-          ],
-        },
-        {
-          header: t('nav:calendarView.sort.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => props.sort('earliest'),
-              active: props.sortState === 'earliest',
-              src: deadlineEarliest,
-              title: t('nav:calendarView.sort.deadlineEarliest'),
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => props.sort('latest'),
-              active: props.sortState === 'latest',
-              src: deadlineLatest,
-              title: t('nav:calendarView.sort.deadlineLatest'),
-            },
-          ],
-        },
-        {
-          header: t('nav:calendarView.capacitiesView.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => props.setCapacitiesView('percentage'),
-              active: props.capacitiesView === 'percentage',
-              src: capacitiesPercentual,
-              title: t('nav:calendarView.capacitiesView.percentual'),
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => props.setCapacitiesView('absolute'),
-              active: props.capacitiesView === 'absolute',
-              src: capacitiesAbsolute,
-              title: t('nav:calendarView.capacitiesView.absolute'),
-            },
-          ],
-        },
-        {
-          header: t('nav:calendarView.phaseView.header'),
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                props.setCalendarView('classicDays');
-              },
-              active: props.calendarView === 'classicDays',
-              src: classicDays,
-              title: t('nav:calendarView.phaseView.classicDays'),
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                props.setCalendarView('classicCapacities');
-              },
-              active: props.calendarView === 'classicCapacities',
-              src: classicCapacities,
-              title: t('nav:calendarView.phaseView.classicCapacities'),
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                props.setCalendarView('compact');
-              },
-              active: props.calendarView === 'compact',
-              src: compact,
-              title: t('nav:calendarView.phaseView.compact'),
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'jobsView',
-      title: t('nav:tabs.jobsView'),
-      isSpecial: true,
-      isVisible: true, // TODO
-      sections: [],
-    },
-    {
-      name: 'dev',
-      title: 'Developement',
-      isSpecial: false,
-      isVisible: true,
-      sections: [
-        {
-          header: 'Message boxes',
-          items: [
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                showMessageBox('Success message', 'success', ['ok']);
-              },
-              active: false,
-              src: '',
-              title: 'Success',
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                showMessageBox('Info message', 'info', ['ok']);
-              },
-              active: false,
-              src: '',
-              title: 'Info',
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                showMessageBox('Warning message', 'warning', ['ok', 'cancel']);
-              },
-              active: false,
-              src: '',
-              title: 'Warning',
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                showMessageBox('Error message', 'error', ['ok']);
-              },
-              active: false,
-              src: '',
-              title: 'Error',
-            },
-            {
-              type: 'largeIcon',
-              onClick: () => {
-                showMessageBox('Question message', 'question', ['yes', 'no']);
-              },
-              active: false,
-              src: '',
-              title: 'Question',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  const navDefinition = nav(props.url, props.token, t, {
+    view: props.view,
+    viewSetter: props.setView,
+    weeks: props.weeks,
+    weeksSetter: props.setWeeks,
+    sort: props.sortState,
+    sortSetter: props.sort,
+    capacitiesView: props.capacitiesView,
+    capacitiesViewSetter: props.setCapacitiesView,
+    calendarView: props.calendarView,
+    calendarViewSetter: props.setCalendarView,
+  });
 
   return (
     <NavEl>
       <Tabs>
-        {nav.map((tab) => {
+        {navDefinition.map((tab) => {
           return (
             <TabButton
               onClick={() => props.setCurrentNav(tab.name as NavType)}
@@ -387,7 +93,7 @@ const NavComponent = (props: NavComponentProps) => {
         })}
       </Tabs>
       <NavContent>
-        {nav.map((tab) => {
+        {navDefinition.map((tab) => {
           return (
             <TabContent
               className={props.currentNav === tab.name ? 'active' : ''}
