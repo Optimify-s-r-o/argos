@@ -1,5 +1,10 @@
 {
   "title": "Nastavení",
+  "categories": {
+    "common": "Obecné",
+    "capacities": "Kapacity",
+    "shifts": "Směny"
+  },
   "common": {
     "header": "Základní",
     "pambaPath": "Cesta k databázi",

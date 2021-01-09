@@ -18,3 +18,9 @@ export type CalendarViewType = 'classicDays' | 'classicCapacities' | 'compact';
 export type CapacitiesViewType = 'percentage' | 'absolute';
 
 export type SortType = 'earliest' | 'latest';
+
+export interface SettingsCategory {
+  name: string;
+  icon: any;
+  component: any;
+}
