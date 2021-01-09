@@ -33,7 +33,8 @@ const LoginForm = () => {
   return (
     <>
       <form
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
           setLoading(true);
           setErrors([]);
           userAuth(email, password, state.settings.url, (data) => {
