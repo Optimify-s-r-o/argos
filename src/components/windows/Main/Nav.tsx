@@ -1,8 +1,10 @@
 import nav, { LargeIconDefinition } from '../../../enums/nav';
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { closeCurrentElectronWindow } from '../../../utils/electron';
 import { connect } from 'react-redux';
 import { getColorWithOpacity, getMultipliedColor } from '../../../styles/theme';
+import { openWindow } from '../../OpenWindow';
 import { setCalendarView, setWeeks, sort } from '../../../actions/calendar';
 import { setCapacitiesView } from '../../../actions/capacities';
 import { setCurrentNav } from '../../../actions/nav';
@@ -114,6 +116,38 @@ const NavComponent = (props: NavComponentProps) => {
             </TabContent>
           );
         })}
+        <NavContentRight>
+          <Section isRight>
+            <SectionHeader>{t('nav:user.header')}</SectionHeader>
+            <LargeIcon
+              type='largeIcon'
+              title={t('nav:user.logout')}
+              src=''
+              onClick={() => {
+                openWindow(
+                  '/',
+                  {
+                    maximizable: false,
+                    minimizable: false,
+                    resizable: false,
+                    show: false,
+                    frame: false,
+                    webPreferences: {
+                      nodeIntegration: true,
+                    },
+                    title: 'Argos planner',
+                    backgroundColor: '#004466',
+                    width: 640,
+                    height: 480,
+                  },
+                  (w) => {
+                    closeCurrentElectronWindow();
+                  }
+                );
+              }}
+            />
+          </Section>
+        </NavContentRight>
       </NavContent>
     </NavEl>
   );
@@ -140,6 +174,8 @@ const Tabs = styled.div`
 `;
 
 const TabButton = styled.button`
+  display: ${(props) => (props.isVisible ? 'block' : 'none')};
+
   height: 30px;
 
   margin-left: 2px;
@@ -211,6 +247,9 @@ const navContentHide = keyframes`
 `;
 
 const NavContent = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
   position: relative;
 
   height: 90px;
@@ -218,6 +257,10 @@ const NavContent = styled.div`
   opacity: 0;
   animation: 0.5s ${navContentLoaded} ease-in-out 0.5s;
   animation-fill-mode: forwards;
+`;
+
+const NavContentRight = styled.div`
+  display: flex;
 `;
 
 const TabContent = styled.div`
@@ -240,7 +283,7 @@ const TabContent = styled.div`
   }
 `;
 
-const Section = styled.div`
+const Section = styled.div<{ isRight?: boolean }>`
   position: relative;
   display: flex;
 
@@ -257,7 +300,7 @@ const Section = styled.div`
     position: absolute;
 
     top: 4px;
-    right: 0;
+    ${(props) => (props.isRight ? 'left: 0;' : 'right: 0;')}
     bottom: 6px;
 
     width: 1px;

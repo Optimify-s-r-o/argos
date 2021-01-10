@@ -1,5 +1,5 @@
-import { CallbackType } from '../types/api';
-import { LoadedJobType } from '../types/job';
+import { CallbackType } from '../../types/api';
+import { LoadedJobType } from '../../types/job';
 
 const jobCreate = async (
   url: string,

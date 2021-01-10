@@ -76,6 +76,7 @@ const nav = (
     {
       name: 'common',
       title: t('nav:tabs.common'),
+      isVisible: true,
       sections: [
         {
           header: t('nav:common.view.header'),
@@ -147,6 +148,7 @@ const nav = (
     {
       name: 'material',
       title: t('nav:tabs.material'),
+      isVisible: true,
       sections: [
         {
           header: t('nav:material.inventory.header'),
@@ -165,7 +167,7 @@ const nav = (
       name: 'calendarView',
       title: t('nav:tabs.calendarView'),
       isSpecial: true,
-      isVisible: true, // TODO
+      isVisible: stateData.view === 'calendar',
       sections: [
         {
           header: t('nav:calendarView.period.header'),
@@ -262,7 +264,7 @@ const nav = (
       name: 'jobsView',
       title: t('nav:tabs.jobsView'),
       isSpecial: true,
-      isVisible: true, // TODO
+      isVisible: stateData.view === 'jobs',
       sections: [],
     },
     {

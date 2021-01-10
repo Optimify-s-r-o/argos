@@ -5,6 +5,8 @@
     "jobInfo": "Informace o zakázce",
     "customerIdentification": "Zákazník",
     "contractDates": "Trvání smlouvy",
+    "contractDateFrom": "Smlouva od",
+    "contractDateTo": "Smlouva do",
     "deadline": "Deadline",
     "isAcceptedByCustomer": "Přijato zákazníkem?",
     "location": "Lokalita",

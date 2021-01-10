@@ -52,5 +52,9 @@
       "classicCapacities": "Kapacity",
       "compact": "Kompaktní"
     }
+  },
+  "user": {
+    "header": "Uživatel",
+    "logout": "Odhlásit"
   }
 }

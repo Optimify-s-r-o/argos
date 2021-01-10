@@ -8,7 +8,6 @@ import RowEvents from './Calendar/RowEvents';
 import RowJob from './Calendar/RowJob';
 import styled from 'styled-components';
 import WeekSelector from './Calendar/WeekSelector';
-import { appAccountTokenSet } from '../../../../actions/app';
 import { CalendarDataType, JobsType } from '../../../../types/calendar';
 import { CalendarRowHeader, Row } from '../../../../styles/global';
 import { connect } from 'react-redux';
@@ -31,7 +30,6 @@ interface CalendarProps {
   jobs: JobsType;
   token: string;
   settings: SettingsType;
-  setToken: (token: string) => void;
   setCalendarData: (data: CalendarDataType) => void;
 }
 
@@ -47,7 +45,6 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setToken: (token: string) => dispatch(appAccountTokenSet(token)),
     setCalendarData: (data: CalendarDataType) =>
       dispatch(setCalendarData(data)),
   };
@@ -66,11 +63,6 @@ const CalendarComponent = (props: CalendarProps) => {
         if (event === EVENT_JOB_CREATED) fetchJobs();
       });
     }
-
-    /*userAuth(props.settings.url, (res) => {
-      // TODO: move to login
-      if (res.status === 200) props.setToken(res.body);
-    });*/
   }, []);
 
   useEffect(() => {

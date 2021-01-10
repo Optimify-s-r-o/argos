@@ -1,3 +1,5 @@
+import { SortOptions } from '../components/table';
+
 export interface JobType {
   id: string;
   identification: string;
@@ -55,3 +57,10 @@ export type LoadedJobType = {
   contractStart: string;
   contractEnd: string;
 };
+
+export type JobSort = Array<JobSortProps>;
+
+interface JobSortProps {
+  column: 'name' | 'created' | 'begin' | 'end';
+  direction: SortOptions;
+}

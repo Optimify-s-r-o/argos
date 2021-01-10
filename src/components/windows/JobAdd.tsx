@@ -3,7 +3,7 @@ import FormRow from '../forms/FormRow';
 import getJob from '../../api/proxy/get-job';
 import getJobList from '../../api/proxy/job-list';
 import Input from '../forms/Input';
-import jobCreate from '../../api/job-create';
+import jobCreate from '../../api/jobs/import';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Select from '../forms/Select';
