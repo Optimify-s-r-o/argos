@@ -40,7 +40,7 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
 
       <CalendarDays>
         {props.days.map((day, key) => {
-          const phases = ['saw', 'press', 'construction'];
+          const phases = ['saw', 'press' /*, 'construction'*/];
           const colors = {
             saw: defaultTheme.colors.danger,
             press: defaultTheme.colors.accent,
@@ -54,25 +54,25 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
               absolute: {
                 used:
                   props.capacities && props.capacities[key]
-                    ? props.capacities[key][phase].used
+                    ? props.capacities[key][phase].planned
                     : null,
                 available:
                   props.capacities && props.capacities[key]
-                    ? props.capacities[key][phase].available
+                    ? props.capacities[key][phase].free
                     : null,
                 full:
                   props.capacities && props.capacities[key]
-                    ? props.capacities[key][phase].used +
-                      props.capacities[key][phase].available
+                    ? props.capacities[key][phase].planned +
+                      props.capacities[key][phase].free
                     : null,
               },
               percentage:
                 props.capacities && props.capacities[key]
                   ? 100 -
                     Math.round(
-                      (props.capacities[key][phase].used /
-                        (props.capacities[key][phase].used +
-                          props.capacities[key][phase].available)) *
+                      (props.capacities[key][phase].planned /
+                        (props.capacities[key][phase].planned +
+                          props.capacities[key][phase].free)) *
                         100
                     )
                   : null, // TODO: dividing by 0

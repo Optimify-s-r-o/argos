@@ -75,6 +75,7 @@ const JobsComponent = (props: JobsProps) => {
           'to',
           'deadline',
         ]}
+        sortable={[true, true, false, true, true, true]}
         onPageRequired={() => null}
         pageSize={25}
         firstRecordOnPage={data.page * data.limit + 1}

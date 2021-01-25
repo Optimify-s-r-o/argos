@@ -238,7 +238,7 @@ const Scrollable = styled.div`
 
 const TableElement = styled.table`
   width: 100%;
-  font-size: 0.85rem;
+  font-size: 1rem;
   border-collapse: collapse;
   border-spacing: 0;
 `;
@@ -264,10 +264,18 @@ const TableHeading = styled.th`
 `;
 
 const SortButton = styled.button`
+  margin-left: 8px;
+
   border: 0;
   background: transparent;
-  cursor: pointer;
+  color: ${(props) => props.theme.colors.primary};
   font-size: 16px;
+
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const SortWrapper = styled.div`
