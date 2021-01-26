@@ -2,6 +2,7 @@ import Capacities from './Settings/02_Capacities';
 import Common from './Settings/01_Common';
 import queryString from 'query-string';
 import React, { useState } from 'react';
+import Shifts from './Settings/03_Shifts';
 import styled from 'styled-components';
 import TitleBar from '../TitleBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -52,7 +53,7 @@ const Settings = () => {
     {
       name: 'shifts',
       icon: faBriefcase,
-      component: <Common />,
+      component: <Shifts token={token} url={url} />,
     },
   ];
   const [activeCategory, setActiveCategory] = useState(categories[0]);

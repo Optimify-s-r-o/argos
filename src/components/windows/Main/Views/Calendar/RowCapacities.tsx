@@ -6,6 +6,7 @@ import { CapacitiesViewType } from '../../../../../types/settings';
 import { connect } from 'react-redux';
 import { defaultTheme } from '../../../../../styles/theme';
 import { isNonWorkingDay } from '../../../../../utils/days';
+import { phaseTypesWithCapacity } from '../../../../../enums/phases';
 import { useTranslation } from 'react-i18next';
 import 'react-circular-progressbar/dist/styles.css';
 import {
@@ -40,7 +41,7 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
 
       <CalendarDays>
         {props.days.map((day, key) => {
-          const phases = ['saw', 'press' /*, 'construction'*/];
+          const phases = phaseTypesWithCapacity;
           const colors = {
             saw: defaultTheme.colors.danger,
             press: defaultTheme.colors.accent,
@@ -62,8 +63,7 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
                     : null,
                 full:
                   props.capacities && props.capacities[key]
-                    ? props.capacities[key][phase].planned +
-                      props.capacities[key][phase].free
+                    ? props.capacities[key][phase].shiftsCapacity
                     : null,
               },
               percentage:
@@ -71,8 +71,7 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
                   ? 100 -
                     Math.round(
                       (props.capacities[key][phase].planned /
-                        (props.capacities[key][phase].planned +
-                          props.capacities[key][phase].free)) *
+                        props.capacities[key][phase].shiftsCapacity) *
                         100
                     )
                   : null, // TODO: dividing by 0
