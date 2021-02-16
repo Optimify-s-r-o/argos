@@ -120,7 +120,11 @@ const RowCapacitiesComponent = (props: RowCapacitiesProps) => {
                       type='percentage'
                       phase={phase}
                     >
-                      <span>{capacities[phase].percentage}</span>
+                      <span>
+                        {capacities[phase].percentage
+                          ? capacities[phase].percentage
+                          : '-'}
+                      </span>
                       <span>%</span>
                     </CapacityValueWrapper>
                   </CapacitySection>
