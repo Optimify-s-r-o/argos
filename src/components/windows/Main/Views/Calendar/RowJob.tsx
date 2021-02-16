@@ -103,7 +103,7 @@ const RowJobComponent = (props: RowJobProps) => {
       showPhaseMoveModal(
         props.settings.url,
         props.token,
-        props.job.place + ', ' + props.job.type,
+        props.job.city + ', ' + props.job.type,
         data.phase,
         draggedData.phaseid,
         draggedData.date,
@@ -142,7 +142,7 @@ const RowJobComponent = (props: RowJobProps) => {
       MSGBOX_BUTTONS_YES_NO,
       (button) => {
         if (button === MSGBOX_BUTTON_YES)
-          jobDelete(props.settings.url, props.token, props.job.id, (res) => {
+          jobDelete(props.settings.url, props.token, props.job.name, (res) => {
             fetchJobs();
 
             if (res.status === 200) {
@@ -175,7 +175,7 @@ const RowJobComponent = (props: RowJobProps) => {
             jobSetState(
               props.settings.url,
               props.token,
-              props.job.id,
+              props.job.name,
               getNextState(props.job.state),
               (res) => {
                 callback(res);
@@ -187,7 +187,7 @@ const RowJobComponent = (props: RowJobProps) => {
       jobSetState(
         props.settings.url,
         props.token,
-        props.job.id,
+        props.job.name,
         getNextState(props.job.state),
         (res) => {
           callback(res);
@@ -215,9 +215,12 @@ const RowJobComponent = (props: RowJobProps) => {
   phases.forEach((phase) => {
     phaseDatesToIndex[phase] = {};
 
-    if (props.job.phases && props.job.phases[phase])
-      props.job.phases[phase].forEach((entry, index) => {
-        phaseDatesToIndex[phase][entry.date] = index;
+    if (props.job && props.job.hasOwnProperty(phase))
+      props.job[phase].forEach((entry, index) => {
+        if (props.job[phase][index].planExists)
+          phaseDatesToIndex[phase][
+            getDateString(new Date(Date.parse(entry.day)))
+          ] = index;
       });
   });
 
@@ -225,17 +228,16 @@ const RowJobComponent = (props: RowJobProps) => {
     <RowJobEl>
       <RowJobHeader view={props.settings.calendarView}>
         <JobName>
-          {props.job.place}, {props.job.type}
+          {props.job.city}, {props.job.type}
         </JobName>
         <JobID>
-          <small>{t('calendar:rowJob.header.jobId')}:</small>{' '}
-          {props.job.identification}
+          <small>{t('calendar:rowJob.header.jobId')}:</small> {props.job.name}
         </JobID>
         <JobDeadline>
           <small>{t('calendar:rowJob.header.deadline')}:</small>{' '}
           {props.job.deadline}
         </JobDeadline>
-        <JobStatus>
+        {/*<JobStatus>
           <small>{t('calendar:rowJob.header.status')}:</small>
           <Status>
             <StatusDeleteButton title='Smazat' onClick={handleJobDelete}>
@@ -252,26 +254,28 @@ const RowJobComponent = (props: RowJobProps) => {
                 )}
             </StatusNextButton>
           </Status>
-        </JobStatus>
+        </JobStatus>*/}
       </RowJobHeader>
 
       <CalendarDays>
-        {props.days.map((day) => {
+        {props.days.map((day, key) => {
           let contents = {};
           let phaseAppearance = {};
 
           phases.forEach((phase) => {
             const dragData = {
-              jobId: props.job.id,
+              jobId: props.job.name,
               phase: phase,
               date: getDateString(day),
             };
 
             const attributes = {
-              'job-id': props.job.id,
+              'job-id': props.job.name,
               phase: phase,
               day: getDateString(day),
             };
+
+            console.log(phaseDatesToIndex);
 
             if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
               let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(
@@ -287,9 +291,7 @@ const RowJobComponent = (props: RowJobProps) => {
               else phaseAppearance[phase] = 'startEnd';
 
               const phaseObject =
-                props.job.phases[phase][
-                  phaseDatesToIndex[phase][getDateString(day)]
-                ];
+                props.job[phase][phaseDatesToIndex[phase][getDateString(day)]];
               contents[phase] = (
                 <ContextMenuTrigger
                   id={'Phase' + ucfirst(phase) + 'Menu'}
@@ -307,11 +309,13 @@ const RowJobComponent = (props: RowJobProps) => {
                       draggable
                       onDragStart={(e) =>
                         onDragStart(e, {
-                          jobId: props.job.id,
+                          jobId: props.job.name,
                           phase: phase,
                           phaseId: phaseObject.id,
                           date: getDateString(day),
-                          maxCapacity: phaseObject.consumption,
+                          maxCapacity: phaseObject.shifts
+                            .map((shift) => shift.planned)
+                            .reduce((a, b) => a + b),
                         })
                       }
                     >
@@ -324,7 +328,12 @@ const RowJobComponent = (props: RowJobProps) => {
                           {day.getDate()}
                         </ClassicDay>
                         <ClassicCapacity view={props.settings.calendarView}>
-                          {phaseObject.consumption}
+                          {console.log(phaseObject)}
+                          {phaseObject.type !== 'Transport'
+                            ? phaseObject.shifts
+                                .map((shift) => shift.planned)
+                                .reduce((a, b) => a + b)
+                            : ''}
                         </ClassicCapacity>
                       </ClassicView>
                       <CompactView

@@ -1,10 +1,10 @@
 import { SortOptions } from '../components/table';
 
 export interface JobType {
-  id: string;
+  name: string;
   identification: string;
   state: JobStateType;
-  place: string;
+  city: string;
   type: string;
   deadline: string;
   contractStart: string;
