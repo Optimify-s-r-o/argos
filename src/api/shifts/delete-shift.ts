@@ -1,11 +1,11 @@
-import { CallbackType } from '../../types/api';
+import { StatusCallbackType } from '../../types/api';
 
 const deleteShift = async (
   url: string,
   token: string,
   phase: string,
   id: string,
-  callback: CallbackType
+  callback: StatusCallbackType
 ) => {
   try {
     const result = await fetch(url + '/api/v1/' + phase + 'shifts/' + id, {
@@ -16,7 +16,7 @@ const deleteShift = async (
         Authorization: `Bearer ${token}`,
       },
     });
-    const data = { status: result.status, body: await result.json() };
+    const data = { status: result.status };
     callback(data);
   } catch (e) {
     console.log(e);

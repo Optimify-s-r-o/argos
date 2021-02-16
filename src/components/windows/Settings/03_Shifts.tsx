@@ -17,24 +17,37 @@ const Shifts = (props: ShiftsProps) => {
   const phases = phaseTypesWithShifts;
 
   const [phaseShifts, setPhaseShifts] = useState<object>({});
+  const [requestedPhase, setRequestedPhase] = useState<string | null>(
+    phases.length ? phases[0] : null
+  );
 
   useEffect(() => {
-    if (props.url && props.token)
-      phases.forEach((phase) =>
-        getShifts(props.url as string, props.token as string, phase, (data) => {
-          setPhaseShifts(
-            Object.assign(phaseShifts, {
-              [phase]: data.body,
-            })
-          );
-        })
-      );
+    if (props.url && props.token) querryNextPhase();
     else alert('ERROR in Settings component!');
   }, []);
 
   useEffect(() => {
-    console.log(phaseShifts);
+    querryNextPhase();
   }, [phaseShifts]);
+
+  const querryNextPhase = () => {
+    if (requestedPhase)
+      getShifts(
+        props.url as string,
+        props.token as string,
+        requestedPhase,
+        (data) => {
+          setPhaseShifts(
+            Object.assign({}, phaseShifts, { [requestedPhase]: data.body })
+          );
+          setRequestedPhase(
+            phases.length > phases.indexOf(requestedPhase) + 1
+              ? phases[phases.indexOf(requestedPhase) + 1]
+              : null
+          );
+        }
+      );
+  };
 
   return (
     <form>
@@ -52,12 +65,15 @@ const Shifts = (props: ShiftsProps) => {
             ))}
           <AddShiftButton
             onClick={() => {
+              let newArray: Array<object | null> = [];
+              if (phaseShifts.hasOwnProperty(phase))
+                newArray = [...phaseShifts[phase]];
+              newArray.push(null);
               setPhaseShifts(
                 Object.assign({}, phaseShifts, {
-                  [phase]: [...phaseShifts[phase], null],
+                  [phase]: newArray,
                 })
               );
-              console.log('asd');
             }}
           >
             <FontAwesomeIcon icon={faPlus} /> Přidat směnu
