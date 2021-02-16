@@ -3,6 +3,7 @@ import FormRow from '../forms/FormRow';
 import getJob from '../../api/proxy/get-job';
 import getJobList from '../../api/proxy/job-list';
 import Input from '../forms/Input';
+import jobAutoplan from '../../api/jobs/autoplan';
 import jobCreate from '../../api/jobs/import';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
@@ -108,22 +109,38 @@ const JobAdd = () => {
       loadedJob.deadline = getDateString(deadline);
 
       // TODO: validate inputs
-      jobCreate(url, token, loadedJob, (res) => {
+      jobCreate(url, token, loadedJob, (resJob) => {
         // TODO: review error codes
-        if (res.status === 200) {
-          ipcRenderer.send('event', EVENT_JOB_CREATED, res.body);
+        if (resJob.status === 200) {
+          jobAutoplan(
+            url,
+            token,
+            resJob.body.id,
+            getDateString(deadline),
+            (resPlan) => {
+              if (resPlan.status === 200) {
+                ipcRenderer.send('event', EVENT_JOB_CREATED, resJob.body);
 
-          showMessageBox(
-            'jobForms:added',
-            MSGBOX_TYPE_SUCCESS,
-            MSGBOX_BUTTONS_OK,
-            () => {
-              closeCurrentElectronWindow();
+                showMessageBox(
+                  'jobForms:added',
+                  MSGBOX_TYPE_SUCCESS,
+                  MSGBOX_BUTTONS_OK,
+                  () => {
+                    closeCurrentElectronWindow();
+                  }
+                );
+              } else {
+                showMessageBox(
+                  'Uncatched error!',
+                  MSGBOX_TYPE_ERROR,
+                  MSGBOX_BUTTONS_OK
+                );
+              }
             }
           );
         } else if (
-          res.status === 422 &&
-          res.body.errorCode === 'PlateNameNotExists'
+          resJob.status === 422 &&
+          resJob.body.errorCode === 'PlateNameNotExists'
         ) {
           callReloadPlates(url, token, () => {
             handleAddJob();
