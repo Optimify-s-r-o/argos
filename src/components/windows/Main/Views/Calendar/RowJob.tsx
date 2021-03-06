@@ -1,6 +1,6 @@
 import getCalendarDays from '../../../../../api/calendar/overwiev';
 import jobDelete from '../../../../../api/job-delete';
-import movePhaseCapacity from '../../../../../api/move-phase-capacity';
+import phasePartMove from '../../../../../api/phase/move';
 import React, { HTMLAttributes } from 'react';
 import showPhaseMoveModal from '../../../../../utils/showPhaseMoveModal';
 import styled from 'styled-components';
@@ -112,7 +112,7 @@ const RowJobComponent = (props: RowJobProps) => {
         dragDropCallback
       );
     } else {
-      movePhaseCapacity(
+      phasePartMove(
         props.settings.url,
         props.token,
         data.phase,
@@ -275,8 +275,6 @@ const RowJobComponent = (props: RowJobProps) => {
               day: getDateString(day),
             };
 
-            console.log(phaseDatesToIndex);
-
             if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
               let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(
                 getDateString(new Date(Date.parse(day.toString()) - 86400000))
@@ -313,9 +311,12 @@ const RowJobComponent = (props: RowJobProps) => {
                           phase: phase,
                           phaseId: phaseObject.id,
                           date: getDateString(day),
-                          maxCapacity: phaseObject.shifts
-                            .map((shift) => shift.planned)
-                            .reduce((a, b) => a + b),
+                          maxCapacity:
+                            phase !== 'transport'
+                              ? phaseObject.shifts
+                                  .map((shift) => shift.planned)
+                                  .reduce((a, b) => a + b)
+                              : 0,
                         })
                       }
                     >

@@ -1,11 +1,11 @@
-import { CapacityMoveMethod } from '../types/capacity';
-import { StatusCallbackType } from '../types/api';
+import { CapacityMoveMethod } from '../../types/capacity';
+import { StatusCallbackType } from '../../types/api';
 import {
   METHOD_CAPACITY_ALL,
   METHOD_CAPACITY_FILL,
-} from '../components/windows/MoveCapacity';
+} from '../../components/windows/MoveCapacity';
 
-const movePhaseCapacity = async (
+const phasePartMove = async (
   url: string,
   token: string,
   phase: string,
@@ -15,32 +15,32 @@ const movePhaseCapacity = async (
   capacity: number = 0,
   callback: StatusCallbackType
 ) => {
-  let endpoint = '/api/' + phase + 'workingphasepart/';
+  let endpoint = '/api/v1/' + phase + 'workingphase/';
   let body = {
-    id: phaseId,
-    date: toDate,
+    fromId: phaseId,
+    toDate: toDate,
   };
 
   switch (method) {
     case METHOD_CAPACITY_ALL:
-      endpoint += 'capacity/move';
+      endpoint += 'moveall';
       break;
 
     case METHOD_CAPACITY_FILL:
-      endpoint += 'capacity/fill';
+      endpoint += 'TODO';
       break;
 
     default:
       if (phase === 'transport') {
         endpoint += 'move';
       } else {
-        endpoint += 'capacity/update';
+        endpoint += 'TODO';
         body['capacity'] = capacity;
       }
   }
 
   try {
-    const result = await fetch('http://' + url + endpoint, {
+    const result = await fetch(url + endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,4 +56,4 @@ const movePhaseCapacity = async (
   }
 };
 
-export default movePhaseCapacity;
+export default phasePartMove;

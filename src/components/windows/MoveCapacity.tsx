@@ -1,5 +1,5 @@
-import movePhaseCapacity from '../../api/move-phase-capacity';
 import NumericInput from 'react-numeric-input';
+import phasePartMove from '../../api/phase/move';
 import queryString from 'query-string';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -43,7 +43,7 @@ const MoveCapacity = (props) => {
   const onClick = (method, windowId) => {
     const params = queryString.parse(location.search);
 
-    movePhaseCapacity(
+    phasePartMove(
       params.url as string,
       params.token as string,
       params.phase as string,
