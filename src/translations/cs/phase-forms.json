@@ -3,7 +3,11 @@
     "titleBar": "Vytvoření fáze",
     "phase": "Typ fáze",
     "date": "Datum",
-    "create": "Vytvořit fázi"
+    "create": "Vytvořit fázi",
+    "success": {
+      "title": "OK",
+      "text": "Fáze byla úspěšně vytvořena"
+    }
   },
   "phases": {
     "saw": "Pila",

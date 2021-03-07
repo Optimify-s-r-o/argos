@@ -277,16 +277,22 @@ const RowJobComponent = (props: RowJobProps) => {
               date: getDateString(day),
             };
 
+            let attributes = {
+              'job-id': props.job.name,
+              'job-guid': props.job.id,
+              'job-location': props.job.city,
+              'job-description': props.job.type,
+              phase: phase,
+              day: getDateString(day),
+            };
+
+            console.log(props.job);
+
             if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
               const phasePart =
                 props.job[phase][phaseDatesToIndex[phase][getDateString(day)]];
 
-              const attributes = {
-                'job-id': props.job.name,
-                phase: phase,
-                'phase-part-id': phasePart.id,
-                day: getDateString(day),
-              };
+              attributes['phase-part-id'] = phasePart.id;
 
               let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(
                 getDateString(new Date(Date.parse(day.toString()) - 86400000))
@@ -324,7 +330,7 @@ const RowJobComponent = (props: RowJobProps) => {
                             phase !== 'transport'
                               ? phasePart.shifts
                                   .map((shift) => shift.planned)
-                                  .reduce((a, b) => a + b)
+                                  .reduce((a, b) => a + b, 0)
                               : 0,
                         })
                       }
@@ -341,7 +347,7 @@ const RowJobComponent = (props: RowJobProps) => {
                           {phasePart.type !== 'Transport'
                             ? phasePart.shifts
                                 .map((shift) => shift.planned)
-                                .reduce((a, b) => a + b)
+                                .reduce((a, b) => a + b, 0)
                             : ''}
                         </ClassicCapacity>
                       </ClassicView>
@@ -355,12 +361,6 @@ const RowJobComponent = (props: RowJobProps) => {
                 </ContextMenuTrigger>
               );
             } else {
-              const attributes = {
-                'job-id': props.job.name,
-                phase: phase,
-                day: getDateString(day),
-              };
-
               contents[phase] = (
                 <ContextMenuTrigger
                   id={'EmptyPhaseMenu'}

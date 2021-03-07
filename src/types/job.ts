@@ -2,7 +2,7 @@ import { SortOptions } from '../components/table';
 
 export interface JobType {
   name: string;
-  identification: string;
+  id: string;
   state: JobStateType;
   city: string;
   type: string;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getColorWithOpacity } from '../../styles/theme';
 
 interface FormRowProps {
   children?: any;
@@ -90,5 +91,33 @@ export const FormCardRow = styled.div<{ horizontal?: boolean }>`
 `;
 
 const Selectable = styled.span`
+  user-select: all;
+`;
+
+export const FormInfo = styled.table`
+  margin: 0.5rem 1rem;
+  padding: 0.25rem 1.5rem;
+
+  background-color: ${(props) => props.theme.colors.white};
+  border-radius: 19px;
+  box-shadow: 0 5px 10px -5px ${(props) => getColorWithOpacity(props.theme.colors.primary, 25)};
+`;
+
+export const FormInfoRow = styled.tr``;
+
+export const FormInfoHeader = styled.th`
+  padding: 0.5rem 0;
+
+  font-weight: 300;
+  text-align: left;
+
+  &:after {
+    content: ':';
+  }
+`;
+
+export const FormInfoContent = styled.td`
+  padding: 0.5rem 0;
+
   user-select: all;
 `;

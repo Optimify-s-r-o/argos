@@ -21,6 +21,10 @@ import { setCalendarData } from '../../../../actions/calendar';
 import { SettingsType } from '../../../../types/settings';
 import { useTranslation } from 'react-i18next';
 import {
+  CreatePhasePathWithParams,
+  CreatePhaseSettings,
+} from '../../CreatePhase';
+import {
   getMultipliedColor,
   getColorWithOpacity,
 } from '../../../../styles/theme';
@@ -106,6 +110,9 @@ const CalendarComponent = (props: CalendarProps) => {
   const getContextMenuTargetData = (target) => {
     return {
       jobId: target.getAttribute('job-id'),
+      jobGuid: target.getAttribute('job-guid'),
+      jobLocation: target.getAttribute('job-location'),
+      jobDescription: target.getAttribute('job-description'),
       phase: target.getAttribute('phase'),
       phasePartId: target.getAttribute('phase-part-id'),
       date: target.getAttribute('day'),
@@ -151,6 +158,23 @@ const CalendarComponent = (props: CalendarProps) => {
   const contextMenuCreatePhase = (e, data, target) => {
     const targetData = getContextMenuTargetData(target);
     console.log(targetData);
+    openWindow(
+      CreatePhasePathWithParams(
+        props.settings.url,
+        props.token,
+        targetData.phase,
+        targetData.date,
+        targetData.jobId,
+        targetData.jobGuid,
+        targetData.jobLocation,
+        targetData.jobDescription
+      ),
+      CreatePhaseSettings,
+      () => {},
+      () => {
+        fetchJobs();
+      }
+    );
   };
 
   return (

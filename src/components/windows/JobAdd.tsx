@@ -1,5 +1,4 @@
 import Cancel from '../forms/Cancel';
-import FormRow from '../forms/FormRow';
 import getJob from '../../api/proxy/get-job';
 import getJobList from '../../api/proxy/job-list';
 import Input from '../forms/Input';
@@ -15,7 +14,6 @@ import TitleBar from '../TitleBar';
 import { callReloadPlates } from '../../utils/helper-functions';
 import { DatePicker, DateRangePicker } from '../forms/Calendar';
 import { EVENT_JOB_CREATED } from '../../events/jobs';
-import { getColorWithOpacity } from '../../styles/theme';
 import { getDateString } from '../../utils/days';
 import { LoadedJobType } from '../../types/job';
 import { Row } from '../../styles/global';
@@ -23,6 +21,12 @@ import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import '../../styles/main.css';
 import '../../styles/forms.css';
+import FormRow, {
+  FormInfo,
+  FormInfoContent,
+  FormInfoHeader,
+  FormInfoRow,
+} from '../forms/FormRow';
 import {
   FormBackground,
   FormCard,
@@ -180,24 +184,24 @@ const JobAdd = () => {
 
             <JobLoadedItems isJobLoaded={loadedJob !== null}>
               <FormRow title={t('jobForms:common.jobInfo')}>
-                <JobInfo>
-                  <JobInfoRow>
-                    <JobInfoHeader>
+                <FormInfo>
+                  <FormInfoRow>
+                    <FormInfoHeader>
                       {t('jobForms:common.location')}
-                    </JobInfoHeader>
-                    <JobInfoContent>
+                    </FormInfoHeader>
+                    <FormInfoContent>
                       {loadedJob ? loadedJob.address : ''}
-                    </JobInfoContent>
-                  </JobInfoRow>
-                  <JobInfoRow>
-                    <JobInfoHeader>
+                    </FormInfoContent>
+                  </FormInfoRow>
+                  <FormInfoRow>
+                    <FormInfoHeader>
                       {t('jobForms:common.description')}
-                    </JobInfoHeader>
-                    <JobInfoContent>
+                    </FormInfoHeader>
+                    <FormInfoContent>
                       {loadedJob ? loadedJob.type : ''}
-                    </JobInfoContent>
-                  </JobInfoRow>
-                </JobInfo>
+                    </FormInfoContent>
+                  </FormInfoRow>
+                </FormInfo>
               </FormRow>
 
               {/*
@@ -261,7 +265,6 @@ const JobAdd = () => {
               {t('messageBox:buttons.cancel')}
             </Cancel>
             <Submit
-              className='btn btn-text'
               onClick={handleAddJob}
               disabled={loadedJob === null}
               hideDisabled
@@ -288,32 +291,4 @@ const JobLoadedItems = styled.div<{ isJobLoaded: boolean }>`
   opacity: ${(props) => (props.isJobLoaded ? 1 : 0)};
 
   transition: opacity 0.4s ease-in-out 0.4s;
-`;
-
-const JobInfo = styled.table`
-  margin: 0.5rem 1rem;
-  padding: 0.25rem 1.5rem;
-
-  background-color: ${(props) => props.theme.colors.white};
-  border-radius: 19px;
-  box-shadow: 0 5px 10px -5px ${(props) => getColorWithOpacity(props.theme.colors.primary, 25)};
-`;
-
-const JobInfoRow = styled.tr``;
-
-const JobInfoHeader = styled.th`
-  padding: 0.5rem 0;
-
-  font-weight: 300;
-  text-align: left;
-
-  &:after {
-    content: ':';
-  }
-`;
-
-const JobInfoContent = styled.td`
-  padding: 0.5rem 0;
-
-  user-select: all;
 `;
