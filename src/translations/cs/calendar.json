@@ -20,7 +20,7 @@
       "deadline": "Deadline",
       "status": "Stav",
       "statuses": {
-        "Created": "Nová",
+        "Quotation": "Nabídka",
         "Verified": "Ověřená",
         "Finished": "Dokončená",
         "InArchive": "Archivovaná"
@@ -36,6 +36,10 @@
     "moveCapacity": {
       "title": "OK",
       "text": "Kapacita byla úspěšně přesunuta."
-    }
+    },
+    "deletePhasePart": {
+      "title": "OK",
+      "text": "Fáze byla úspěšně smazána."
+    }    
   }
 }

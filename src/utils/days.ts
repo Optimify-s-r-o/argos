@@ -63,4 +63,16 @@ function getDateString(date) {
   );
 }
 
-export { prepareDays, isNonWorkingDay, getDateString };
+function getLocalizedDate(date: Date, locale: string) {
+  switch (locale) {
+    case 'cs':
+      return (
+        date.getDate() + '. ' + date.getMonth() + '. ' + date.getFullYear()
+      );
+
+    default:
+      return 'LOCALIZE ' + locale + '/' + getDateString(date);
+  }
+}
+
+export { prepareDays, isNonWorkingDay, getDateString, getLocalizedDate };

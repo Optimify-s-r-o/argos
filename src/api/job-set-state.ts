@@ -1,12 +1,12 @@
 import { StatusCallbackType } from '../types/api';
 
-const JOB_STATE_CREATED = 'Created';
+const JOB_STATE_QUOTATION = 'Quotation';
 const JOB_STATE_VERIFIED = 'Verified';
 const JOB_STATE_FINISHED = 'Finished';
 const JOB_STATE_IN_ARCHIVE = 'InArchive';
 
 const JOB_STATES = [
-  JOB_STATE_CREATED,
+  JOB_STATE_QUOTATION,
   JOB_STATE_VERIFIED,
   JOB_STATE_FINISHED,
   JOB_STATE_IN_ARCHIVE,
@@ -41,7 +41,7 @@ const jobSetState = async (
 
 function getNextState(state) {
   switch (state) {
-    case JOB_STATE_CREATED:
+    case JOB_STATE_QUOTATION:
       return JOB_STATE_VERIFIED;
 
     case JOB_STATE_VERIFIED:
@@ -58,7 +58,7 @@ function getNextState(state) {
 export {
   jobSetState,
   getNextState,
-  JOB_STATE_CREATED,
+  JOB_STATE_QUOTATION,
   JOB_STATE_VERIFIED,
   JOB_STATE_FINISHED,
   JOB_STATE_IN_ARCHIVE,

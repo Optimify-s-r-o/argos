@@ -1,6 +1,6 @@
 import getCalendarDays from '../../../../../api/calendar/overwiev';
 import jobDelete from '../../../../../api/job-delete';
-import phasePartMove from '../../../../../api/phase/move';
+import phasePartMove from '../../../../../api/phase/move-phase-part';
 import React, { HTMLAttributes } from 'react';
 import showPhaseMoveModal from '../../../../../utils/showPhaseMoveModal';
 import styled from 'styled-components';
@@ -9,11 +9,15 @@ import { CalendarDataType } from '../../../../../types/calendar';
 import { connect } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { getColorWithOpacity } from '../../../../../styles/theme';
-import { getDateString, isNonWorkingDay } from '../../../../../utils/days';
 import { JobType } from '../../../../../types/job';
 import { setCalendarData } from '../../../../../actions/calendar';
 import { SettingsType } from '../../../../../types/settings';
 import { useTranslation } from 'react-i18next';
+import {
+  getDateString,
+  getLocalizedDate,
+  isNonWorkingDay,
+} from '../../../../../utils/days';
 import {
   CalendarRowHeader,
   CalendarDays,
@@ -28,10 +32,11 @@ import {
   MSGBOX_TYPE_INFO,
   MSGBOX_TYPE_WARNING,
   showMessageBox,
+  MSGBOX_TYPE_SUCCESS,
 } from '../../../../../utils/showMessageBox';
 import {
   getNextState,
-  JOB_STATE_CREATED,
+  JOB_STATE_QUOTATION,
   JOB_STATE_IN_ARCHIVE,
   jobSetState,
 } from '../../../../../api/job-set-state';
@@ -129,7 +134,7 @@ const RowJobComponent = (props: RowJobProps) => {
     if (result.status === 200) {
       fetchJobs();
 
-      showMessageBox('calendar:rowJob.moveCapacity');
+      showMessageBox('calendar:rowJob.moveCapacity', MSGBOX_TYPE_SUCCESS);
     } else {
       showMessageBox('FAILED', MSGBOX_TYPE_ERROR); // TODO
     }
@@ -165,7 +170,7 @@ const RowJobComponent = (props: RowJobProps) => {
         showMessageBox('OK' /* TODO */, MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
     };
 
-    if (props.job.state === JOB_STATE_CREATED)
+    if (props.job.state === JOB_STATE_QUOTATION)
       showMessageBox(
         'Recalculate?' /* TODO */,
         MSGBOX_TYPE_WARNING,
@@ -209,7 +214,7 @@ const RowJobComponent = (props: RowJobProps) => {
     }
   };
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   let phaseDatesToIndex = {};
   phases.forEach((phase) => {
@@ -235,9 +240,12 @@ const RowJobComponent = (props: RowJobProps) => {
         </JobID>
         <JobDeadline>
           <small>{t('calendar:rowJob.header.deadline')}:</small>{' '}
-          {props.job.deadline}
+          {getLocalizedDate(
+            new Date(Date.parse(props.job.deadline)),
+            i18n.language
+          )}
         </JobDeadline>
-        {/*<JobStatus>
+        <JobStatus>
           <small>{t('calendar:rowJob.header.status')}:</small>
           <Status>
             <StatusDeleteButton title='Smazat' onClick={handleJobDelete}>
@@ -254,7 +262,7 @@ const RowJobComponent = (props: RowJobProps) => {
                 )}
             </StatusNextButton>
           </Status>
-        </JobStatus>*/}
+        </JobStatus>
       </RowJobHeader>
 
       <CalendarDays>
@@ -269,13 +277,17 @@ const RowJobComponent = (props: RowJobProps) => {
               date: getDateString(day),
             };
 
-            const attributes = {
-              'job-id': props.job.name,
-              phase: phase,
-              day: getDateString(day),
-            };
-
             if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
+              const phasePart =
+                props.job[phase][phaseDatesToIndex[phase][getDateString(day)]];
+
+              const attributes = {
+                'job-id': props.job.name,
+                phase: phase,
+                'phase-part-id': phasePart.id,
+                day: getDateString(day),
+              };
+
               let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(
                 getDateString(new Date(Date.parse(day.toString()) - 86400000))
               );
@@ -287,9 +299,6 @@ const RowJobComponent = (props: RowJobProps) => {
               else if (hasBefore) phaseAppearance[phase] = 'end';
               else if (hasAfter) phaseAppearance[phase] = 'start';
               else phaseAppearance[phase] = 'startEnd';
-
-              const phaseObject =
-                props.job[phase][phaseDatesToIndex[phase][getDateString(day)]];
               contents[phase] = (
                 <ContextMenuTrigger
                   id={'Phase' + ucfirst(phase) + 'Menu'}
@@ -309,11 +318,11 @@ const RowJobComponent = (props: RowJobProps) => {
                         onDragStart(e, {
                           jobId: props.job.name,
                           phase: phase,
-                          phaseId: phaseObject.id,
+                          phaseId: phasePart.id,
                           date: getDateString(day),
                           maxCapacity:
                             phase !== 'transport'
-                              ? phaseObject.shifts
+                              ? phasePart.shifts
                                   .map((shift) => shift.planned)
                                   .reduce((a, b) => a + b)
                               : 0,
@@ -329,9 +338,8 @@ const RowJobComponent = (props: RowJobProps) => {
                           {day.getDate()}
                         </ClassicDay>
                         <ClassicCapacity view={props.settings.calendarView}>
-                          {console.log(phaseObject)}
-                          {phaseObject.type !== 'Transport'
-                            ? phaseObject.shifts
+                          {phasePart.type !== 'Transport'
+                            ? phasePart.shifts
                                 .map((shift) => shift.planned)
                                 .reduce((a, b) => a + b)
                             : ''}
@@ -347,6 +355,12 @@ const RowJobComponent = (props: RowJobProps) => {
                 </ContextMenuTrigger>
               );
             } else {
+              const attributes = {
+                'job-id': props.job.name,
+                phase: phase,
+                day: getDateString(day),
+              };
+
               contents[phase] = (
                 <ContextMenuTrigger
                   id={'EmptyPhaseMenu'}

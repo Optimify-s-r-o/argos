@@ -1,5 +1,5 @@
 import NumericInput from 'react-numeric-input';
-import phasePartMove from '../../api/phase/move';
+import phasePartMove from '../../api/phase/move-phase-part';
 import queryString from 'query-string';
 import React, { useState } from 'react';
 import styled from 'styled-components';

@@ -1,6 +1,7 @@
 import getCalendarDays from '../../../../api/calendar/overwiev';
 import jobAddImg from '../../../../icons/add.png';
-import OpenWindow from '../../../OpenWindow';
+import OpenWindow, { openWindow } from '../../../OpenWindow';
+import phasePartDelete from '../../../../api/phase/delete-phase-part';
 import React, { useEffect, useState } from 'react';
 import RowCapacities from './Calendar/RowCapacities';
 import RowDays from './Calendar/RowDays';
@@ -23,6 +24,15 @@ import {
   getMultipliedColor,
   getColorWithOpacity,
 } from '../../../../styles/theme';
+import {
+  CapacityChangePath,
+  CapacityChangeSettings,
+} from '../../CapacityChange';
+import {
+  MSGBOX_BUTTONS_OK,
+  MSGBOX_TYPE_SUCCESS,
+  showMessageBox,
+} from '../../../../utils/showMessageBox';
 
 interface CalendarProps {
   calendarView: string;
@@ -97,6 +107,7 @@ const CalendarComponent = (props: CalendarProps) => {
     return {
       jobId: target.getAttribute('job-id'),
       phase: target.getAttribute('phase'),
+      phasePartId: target.getAttribute('phase-part-id'),
       date: target.getAttribute('day'),
     };
   };
@@ -104,6 +115,7 @@ const CalendarComponent = (props: CalendarProps) => {
   const contextMenuChangeCapacity = (e, data, target) => {
     const targetData = getContextMenuTargetData(target);
     console.log(targetData);
+    openWindow(CapacityChangePath, CapacityChangeSettings);
   };
 
   const contextMenuMoveFreeCapacity = (e, data, target) => {
@@ -118,7 +130,22 @@ const CalendarComponent = (props: CalendarProps) => {
 
   const contextMenuRemovePhase = (e, data, target) => {
     const targetData = getContextMenuTargetData(target);
-    console.log(targetData);
+    phasePartDelete(
+      props.settings.url,
+      props.token,
+      targetData.phase,
+      targetData.phasePartId,
+      (data) => {
+        if (data.status === 200) {
+          showMessageBox(
+            'calendar:rowJob.deletePhasePart',
+            MSGBOX_TYPE_SUCCESS,
+            MSGBOX_BUTTONS_OK
+          );
+          fetchJobs();
+        }
+      }
+    );
   };
 
   const contextMenuCreatePhase = (e, data, target) => {

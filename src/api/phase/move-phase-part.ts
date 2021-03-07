@@ -10,14 +10,14 @@ const phasePartMove = async (
   token: string,
   phase: string,
   method: CapacityMoveMethod,
-  phaseId: string,
+  phasePartId: string,
   toDate: string,
   capacity: number = 0,
   callback: StatusCallbackType
 ) => {
   let endpoint = '/api/v1/' + phase + 'workingphase/';
   let body = {
-    fromId: phaseId,
+    fromId: phasePartId,
     toDate: toDate,
   };
 

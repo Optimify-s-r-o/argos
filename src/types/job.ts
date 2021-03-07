@@ -13,10 +13,10 @@ export interface JobType {
   warnings: Array<WarningType>;
 }
 
-export type JobStateType = 'Created' | 'Verified' | 'Finished' | 'InArchive';
+export type JobStateType = 'Quotation' | 'Verified' | 'Finished' | 'InArchive';
 
 export enum JobStateEnum {
-  Created = 'Created',
+  Quotation = 'Quotation',
   Verified = 'Verified',
   Finished = 'Finished',
   InArchive = 'InArchive',
