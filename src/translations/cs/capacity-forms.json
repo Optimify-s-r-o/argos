@@ -1,11 +1,25 @@
 {
   "titleBar": "Změna kapacity",
+  "capacities": "Kapacity",
   "requiredCapacity": "Potřebná kapacita",
   "freeCapacity": "Nepřiřazená kapacita",
   "saveCapacities": "Uložit kapacity",
   "date": "Datum",
+  "shift": "Směna",
   "phase": "Typ pracoviště",
   "currentValue": "Současná hodnota",
   "newValue": "Nová hodnota",
-  "saveCapacity": "Uložit kapacitu"
+  "saveCapacity": "Uložit kapacitu",
+  "freeCapacityWarning": {
+    "title": "Varování",
+    "text": "Máte nepřiřazenou kapacitu. Chcete pokračovat?"
+  },
+  "success": {
+    "title": "OK",
+    "text": "Kapacity byly úspěšně uloženy. Chcete okno zavřít?"
+  },
+  "error": {
+    "title": "Chyba",
+    "text": "Při ukládání kapacity se vyskytla chyba. Zkuste to, prosím, znovu. Pokud chyba přetrvává, kontaktujte vývojáře."
+  }
 }

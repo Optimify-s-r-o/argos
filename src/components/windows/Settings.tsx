@@ -1,10 +1,10 @@
-import Capacities from './Settings/02_Capacities';
 import Common from './Settings/01_Common';
 import queryString from 'query-string';
 import React, { useState } from 'react';
-import Shifts from './Settings/03_Shifts';
+import Shifts from './Settings/02_Shifts';
 import styled from 'styled-components';
 import TitleBar from '../TitleBar';
+import { faBriefcase, faCogs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormBackground, FormCard } from '../../styles/forms';
 import { getColorWithOpacity } from '../../styles/theme';
@@ -13,11 +13,6 @@ import { setCurrentElectronWindowTitle } from '../../utils/electron';
 import { SettingsCategory } from '../../types/settings';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import {
-  faCogs,
-  faSlidersH,
-  faBriefcase,
-} from '@fortawesome/free-solid-svg-icons';
 
 const SettingsPath = '/settings';
 
@@ -37,18 +32,11 @@ const Settings = () => {
   const [token] = useState(params.token as string);
   const [url] = useState(params.url as string);
 
-  setCurrentElectronWindowTitle(t('settings:title'));
-
   const categories: Array<SettingsCategory> = [
     {
       name: 'common',
       icon: faCogs,
       component: <Common />,
-    },
-    {
-      name: 'capacities',
-      icon: faSlidersH,
-      component: <Capacities token={token} url={url} />,
     },
     {
       name: 'shifts',
@@ -58,16 +46,34 @@ const Settings = () => {
   ];
   const [activeCategory, setActiveCategory] = useState(categories[0]);
 
+  setCurrentElectronWindowTitle(
+    t('settings:title') + ': ' + t('settings:categories.' + activeCategory.name)
+  );
+
   return (
     <FormBackground>
-      <TitleBar title={t('settings:title')} icon={false} />
+      <TitleBar
+        title={
+          t('settings:title') +
+          ': ' +
+          t('settings:categories.' + activeCategory.name)
+        }
+        icon={false}
+      />
       <Row>
         <SettingsWrapper>
           <SettingsCategories>
             {categories.map((category) => (
               <Category
                 isActive={activeCategory.name === category.name}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => {
+                  setActiveCategory(category);
+                  setCurrentElectronWindowTitle(
+                    t('settings:title') +
+                      ': ' +
+                      t('settings:categories.' + category.name)
+                  );
+                }}
               >
                 <FontAwesomeIcon icon={category.icon} />{' '}
                 {t('settings:categories.' + category.name)}

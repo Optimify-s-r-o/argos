@@ -1,18 +1,18 @@
 import { CallbackType } from '../../types/api';
-import { JobSort } from '../../types/job';
 import { SortOptions } from '../../components/table';
+import { TransportSort } from '../../types/transport';
 
-const jobsGet = async (
+const getTransports = async (
   url: string,
   token: string,
-  callback?: CallbackType,
+  callback: CallbackType,
   page?: number | null,
   pageSize?: number | null,
-  sort?: JobSort | null,
+  sort?: TransportSort | null,
   filter?: string | null
 ) => {
   try {
-    let requestString = url + '/api/v1/jobs?';
+    let requestString = url + '/api/v1/transports?';
     requestString += page ? 'page=' + page + '&' : '';
     requestString += pageSize ? 'pageSize=' + pageSize + '&' : '';
 
@@ -37,16 +37,15 @@ const jobsGet = async (
     const result = await fetch(requestString, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: 'Bearer ' + token,
       },
     });
     const data = { status: result.status, body: await result.json() };
-    callback && callback(data);
+    callback(data);
   } catch (e) {
     console.log(e);
   }
 };
 
-export default jobsGet;
+export default getTransports;

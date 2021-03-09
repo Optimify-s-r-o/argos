@@ -3,13 +3,15 @@
     "common": "Obecné",
     "material": "Materiál",
     "calendarView": "Zobrazení kalendáře",
-    "jobsView": "Zakázky"
+    "jobsView": "Zakázky",
+    "transportsView": "Dopravci"
   },
   "common": {
     "view": {
       "header": "Zobrazení",
       "calendar": "Kalendář",
-      "jobs": "Zakázky"
+      "jobs": "Zakázky",
+      "transports": "Dopravci"
     },
     "forms": {
       "header": "Formuláře",
@@ -51,6 +53,12 @@
       "classicDays": "Dny",
       "classicCapacities": "Kapacity",
       "compact": "Kompaktní"
+    }
+  },
+  "transportsView": {
+    "transports": {
+      "header": "Dopravci",
+      "add": "Přidat\n dopravce"
     }
   },
   "user": {

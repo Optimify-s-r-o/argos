@@ -505,7 +505,7 @@ const StatusCurrentButton = styled(StatusButton)`
   color: ${(props) => props.theme.colors.white};
   opacity: 1;
 
-  cursor: default;
+  cursor: default !important;
   transition: none;
 `;
 

@@ -1,8 +1,9 @@
-import nav, { LargeIconDefinition } from '../../../enums/nav';
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { closeCurrentElectronWindow } from '../../../utils/electron';
 import { connect } from 'react-redux';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getColorWithOpacity, getMultipliedColor } from '../../../styles/theme';
 import { openWindow } from '../../OpenWindow';
 import { setCalendarView, setWeeks, sort } from '../../../actions/calendar';
@@ -10,6 +11,10 @@ import { setCapacitiesView } from '../../../actions/capacities';
 import { setCurrentNav } from '../../../actions/nav';
 import { setView } from '../../../actions/view';
 import { useTranslation } from 'react-i18next';
+import nav, {
+  LargeFAIconDefinition,
+  LargeIconDefinition,
+} from '../../../enums/nav';
 import {
   CalendarViewType,
   CapacitiesViewType,
@@ -107,7 +112,14 @@ const NavComponent = (props: NavComponentProps) => {
                     <Section>
                       <SectionHeader>{section.header}</SectionHeader>
                       {section.items.map((item) => {
-                        return <LargeIcon {...item} />;
+                        switch (item.type) {
+                          case 'largeFAIcon':
+                            return <LargeFAIcon {...item} />;
+
+                          case 'largeIcon':
+                          default:
+                            return <LargeIcon {...item} />;
+                        }
                       })}
                     </Section>
                   </>
@@ -119,10 +131,10 @@ const NavComponent = (props: NavComponentProps) => {
         <NavContentRight>
           <Section isRight>
             <SectionHeader>{t('nav:user.header')}</SectionHeader>
-            <LargeIcon
-              type='largeIcon'
+            <LargeFAIcon
+              type='largeFAIcon'
               title={t('nav:user.logout')}
-              src=''
+              icon={faSignOutAlt}
               onClick={() => {
                 openWindow(
                   '/',
@@ -338,11 +350,37 @@ const LargeIcon = (props: LargeIconDefinition) => {
   );
 };
 
+const LargeFAIcon = (props: LargeFAIconDefinition) => {
+  return (
+    <LargeIconEl
+      isActive={props.hasOwnProperty('active') ? props.active : false}
+      onClick={() => props.onClick()}
+    >
+      <LargeFAIconWrapper>
+        <FontAwesomeIcon icon={props.icon} />
+      </LargeFAIconWrapper>
+      <LargeIconTitle>{props.title}</LargeIconTitle>
+    </LargeIconEl>
+  );
+};
+
 const LargeImg = styled.img`
   width: 32px;
   height: 32px;
 
   opacity: 0.7;
+`;
+
+const LargeFAIconWrapper = styled.div`
+  width: 32px;
+  height: 32px;
+
+  svg {
+    height: 32px;
+
+    color: ${(props) => props.theme.colors.primary};
+    font-size: 24px;
+  }
 `;
 
 const LargeIconEl = styled.button`

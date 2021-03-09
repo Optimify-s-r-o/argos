@@ -29,7 +29,7 @@ import {
   getColorWithOpacity,
 } from '../../../../styles/theme';
 import {
-  CapacityChangePath,
+  CapacityChangePathWithParams,
   CapacityChangeSettings,
 } from '../../CapacityChange';
 import {
@@ -122,7 +122,15 @@ const CalendarComponent = (props: CalendarProps) => {
   const contextMenuChangeCapacity = (e, data, target) => {
     const targetData = getContextMenuTargetData(target);
     console.log(targetData);
-    openWindow(CapacityChangePath, CapacityChangeSettings);
+    openWindow(
+      CapacityChangePathWithParams(
+        props.settings.url,
+        props.token,
+        targetData.jobGuid,
+        targetData.phase
+      ),
+      CapacityChangeSettings
+    );
   };
 
   const contextMenuMoveFreeCapacity = (e, data, target) => {

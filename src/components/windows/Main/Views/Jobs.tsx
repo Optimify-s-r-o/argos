@@ -2,6 +2,7 @@ import ExternalTable from '../../../table/ExternalTable';
 import jobsGet from '../../../../api/jobs/get';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { getLocalizedDate } from '../../../../utils/days';
 import { SettingsType } from '../../../../types/settings';
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +19,7 @@ const mapStateToProps = (state) => {
 };
 
 const JobsComponent = (props: JobsProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [data, setData] = useState({
     page: 0,
     limit: 0,
@@ -54,9 +55,15 @@ const JobsComponent = (props: JobsProps) => {
           job.name,
           job.city,
           job.type,
-          'začátek smlouvy',
-          'konec smlouvy',
-          'deadline',
+          getLocalizedDate(
+            new Date(Date.parse(job.contractStart)),
+            i18n.language
+          ),
+          getLocalizedDate(
+            new Date(Date.parse(job.contractEnd)),
+            i18n.language
+          ),
+          getLocalizedDate(new Date(Date.parse(job.deadline)), i18n.language),
           job,
         ])}
         renderers={[

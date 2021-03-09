@@ -1,6 +1,6 @@
 import getShifts from '../../../api/shifts/get-shifts';
 import React, { useEffect, useState } from 'react';
-import Shift from './03_Shifts/Shift';
+import Shift from './02_Shifts/Shift';
 import styled from 'styled-components';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -76,7 +76,7 @@ const Shifts = (props: ShiftsProps) => {
               );
             }}
           >
-            <FontAwesomeIcon icon={faPlus} /> Přidat směnu
+            <FontAwesomeIcon icon={faPlus} /> {t('settings:shifts.add')}
           </AddShiftButton>
         </Phase>
       ))}

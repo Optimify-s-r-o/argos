@@ -2,21 +2,16 @@
   "title": "Nastavení",
   "categories": {
     "common": "Obecné",
-    "capacities": "Kapacity",
-    "shifts": "Směny"
+    "shifts": "Směny",
+    "transports": "Dopravci"
   },
   "common": {
     "header": "Základní",
     "pambaPath": "Cesta k databázi",
     "pambaPathChange": "Změnit"
   },
-  "capacities": {
-    "header": "Kapacity",
-    "edit": "Upravit",
-    "saw": "Pila",
-    "press": "Lis",
-    "transport": "Transport",
-    "construction": "Montáž"
+  "shifts": {
+    "add": "Přidat směnu"
   },
   "save": "Uložit nastavení",
   "saved": {

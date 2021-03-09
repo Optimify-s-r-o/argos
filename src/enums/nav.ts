@@ -12,9 +12,24 @@ import settings from '../icons/settings-icon.png';
 import viewIcon from '../icons/view.png';
 import weeks from '../icons/weeks.png';
 import { callReloadPlates } from '../utils/helper-functions';
+import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { openWindow } from '../components/OpenWindow';
 import { SettingsPath, SettingsSettings } from '../components/windows/Settings';
 import { TFunction } from 'i18next';
+import {
+  faBriefcase,
+  faCheck,
+  faCogs,
+  faDolly,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faFileExport,
+  faInfo,
+  faPlusCircle,
+  faQuestion,
+  faSyncAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   GenerateDocumentPath,
   GenerateDocumentSettings,
@@ -42,7 +57,7 @@ interface TabDefinition {
 
 interface SectionDefinition {
   header: string;
-  items: Array<LargeIconDefinition>;
+  items: Array<LargeIconDefinition | LargeFAIconDefinition>;
 }
 
 export interface LargeIconDefinition {
@@ -50,6 +65,13 @@ export interface LargeIconDefinition {
   onClick: () => void;
   active?: boolean;
   src: string;
+  title: string;
+}
+export interface LargeFAIconDefinition {
+  type: 'largeFAIcon';
+  onClick: () => void;
+  active?: boolean;
+  icon: IconDefinition;
   title: string;
 }
 
@@ -82,18 +104,25 @@ const nav = (
           header: t('nav:common.view.header'),
           items: [
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => stateData.viewSetter('calendar'),
               active: stateData.view === 'calendar',
-              src: weeks,
+              icon: faCalendarAlt,
               title: t('nav:common.view.calendar'),
             },
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => stateData.viewSetter('jobs'),
               active: stateData.view === 'jobs',
-              src: viewIcon,
+              icon: faBriefcase,
               title: t('nav:common.view.jobs'),
+            },
+            {
+              type: 'largeFAIcon',
+              onClick: () => stateData.viewSetter('transports'),
+              active: stateData.view === 'transports',
+              icon: faDolly,
+              title: t('nav:common.view.transports'),
             },
           ],
         },
@@ -101,11 +130,11 @@ const nav = (
           header: t('nav:common.forms.header'),
           items: [
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => {
                 openWindow(GenerateDocumentPath, GenerateDocumentSettings);
               },
-              src: generateDocument,
+              icon: faFileExport,
               title: t('nav:common.forms.generateDocument'),
             },
           ],
@@ -114,7 +143,7 @@ const nav = (
           header: t('nav:common.actions.header'),
           items: [
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () =>
                 callReloadPlates(url, token, () => {
                   showMessageBox(
@@ -123,7 +152,7 @@ const nav = (
                     MSGBOX_BUTTONS_OK
                   );
                 }),
-              src: '',
+              icon: faSyncAlt,
               title: t('nav:common.actions.reloadPlates'),
             },
           ],
@@ -132,13 +161,13 @@ const nav = (
           header: t('nav:common.settings.header'),
           items: [
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () =>
                 openWindow(
                   SettingsPath + '?url=' + url + '&token=' + token,
                   SettingsSettings
                 ),
-              src: settings,
+              icon: faCogs,
               title: t('nav:common.settings.settings'),
             },
           ],
@@ -268,6 +297,28 @@ const nav = (
       sections: [],
     },
     {
+      name: 'transportsView',
+      title: t('nav:tabs.transportsView'),
+      isSpecial: true,
+      isVisible: stateData.view === 'transports',
+      sections: [
+        {
+          header: t('nav:transportsView.transports.header'),
+          items: [
+            {
+              type: 'largeFAIcon',
+              onClick: () => null,
+              /*openWindow(
+                  SettingsPath + '?url=' + url + '&token=' + token,
+                  SettingsSettings
+                )*/ icon: faPlusCircle,
+              title: t('nav:transportsView.transports.add'),
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'dev',
       title: 'Developement',
       isSpecial: false,
@@ -277,48 +328,48 @@ const nav = (
           header: 'Message boxes',
           items: [
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => {
                 showMessageBox('Success message', 'success', ['ok']);
               },
               active: false,
-              src: '',
+              icon: faCheck,
               title: 'Success',
             },
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => {
                 showMessageBox('Info message', 'info', ['ok']);
               },
               active: false,
-              src: '',
+              icon: faInfo,
               title: 'Info',
             },
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => {
                 showMessageBox('Warning message', 'warning', ['ok', 'cancel']);
               },
               active: false,
-              src: '',
+              icon: faExclamationTriangle,
               title: 'Warning',
             },
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => {
                 showMessageBox('Error message', 'error', ['ok']);
               },
               active: false,
-              src: '',
+              icon: faExclamationCircle,
               title: 'Error',
             },
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => {
                 showMessageBox('Question message', 'question', ['yes', 'no']);
               },
               active: false,
-              src: '',
+              icon: faQuestion,
               title: 'Question',
             },
           ],

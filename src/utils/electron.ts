@@ -57,6 +57,15 @@ function setCurrentElectronWindowTitle(title) {
     window.require('electron').remote.getCurrentWindow().setTitle(title);
 }
 
+function setCurrentElectronWindowHeight(height, center = false) {
+  if (isElectron()) {
+    let currentWindow = window.require('electron').remote.getCurrentWindow();
+
+    currentWindow.setSize(currentWindow.getSize()[0], height);
+    if (center) currentWindow.center();
+  }
+}
+
 function getDialog() {
   let dialog;
 
@@ -82,6 +91,7 @@ export {
   getCurrentElectronWindow,
   closeCurrentElectronWindow,
   setCurrentElectronWindowTitle,
+  setCurrentElectronWindowHeight,
   getDialog,
   getPath,
 };
