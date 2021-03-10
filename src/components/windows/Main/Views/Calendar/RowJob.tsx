@@ -344,7 +344,7 @@ const RowJobComponent = (props: RowJobProps) => {
                           {day.getDate()}
                         </ClassicDay>
                         <ClassicCapacity view={props.settings.calendarView}>
-                          {phasePart.type !== 'Transport'
+                          {phasePart.type !== 'Transport' && phasePart.type !== 'Construction'
                             ? phasePart.shifts
                                 .map((shift) => shift.planned)
                                 .reduce((a, b) => a + b, 0)
