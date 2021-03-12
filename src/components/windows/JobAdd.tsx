@@ -19,14 +19,8 @@ import { LoadedJobType } from '../../types/job';
 import { Row } from '../../styles/global';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import '../../styles/main.css';
 import '../../styles/forms.css';
-import FormRow, {
-  FormInfo,
-  FormInfoContent,
-  FormInfoHeader,
-  FormInfoRow,
-} from '../forms/FormRow';
+import '../../styles/main.css';
 import {
   FormBackground,
   FormCard,
@@ -34,8 +28,8 @@ import {
   FormColumn,
 } from '../../styles/forms';
 import {
-  getIpcRenderer,
   closeCurrentElectronWindow,
+  getIpcRenderer,
   setCurrentElectronWindowTitle,
 } from '../../utils/electron';
 import {
@@ -44,6 +38,12 @@ import {
   MSGBOX_TYPE_SUCCESS,
   showMessageBox,
 } from '../../utils/showMessageBox';
+import FormRow, {
+  FormInfo,
+  FormInfoContent,
+  FormInfoHeader,
+  FormInfoRow,
+} from '../forms/FormRow';
 
 const ipcRenderer = getIpcRenderer();
 
@@ -110,11 +110,10 @@ const JobAdd = () => {
       loadedJob.deadline = getDateString(deadline);
 
       // TODO: validate inputs
-      jobCreate(url, token, loadedJob, (resJob) => {
+      jobCreate(token, loadedJob, (resJob) => {
         // TODO: review error codes
         if (resJob.status === 200) {
           jobAutoplan(
-            url,
             token,
             resJob.body.id,
             getDateString(deadline),
@@ -143,7 +142,7 @@ const JobAdd = () => {
           resJob.status === 422 &&
           resJob.body.errorCode === 'PlateNameNotExists'
         ) {
-          callReloadPlates(url, token, () => {
+          callReloadPlates(token, () => {
             handleAddJob();
           });
         } else {

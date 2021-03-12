@@ -10,14 +10,11 @@ import { getLocalizedDate } from '../../utils/days';
 import { Row } from '../../styles/global';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import '../../styles/main.css';
 import '../../styles/forms.css';
-import FormRow, {
-  FormInfo,
-  FormInfoContent,
-  FormInfoHeader,
-  FormInfoRow,
-} from '../forms/FormRow';
+import '../../styles/main.css';
+import phasePartEdit, {
+  ShiftCapacityType,
+} from '../../api/phase/edit-phase-part';
 import {
   FormBackground,
   FormCard,
@@ -38,23 +35,25 @@ import {
   MSGBOX_TYPE_SUCCESS,
   showMessageBox,
 } from '../../utils/showMessageBox';
-import phasePartEdit, {
-  ShiftCapacityType,
-} from '../../api/phase/edit-phase-part';
+import FormRow, {
+  FormInfo,
+  FormInfoContent,
+  FormInfoHeader,
+  FormInfoRow,
+} from '../forms/FormRow';
 
 const title = 'capacityForms:titleBar';
 
 const CapacityChangePath = '/capacity-change';
 
 const CapacityChangePathWithParams = (
-  url: string,
   token: string,
   jobGuid: string,
   phase: string
 ) => {
   return (
     '/capacity-change?url=' +
-    url +
+    process.env.REACT_APP_BACKEND_API +
     '&token=' +
     token +
     '&jobGuid=' +
@@ -93,7 +92,7 @@ const CapacityChange = () => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    getShifts(params.url as string, params.token as string, phase, (data) => {
+    getShifts(params.token as string, phase, (data) => {
       let newShifts = {};
       data.body.forEach((shift) => (newShifts[shift.id] = shift.name));
       setShifts(newShifts);
@@ -102,49 +101,44 @@ const CapacityChange = () => {
 
   useEffect(() => {
     if (Object.entries(shifts).length > 0) {
-      getJob(
-        params.url as string,
-        params.token as string,
-        params.jobGuid as string,
-        (data) => {
-          setJobId(data.body.name);
-          setRequiredCapacity(data.body[phase].capacity);
-          setFreeCapacity(data.body[phase].notAllocatedCapacity);
+      getJob(params.token as string, params.jobGuid as string, (data) => {
+        setJobId(data.body.name);
+        setRequiredCapacity(data.body[phase].capacity);
+        setFreeCapacity(data.body[phase].notAllocatedCapacity);
 
-          setCurrentElectronWindowTitle(
-            t(title) +
-              ': ' +
-              data.body.name +
-              ', ' +
-              t('phaseForms:phases.' + phase)
-          );
+        setCurrentElectronWindowTitle(
+          t(title) +
+            ': ' +
+            data.body.name +
+            ', ' +
+            t('phaseForms:phases.' + phase)
+        );
 
-          let daysData: Array<DaysFormat> = [];
-          let phasePartsData: Array<string> = [];
-          data.body[phase].workingPhaseParts.forEach((part) => {
-            phasePartsData.push(part.id);
-            Object.keys(shifts).forEach((shiftGuid) => {
-              daysData.push({
-                guid: part.id,
-                date: new Date(Date.parse(part.day)),
-                shift: shiftGuid,
-                value: part.shifts.some((el) => el.shiftId === shiftGuid)
-                  ? parseInt(
-                      part.shifts.find((el) => el.shiftId === shiftGuid).planned
-                    )
-                  : 0,
-              });
+        let daysData: Array<DaysFormat> = [];
+        let phasePartsData: Array<string> = [];
+        data.body[phase].workingPhaseParts.forEach((part) => {
+          phasePartsData.push(part.id);
+          Object.keys(shifts).forEach((shiftGuid) => {
+            daysData.push({
+              guid: part.id,
+              date: new Date(Date.parse(part.day)),
+              shift: shiftGuid,
+              value: part.shifts.some((el) => el.shiftId === shiftGuid)
+                ? parseInt(
+                    part.shifts.find((el) => el.shiftId === shiftGuid).planned
+                  )
+                : 0,
             });
           });
-          daysData.sort((a, b) =>
-            a.date > b.date ? 1 : a.date < b.date ? -1 : 0
-          );
-          setPhaseParts(phasePartsData);
-          setDays(daysData);
+        });
+        daysData.sort((a, b) =>
+          a.date > b.date ? 1 : a.date < b.date ? -1 : 0
+        );
+        setPhaseParts(phasePartsData);
+        setDays(daysData);
 
-          setCurrentElectronWindowHeight(307 + 85 * daysData.length, true);
-        }
-      );
+        setCurrentElectronWindowHeight(307 + 85 * daysData.length, true);
+      });
     }
   }, [shifts]);
 
@@ -202,7 +196,6 @@ const CapacityChange = () => {
       });
 
       phasePartEdit(
-        params.url as string,
         params.token as string,
         phasePart,
         shiftsData,

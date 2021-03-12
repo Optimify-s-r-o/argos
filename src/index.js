@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './components/App';
+import './i18n';
 import * as serviceWorker from './serviceWorker';
 import store from './store/index';
-import { Provider } from 'react-redux';
-import './i18n';
 import { getIpcMain } from './utils/electron';
 const ipcMain = getIpcMain();
 
