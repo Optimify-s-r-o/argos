@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Argos.LocalProxy.Mitek.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Argos.LocalProxy.Mitek.Api.Settings.Configuration.MiddlewareConfig.UseSwaggerWithOptions(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            Use swagger UI and endpoint
+            </summary>
+            <remarks>
+            See: https://github.com/drwatson1/AspNet-Core-REST-Service/wiki#documenting-api
+            </remarks>
+        </member>
+        <member name="M:Argos.LocalProxy.Mitek.Api.Settings.Configuration.SwaggerConfig.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add Swagger middleware
+            </summary>
+            <remarks>
+            See: https://github.com/drwatson1/AspNet-Core-REST-Service/wiki#documenting-api
+            </remarks>
+        </member>
+        <member name="T:Argos.LocalProxy.Mitek.Api.Settings.Filters.CacheControlFilter">
+            <summary>
+            Filter to add header Cache-Control to responses
+            </summary>
+            <remarks>See: https://github.com/drwatson1/AspNet-Core-REST-Service/wiki#cache-control</remarks>
+        </member>
+        <member name="T:Argos.LocalProxy.Mitek.Api.Settings.Filters.ValidateModelFilter">
+            <summary>
+            Filter to check is a model valid
+            </summary>
+            <remarks>See: https://github.com/drwatson1/AspNet-Core-REST-Service/wiki#model-validation</remarks>
+        </member>
+        <member name="T:Argos.LocalProxy.Mitek.Api.Settings.Middleware.ExceptionMiddleware">
+            <summary>
+            Middleware to handle exceptions.
+            It separates exceptions based on their type and returns different status codes and answers based on it, instead of 500 Internal Server Error code in all cases.
+            In addition, it writes them in the log.
+            </summary>
+            <remarks>
+            There is another way to do this - an exception filter.
+            However, a middleware is a preferred way to achieve this according to the official documentation.
+            To learn more see https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-2.1#exception-filters
+            
+            See also: https://github.com/drwatson1/AspNet-Core-REST-Service/wiki#unhandled-exceptions-handling
+            </remarks>
+        </member>
+        <member name="T:Argos.LocalProxy.Mitek.Api.Settings.Middleware.OptionsVerbMiddleware">
+            <summary>
+            OPTIONS HTTP-method handler
+            </summary>
+            <remarks>
+            See:     https://github.com/drwatson1/AspNet-Core-REST-Service/wiki#cross-origin-resource-sharing-cors-and-preflight-requests
+            </remarks>
+        </member>
+    </members>
+</doc>

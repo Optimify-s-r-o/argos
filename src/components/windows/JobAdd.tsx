@@ -57,8 +57,11 @@ const JobAddSettings = {
 };
 
 const JobAdd = () => {
-	const [token, setToken] = useState<string | null>(null);
-	const [url, setUrl] = useState<string | null>(null);
+	const location = useLocation();
+	const params = queryString.parse(location.search);
+
+	const [url] = useState<string | null>(params.url as string);
+	const [token] = useState<string | null>(params.token as string);
 	const [customerId, setCustomerId] = useState("");
 	const [contractDates, setContractDates] = useState({
 		startDate: new Date(),
@@ -69,14 +72,8 @@ const JobAdd = () => {
 	const [loadedJob, setLoadedJob] = useState<LoadedJobType | null>(null);
 	const [jobList, setJobList] = useState({});
 	const { t } = useTranslation();
-	const location = useLocation();
 
 	useEffect(() => {
-		const params = queryString.parse(location.search);
-
-		setToken(params.token as string);
-		setUrl(params.url as string);
-
 		getJobList((res) => {
 			let jobList: Array<{ label: string; value: string }> = [];
 			res.body.jobs.forEach((jobIdentification: string) => {

@@ -120,7 +120,13 @@ function runProxyServer() {
   }
 
   return execFile(
-    path.join(__dirname, pathLevel + 'bin/proxy/ArgosLocal.exe'),
+    path.join(
+      __dirname,
+      pathLevel + 'bin/proxy/Argos.LocalProxy.Mitek.Api.exe'
+    ),
+    {
+      cwd: path.join(__dirname, pathLevel + 'bin/proxy'),
+    },
     (err, data) => {
       //throw err;
       /*console.log(err);
@@ -128,5 +134,6 @@ function runProxyServer() {
     }
   );
 }
+
 
 app.on('ready', createWindow);

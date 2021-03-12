@@ -124,7 +124,9 @@ const CapacityChange = () => {
 							date: new Date(Date.parse(part.day)),
 							shift: shiftGuid,
 							value: part.shifts.some((el) => el.shiftId === shiftGuid)
-								? part.shifts.find((el) => el.shiftId === shiftGuid).planned
+								? parseInt(
+										part.shifts.find((el) => el.shiftId === shiftGuid).planned
+								  )
 								: 0,
 						});
 					});
@@ -149,7 +151,7 @@ const CapacityChange = () => {
 			for (let i = 0; i < days.length; i++) {
 				newDays[i] = Object.assign({}, days[i]);
 			}
-			newDays[index].value = target.value;
+			newDays[index].value = parseInt(target.value);
 
 			let newFreeCapacity = requiredCapacity;
 			newDays.forEach((day) => {
