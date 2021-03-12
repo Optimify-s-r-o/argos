@@ -3,6 +3,7 @@ const path = require('path');
 const execFile = require('child_process').execFile;
 const { autoUpdater } = require("electron-updater")
 const log = require('electron-log');
+const isDev = require("electron-is-dev");
 
 try {
   require('electron-reloader')(module, {
@@ -35,9 +36,12 @@ function createWindow() {
   });
 
   //window.maximize();
-
-  //window.loadURL('http://localhost:3000/');
-  window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
+  
+  window.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
 
   window.on('ready-to-show', (e) => {
     window.show();
