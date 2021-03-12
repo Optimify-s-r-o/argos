@@ -6,14 +6,13 @@ import store from './store/index';
 import { Provider } from 'react-redux';
 import './i18n';
 import { getIpcMain } from './utils/electron';
-import { setPambaPath } from './actions/app';
 const ipcMain = getIpcMain();
 
 // global event listeners
 if (ipcMain) {
-  ipcMain.on('setPambaPath', (e, path) => {
+  /*ipcMain.on('setPambaPath', (e, path) => {
     store.dispatch(setPambaPath(path));
-  });
+  });*/
 }
 
 ReactDOM.render(

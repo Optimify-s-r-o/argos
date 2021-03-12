@@ -42,7 +42,7 @@ const Views = (props: ViewsProps) => {
   return (
     <ViewsWrapper>
       <WarningBar
-        visible={pambaConnectionWarningVisible}
+        visible={false}
         text={t('warnings:pambaConnection.text')}
         action={
           <OpenWindow

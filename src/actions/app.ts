@@ -7,10 +7,3 @@ export const appAccountTokenSet = (token: string) => {
     token: token,
   };
 };
-
-export const setPambaPath = (path: string) => {
-  return {
-    type: ACTION_SET_PAMBA_PATH,
-    path: path,
-  };
-};
