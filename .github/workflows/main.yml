@@ -19,11 +19,8 @@ jobs:
         with:
           node-version: 14
 
-      - name: Remove cache
-        run: npm cache clean --force
-
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build Electron release
         run: npm run release
