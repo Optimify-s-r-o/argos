@@ -142,7 +142,7 @@ const nav = (
 						{
 							type: "largeFAIcon",
 							onClick: () =>
-								callReloadPlates(url, token, () => {
+								callReloadPlates(token, () => {
 									showMessageBox(
 										"plates:reloaded",
 										MSGBOX_TYPE_SUCCESS,
