@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const execFile = require('child_process').execFile;
+const { autoUpdater } = require("electron-updater")
+const log = require('electron-log');
 
 try {
   require('electron-reloader')(module, {
@@ -11,6 +13,10 @@ try {
 }
 
 function createWindow() {
+  autoUpdater.logger = log;
+  autoUpdater.logger.transports.file.level = 'info';
+  autoUpdater.autoDownload=false;
+
   let proxyServer = runProxyServer();
 
   let window = new BrowserWindow({
@@ -53,6 +59,58 @@ function createWindow() {
     proxyServer = runProxyServer();
     return proxyServer;
   });
+
+  
+  ipcMain.on('CHECK_FOR_UPDATE_PENDING', (event) => {
+    const { sender } = event;
+    logInfo('CHECK_FOR_UPDATE_PENDING');
+    autoUpdater.autoDownload=false;
+  if (process.env.NODE_ENV === 'development') {
+    sender.send('CHECK_FOR_UPDATE_SUCCESS');
+  } else {
+    const result = autoUpdater.checkForUpdates();
+    log.info(result);
+    result
+      .then((checkResult) => {
+        const { updateInfo } = checkResult;
+        logInfo('CHECK_FOR_UPDATE_SUCCESS:')
+        logInfo(updateInfo)
+        sender.send("CHECK_FOR_UPDATE_SUCCESS", updateInfo);
+      })
+      .catch((error) => {
+        logInfo('CHECK_FOR_UPDATE_FAILURE:')
+        logInfo(error);
+        sender.send("CHECK_FOR_UPDATE_SUCCESS");
+      });
+  }
+  });
+
+  ipcMain.on("DOWNLOAD_UPDATE_PENDING", event => {
+    const result = autoUpdater.downloadUpdate();
+    const { sender } = event;
+  
+    result
+      .then(() => {
+        logInfo("DOWNLOAD_UPDATE_SUCCESS");
+        sender.send("DOWNLOAD_UPDATE_SUCCESS");
+      })
+      .catch((error) => {
+        logInfo("DOWNLOAD_UPDATE_FAILURE:");
+        logInfo(error);
+        sender.send("DOWNLOAD_UPDATE_SUCCESS");
+      });
+  });
+  
+  autoUpdater.on('update-downloaded', (info) => {
+    logInfo('Update downloaded');
+    autoUpdater.quitAndInstall();
+  });
+
+  ipcMain.on('APP_VERSION', (event) => {
+    logInfo('APP_VERSION'+app.getVersion())
+    event.sender.send('APP_VERSION', { version: app.getVersion() });
+  });
+
 }
 
 function runProxyServer() {
