@@ -1,11 +1,13 @@
 {
   "name": "argos",
-  "version": "2.0.0-dev",
+  "version": "0.0.1",
+  "productName": "Argos",
+  "description": "Argos",
   "author": {
     "name": "Optimify s.r.o.",
     "email": "info@optimify.cz"
   },
-  "main": "public/Main.js",
+  "main": "public/electron.js",
   "homepage": "./",
   "private": true,
   "dependencies": {
@@ -48,24 +50,33 @@
     "watch": "^1.0.2"
   },
   "scripts": {
-    "dev": "concurrently \"yarn watch\" \"electron . --dev\"",
-    "watch": "watch \"yarn build\" ./src",
-    "postdev": "watch \"yarn build\" ./src",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "env-cmd -f .env.prod react-scripts start",
+    "build": "env-cmd -f .env.prod react-scripts build",
+    "build:dev": "env-cmd -f .env.dev react-scripts build",
+    "build:prod": "env-cmd -f .env.prod react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "preelectron-start": "npm run build",
-    "electron-start": "electron . --dev",
-    "preelectron-pack": "npm run build",
-    "electron-pack": "electron-builder build --win -c.extraMetadata.main=build/Main.js"
+    "dev": "concurrently -k \"npm start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "release": "npm run build:prod && electron-builder build --win -p always",
+    "release:dev": "npm run build:dev && electron-builder build --win -p always"
   },
   "build": {
     "productName": "Argos",
+    "appId": "org.common.argos",
     "copyright": "Copyright © 2018-2020 Optimify s.r.o.",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Optimify-s-r-o",
+        "repo": "argos",
+        "releaseType": "draft"
+      }
+    ],
     "files": [
       "build/**/*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "./public/**/*"
     ],
     "extraFiles": [
       "bin/**/*"
@@ -74,10 +85,30 @@
       "buildResources": "assets"
     },
     "win": {
-      "artifactName": "argos-setup-${version}.${ext}"
+      "artifactName": "Argos-Setup-${version}.${ext}",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "publish": [
+        "github"
+      ]
     },
     "nsis": {
-      "shortcutName": "Argos"
+      "shortcutName": "Argos",
+      "warningsAsErrors": false,
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": true,
+      "createStartMenuShortcut": true
     }
   },
   "eslintConfig": {
@@ -99,6 +130,8 @@
     "electron": "^7.2.1",
     "electron-builder": "^21.2.0",
     "electron-reloader": "^1.0.1",
-    "typescript": "^3.8.3"
+    "env-cmd": "^10.1.0",
+    "typescript": "^3.8.3",
+    "wait-on": "^5.2.1"
   }
 }
