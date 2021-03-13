@@ -14,429 +14,427 @@ import { setCalendarData } from '../../../../../actions/calendar';
 import { SettingsType } from '../../../../../types/settings';
 import { useTranslation } from 'react-i18next';
 import {
-	getNextState,
-	jobSetState,
-	JOB_STATE_IN_ARCHIVE,
-	JOB_STATE_QUOTATION,
-} from "../../../../../api/job-set-state";
+  getNextState,
+  jobSetState,
+  JOB_STATE_IN_ARCHIVE,
+  JOB_STATE_QUOTATION,
+} from '../../../../../api/job-set-state';
 import {
-	CalendarDay,
-	CalendarDays,
-	CalendarRowHeader,
-	Row,
-} from "../../../../../styles/global";
+  CalendarDay,
+  CalendarDays,
+  CalendarRowHeader,
+  Row,
+} from '../../../../../styles/global';
 import {
-	getDateString,
-	getLocalizedDate,
-	isNonWorkingDay,
-} from "../../../../../utils/days";
+  getDateString,
+  getLocalizedDate,
+  isNonWorkingDay,
+} from '../../../../../utils/days';
 import {
-	MSGBOX_BUTTONS_OK,
-	MSGBOX_BUTTONS_YES_NO,
-	MSGBOX_BUTTON_YES,
-	MSGBOX_TYPE_ERROR,
-	MSGBOX_TYPE_INFO,
-	MSGBOX_TYPE_SUCCESS,
-	MSGBOX_TYPE_WARNING,
-	showMessageBox,
-} from "../../../../../utils/showMessageBox";
+  MSGBOX_BUTTONS_OK,
+  MSGBOX_BUTTONS_YES_NO,
+  MSGBOX_BUTTON_YES,
+  MSGBOX_TYPE_ERROR,
+  MSGBOX_TYPE_INFO,
+  MSGBOX_TYPE_SUCCESS,
+  MSGBOX_TYPE_WARNING,
+  showMessageBox,
+} from '../../../../../utils/showMessageBox';
 
 const mapStateToProps = (state, ownProps) => {
-	return {
-		days: state.days,
-		job: state.jobs[ownProps.jobId],
-		token: state.token,
-		settings: state.settings,
-	};
+  return {
+    days: state.days,
+    job: state.jobs[ownProps.jobId],
+    token: state.token,
+    settings: state.settings,
+  };
 };
 
 function mapDispatchToProps(dispatch) {
-	return {
-		setCalendarData: (data: CalendarDataType) =>
-			dispatch(setCalendarData(data)),
-	};
+  return {
+    setCalendarData: (data: CalendarDataType) =>
+      dispatch(setCalendarData(data)),
+  };
 }
 
-const phases = ["saw", "press", "transport", "construction"]; // TODO: change to external constant
+const phases = ['saw', 'press', 'transport', 'construction']; // TODO: change to external constant
 
 interface RowJobProps {
-	days: Date[];
-	job: JobType;
-	token: string;
-	settings: SettingsType;
-	setCalendarData: (data: CalendarDataType) => void;
+  days: Date[];
+  job: JobType;
+  token: string;
+  settings: SettingsType;
+  setCalendarData: (data: CalendarDataType) => void;
 }
 
 const RowJobComponent = (props: RowJobProps) => {
-	const onDragStart = (e, data) => {
-		e.dataTransfer.setData(JSON.stringify(data), "");
-		e.dataTransfer.setDragImage(new Image(), 0, 0);
-	};
+  const onDragStart = (e, data) => {
+    e.dataTransfer.setData(JSON.stringify(data), '');
+    e.dataTransfer.setDragImage(new Image(), 0, 0);
+  };
 
-	const onDragOver = (e, data) => {
-		const draggedData = JSON.parse(e.dataTransfer.types[0]);
+  const onDragOver = (e, data) => {
+    const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-		if (
-			draggedData.jobid === data.jobId.toLowerCase() &&
-			draggedData.phase === data.phase.toLowerCase() &&
-			draggedData.date !== data.date
-		)
-			e.preventDefault();
-	};
+    if (
+      draggedData.jobid === data.jobId.toLowerCase() &&
+      draggedData.phase === data.phase.toLowerCase() &&
+      draggedData.date !== data.date
+    )
+      e.preventDefault();
+  };
 
-	const onDragEnter = (e, data) => {
-		const draggedData = JSON.parse(e.dataTransfer.types[0]);
+  const onDragEnter = (e, data) => {
+    const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-		if (
-			draggedData.jobid === data.jobId.toLowerCase() &&
-			draggedData.phase === data.phase.toLowerCase() &&
-			draggedData.date !== data.date
-		)
-			e.target.closest(".droppable").classList.add("dropped");
-	};
+    if (
+      draggedData.jobid === data.jobId.toLowerCase() &&
+      draggedData.phase === data.phase.toLowerCase() &&
+      draggedData.date !== data.date
+    )
+      e.target.closest('.droppable').classList.add('dropped');
+  };
 
-	const onDragLeave = (e) => {
-		e.target.closest(".droppable").classList.remove("dropped");
-	};
+  const onDragLeave = (e) => {
+    e.target.closest('.droppable').classList.remove('dropped');
+  };
 
-	const onDrop = (e, data) => {
-		e.target.closest(".droppable").classList.remove("dropped");
+  const onDrop = (e, data) => {
+    e.target.closest('.droppable').classList.remove('dropped');
 
-		const draggedData = JSON.parse(e.dataTransfer.types[0]);
+    const draggedData = JSON.parse(e.dataTransfer.types[0]);
 
-		if (data.phase !== "transport") {
-			showPhaseMoveModal(
-				props.token,
-				props.job.city + ", " + props.job.type,
-				data.phase,
-				draggedData.phaseid,
-				draggedData.date,
-				data.date,
-				draggedData.maxcapacity,
-				dragDropCallback
-			);
-		} else {
-			phasePartMove(
-				props.token,
-				data.phase,
-				"moveCapacity",
-				draggedData.phaseid,
-				data.date,
-				0,
-				dragDropCallback
-			);
-		}
-	};
+    if (data.phase !== 'transport') {
+      showPhaseMoveModal(
+        props.token,
+        props.job.city + ', ' + props.job.type,
+        data.phase,
+        draggedData.phaseid,
+        draggedData.date,
+        data.date,
+        draggedData.maxcapacity,
+        dragDropCallback
+      );
+    } else {
+      phasePartMove(
+        props.token,
+        data.phase,
+        'moveCapacity',
+        draggedData.phaseid,
+        data.date,
+        0,
+        dragDropCallback
+      );
+    }
+  };
 
-	const dragDropCallback = (result) => {
-		if (result.status === 200) {
-			fetchJobs();
+  const dragDropCallback = (result) => {
+    if (result.status === 200) {
+      fetchJobs();
 
-			showMessageBox("calendar:rowJob.moveCapacity", MSGBOX_TYPE_SUCCESS);
-		} else {
-			showMessageBox("FAILED", MSGBOX_TYPE_ERROR); // TODO
-		}
-	};
+      showMessageBox('calendar:rowJob.moveCapacity', MSGBOX_TYPE_SUCCESS);
+    } else {
+      showMessageBox('FAILED', MSGBOX_TYPE_ERROR); // TODO
+    }
+  };
 
-	const handleJobDelete = () => {
-		showMessageBox(
-			"jobForms:delete",
-			MSGBOX_TYPE_WARNING,
-			MSGBOX_BUTTONS_YES_NO,
-			(button) => {
-				if (button === MSGBOX_BUTTON_YES)
-					jobDelete(props.token, props.job.name, (res) => {
-						fetchJobs();
+  const handleJobDelete = () => {
+    showMessageBox(
+      'jobForms:delete',
+      MSGBOX_TYPE_WARNING,
+      MSGBOX_BUTTONS_YES_NO,
+      (button) => {
+        if (button === MSGBOX_BUTTON_YES)
+          jobDelete(props.token, props.job.name, (res) => {
+            fetchJobs();
 
-						if (res.status === 200) {
-							showMessageBox(
-								"jobForms:deleted",
-								MSGBOX_TYPE_INFO,
-								MSGBOX_BUTTONS_OK
-							);
-						}
-					});
-			}
-		);
-	};
+            if (res.status === 200) {
+              showMessageBox(
+                'jobForms:deleted',
+                MSGBOX_TYPE_INFO,
+                MSGBOX_BUTTONS_OK
+              );
+            }
+          });
+      }
+    );
+  };
 
-	const handleNextState = () => {
-		const callback = (res) => {
-			fetchJobs();
+  const handleNextState = () => {
+    const callback = (res) => {
+      fetchJobs();
 
-			if (res.status === 200)
-				showMessageBox("OK" /* TODO */, MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
-		};
+      if (res.status === 200)
+        showMessageBox('OK' /* TODO */, MSGBOX_TYPE_INFO, MSGBOX_BUTTONS_OK);
+    };
 
-		if (props.job.state === JOB_STATE_QUOTATION)
-			showMessageBox(
-				"Recalculate?" /* TODO */,
-				MSGBOX_TYPE_WARNING,
-				MSGBOX_BUTTONS_YES_NO,
-				(button) => {
-					if (button === MSGBOX_BUTTON_YES)
-						jobSetState(
-							props.token,
-							props.job.name,
-							getNextState(props.job.state),
-							(res) => {
-								callback(res);
-							}
-						);
-				}
-			);
-		else
-			jobSetState(
-				props.token,
-				props.job.name,
-				getNextState(props.job.state),
-				(res) => {
-					callback(res);
-				}
-			);
-	};
+    if (props.job.state === JOB_STATE_QUOTATION)
+      showMessageBox(
+        'Recalculate?' /* TODO */,
+        MSGBOX_TYPE_WARNING,
+        MSGBOX_BUTTONS_YES_NO,
+        (button) => {
+          if (button === MSGBOX_BUTTON_YES)
+            jobSetState(
+              props.token,
+              props.job.name,
+              getNextState(props.job.state),
+              (res) => {
+                callback(res);
+              }
+            );
+        }
+      );
+    else
+      jobSetState(
+        props.token,
+        props.job.name,
+        getNextState(props.job.state),
+        (res) => {
+          callback(res);
+        }
+      );
+  };
 
-	const fetchJobs = async () => {
-		if (props.token !== null) {
-			await getCalendarDays(
-				props.token,
-				getDateString(props.days[0]),
-				getDateString(props.days[props.days.length - 1]),
-				(res) => {
-					if (res.status === 200) props.setCalendarData(res.body);
-				}
-			);
-		}
-	};
+  const fetchJobs = async () => {
+    if (props.token !== null) {
+      await getCalendarDays(
+        props.token,
+        getDateString(props.days[0]),
+        getDateString(props.days[props.days.length - 1]),
+        (res) => {
+          if (res.status === 200) props.setCalendarData(res.body);
+        }
+      );
+    }
+  };
 
-	const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-	let phaseDatesToIndex = {};
-	phases.forEach((phase) => {
-		phaseDatesToIndex[phase] = {};
+  let phaseDatesToIndex = {};
+  phases.forEach((phase) => {
+    phaseDatesToIndex[phase] = {};
 
-		if (props.job && props.job.hasOwnProperty(phase))
-			props.job[phase].forEach((entry, index) => {
-				if (props.job[phase][index].planExists)
-					phaseDatesToIndex[phase][
-						getDateString(new Date(Date.parse(entry.day)))
-					] = index;
-			});
-	});
+    if (props.job && props.job.hasOwnProperty(phase))
+      props.job[phase].forEach((entry, index) => {
+        if (props.job[phase][index].planExists)
+          phaseDatesToIndex[phase][
+            getDateString(new Date(Date.parse(entry.day)))
+          ] = index;
+      });
+  });
 
-	return (
-		<RowJobEl>
-			<RowJobHeader view={props.settings.calendarView}>
-				<JobName>
-					{props.job.city}, {props.job.type}
-				</JobName>
-				<JobID>
-					<small>{t("calendar:rowJob.header.jobId")}:</small> {props.job.name}
-				</JobID>
-				<JobDeadline>
-					<small>{t("calendar:rowJob.header.deadline")}:</small>{" "}
-					{getLocalizedDate(
-						new Date(Date.parse(props.job.deadline)),
-						i18n.language
-					)}
-				</JobDeadline>
-				<JobStatus>
-					<small>{t("calendar:rowJob.header.status")}:</small>
-					<Status>
-						<StatusDeleteButton title="Smazat" onClick={handleJobDelete}>
-							X
-						</StatusDeleteButton>
-						<StatusCurrentButton>
-							{t("calendar:rowJob.header.statuses." + props.job.state)}
-						</StatusCurrentButton>
-						<StatusNextButton onClick={handleNextState}>
-							{props.job.state !== JOB_STATE_IN_ARCHIVE &&
-								t(
-									"calendar:rowJob.header.statuses." +
-										getNextState(props.job.state)
-								)}
-						</StatusNextButton>
-					</Status>
-				</JobStatus>
-			</RowJobHeader>
+  return (
+    <RowJobEl>
+      <RowJobHeader view={props.settings.calendarView}>
+        <JobName>
+          {props.job.city}, {props.job.type}
+        </JobName>
+        <JobID>
+          <small>{t('calendar:rowJob.header.jobId')}:</small> {props.job.name}
+        </JobID>
+        <JobDeadline>
+          <small>{t('calendar:rowJob.header.deadline')}:</small>{' '}
+          {getLocalizedDate(
+            new Date(Date.parse(props.job.deadline)),
+            i18n.language
+          )}
+        </JobDeadline>
+        <JobStatus>
+          <small>{t('calendar:rowJob.header.status')}:</small>
+          <Status>
+            <StatusDeleteButton title='Smazat' onClick={handleJobDelete}>
+              X
+            </StatusDeleteButton>
+            <StatusCurrentButton>
+              {t('calendar:rowJob.header.statuses.' + props.job.state)}
+            </StatusCurrentButton>
+            <StatusNextButton onClick={handleNextState}>
+              {props.job.state !== JOB_STATE_IN_ARCHIVE &&
+                t(
+                  'calendar:rowJob.header.statuses.' +
+                    getNextState(props.job.state)
+                )}
+            </StatusNextButton>
+          </Status>
+        </JobStatus>
+      </RowJobHeader>
 
-			<CalendarDays>
-				{props.days.map((day, key) => {
-					let contents = {};
-					let phaseAppearance = {};
+      <CalendarDays>
+        {props.days.map((day, key) => {
+          let contents = {};
+          let phaseAppearance = {};
 
-					phases.forEach((phase) => {
-						const dragData = {
-							jobId: props.job.name,
-							phase: phase,
-							date: getDateString(day),
-						};
+          phases.forEach((phase) => {
+            const dragData = {
+              jobId: props.job.name,
+              phase: phase,
+              date: getDateString(day),
+            };
 
-						let attributes = {
-							"job-id": props.job.name,
-							"job-guid": props.job.id,
-							"job-location": props.job.city,
-							"job-description": props.job.type,
-							phase: phase,
-							day: getDateString(day),
-						};
+            let attributes = {
+              'job-id': props.job.name,
+              'job-guid': props.job.id,
+              'job-location': props.job.city,
+              'job-description': props.job.type,
+              phase: phase,
+              day: getDateString(day),
+            };
 
-						console.log(props.job);
+            if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
+              const phasePart =
+                props.job[phase][phaseDatesToIndex[phase][getDateString(day)]];
 
-						if (phaseDatesToIndex[phase].hasOwnProperty(getDateString(day))) {
-							const phasePart =
-								props.job[phase][phaseDatesToIndex[phase][getDateString(day)]];
+              attributes['phase-part-id'] = phasePart.id;
 
-							attributes["phase-part-id"] = phasePart.id;
+              let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(
+                getDateString(new Date(Date.parse(day.toString()) - 86400000))
+              );
+              let hasAfter = phaseDatesToIndex[phase].hasOwnProperty(
+                getDateString(new Date(Date.parse(day.toString()) + 86400000))
+              );
 
-							let hasBefore = phaseDatesToIndex[phase].hasOwnProperty(
-								getDateString(new Date(Date.parse(day.toString()) - 86400000))
-							);
-							let hasAfter = phaseDatesToIndex[phase].hasOwnProperty(
-								getDateString(new Date(Date.parse(day.toString()) + 86400000))
-							);
+              if (hasBefore && hasAfter) phaseAppearance[phase] = 'continuous';
+              else if (hasBefore) phaseAppearance[phase] = 'end';
+              else if (hasAfter) phaseAppearance[phase] = 'start';
+              else phaseAppearance[phase] = 'startEnd';
+              contents[phase] = (
+                <ContextMenuTrigger
+                  id={'Phase' + ucfirst(phase) + 'Menu'}
+                  attributes={attributes as HTMLAttributes<any>}
+                  holdToDisplay={-1}
+                >
+                  <Droppable
+                    className='droppable'
+                    onDragOver={(e) => onDragOver(e, dragData)}
+                    onDragEnter={(e) => onDragEnter(e, dragData)}
+                    onDragLeave={onDragLeave}
+                    onDrop={(e) => onDrop(e, dragData)}
+                  >
+                    <div
+                      draggable
+                      onDragStart={(e) =>
+                        onDragStart(e, {
+                          jobId: props.job.name,
+                          phase: phase,
+                          phaseId: phasePart.id,
+                          date: getDateString(day),
+                          maxCapacity:
+                            phase !== 'transport'
+                              ? phasePart.shifts
+                                  .map((shift) => shift.planned)
+                                  .reduce((a, b) => a + b, 0)
+                              : 0,
+                        })
+                      }
+                    >
+                      <ClassicView
+                        phase={phase}
+                        view={props.settings.calendarView}
+                        key={getDateString(day) + '-classic'}
+                      >
+                        <ClassicDay view={props.settings.calendarView}>
+                          {day.getDate()}
+                        </ClassicDay>
+                        <ClassicCapacity view={props.settings.calendarView}>
+                          {phasePart.type !== 'Transport' &&
+                          phasePart.type !== 'Construction'
+                            ? phasePart.shifts
+                                .map((shift) => shift.planned)
+                                .reduce((a, b) => a + b, 0)
+                            : ''}
+                        </ClassicCapacity>
+                      </ClassicView>
+                      <CompactView
+                        phase={phase}
+                        view={props.settings.calendarView}
+                        key={getDateString(day) + '-compact'}
+                      />
+                    </div>
+                  </Droppable>
+                </ContextMenuTrigger>
+              );
+            } else {
+              contents[phase] = (
+                <ContextMenuTrigger
+                  id={'EmptyPhaseMenu'}
+                  attributes={attributes as HTMLAttributes<any>}
+                  holdToDisplay={-1}
+                >
+                  <Droppable
+                    className='empty droppable'
+                    view={props.settings.calendarView}
+                    onDragOver={(e) => onDragOver(e, dragData)}
+                    onDragEnter={(e) => onDragEnter(e, dragData)}
+                    onDragLeave={onDragLeave}
+                    onDrop={(e) => onDrop(e, dragData)}
+                  />
+                </ContextMenuTrigger>
+              );
+            }
+          });
 
-							if (hasBefore && hasAfter) phaseAppearance[phase] = "continuous";
-							else if (hasBefore) phaseAppearance[phase] = "end";
-							else if (hasAfter) phaseAppearance[phase] = "start";
-							else phaseAppearance[phase] = "startEnd";
-							contents[phase] = (
-								<ContextMenuTrigger
-									id={"Phase" + ucfirst(phase) + "Menu"}
-									attributes={attributes as HTMLAttributes<any>}
-									holdToDisplay={-1}
-								>
-									<Droppable
-										className="droppable"
-										onDragOver={(e) => onDragOver(e, dragData)}
-										onDragEnter={(e) => onDragEnter(e, dragData)}
-										onDragLeave={onDragLeave}
-										onDrop={(e) => onDrop(e, dragData)}
-									>
-										<div
-											draggable
-											onDragStart={(e) =>
-												onDragStart(e, {
-													jobId: props.job.name,
-													phase: phase,
-													phaseId: phasePart.id,
-													date: getDateString(day),
-													maxCapacity:
-														phase !== "transport"
-															? phasePart.shifts
-																	.map((shift) => shift.planned)
-																	.reduce((a, b) => a + b, 0)
-															: 0,
-												})
-											}
-										>
-											<ClassicView
-												phase={phase}
-												view={props.settings.calendarView}
-												key={getDateString(day) + "-classic"}
-											>
-												<ClassicDay view={props.settings.calendarView}>
-													{day.getDate()}
-												</ClassicDay>
-												<ClassicCapacity view={props.settings.calendarView}>
-													{phasePart.type !== "Transport" &&
-													phasePart.type !== "Construction"
-														? phasePart.shifts
-																.map((shift) => shift.planned)
-																.reduce((a, b) => a + b, 0)
-														: ""}
-												</ClassicCapacity>
-											</ClassicView>
-											<CompactView
-												phase={phase}
-												view={props.settings.calendarView}
-												key={getDateString(day) + "-compact"}
-											/>
-										</div>
-									</Droppable>
-								</ContextMenuTrigger>
-							);
-						} else {
-							contents[phase] = (
-								<ContextMenuTrigger
-									id={"EmptyPhaseMenu"}
-									attributes={attributes as HTMLAttributes<any>}
-									holdToDisplay={-1}
-								>
-									<Droppable
-										className="empty droppable"
-										view={props.settings.calendarView}
-										onDragOver={(e) => onDragOver(e, dragData)}
-										onDragEnter={(e) => onDragEnter(e, dragData)}
-										onDragLeave={onDragLeave}
-										onDrop={(e) => onDrop(e, dragData)}
-									/>
-								</ContextMenuTrigger>
-							);
-						}
-					});
+          return (
+            <Day
+              isWeekStart={day.getDay() === 1}
+              isNonWorkDay={isNonWorkingDay(day)}
+            >
+              <Contract />
 
-					return (
-						<Day
-							isWeekStart={day.getDay() === 1}
-							isNonWorkDay={isNonWorkingDay(day)}
-						>
-							<Contract />
+              <DayPhase appearance={phaseAppearance['saw']}>
+                {contents['saw']}
+              </DayPhase>
 
-							<DayPhase appearance={phaseAppearance["saw"]}>
-								{contents["saw"]}
-							</DayPhase>
+              <DayPhase appearance={phaseAppearance['press']}>
+                {contents['press']}
+              </DayPhase>
 
-							<DayPhase appearance={phaseAppearance["press"]}>
-								{contents["press"]}
-							</DayPhase>
-
-							<DayPhase appearance={phaseAppearance["transport"]}>
-								{contents["transport"]}
-							</DayPhase>
-							<DayPhase appearance={phaseAppearance["construction"]}>
-								{contents["construction"]}
-							</DayPhase>
-						</Day>
-					);
-				})}
-			</CalendarDays>
-		</RowJobEl>
-	);
+              <DayPhase appearance={phaseAppearance['transport']}>
+                {contents['transport']}
+              </DayPhase>
+              <DayPhase appearance={phaseAppearance['construction']}>
+                {contents['construction']}
+              </DayPhase>
+            </Day>
+          );
+        })}
+      </CalendarDays>
+    </RowJobEl>
+  );
 };
 
 const RowJob = connect(mapStateToProps, mapDispatchToProps)(RowJobComponent);
 export default RowJob;
 
 const RowJobEl = styled(Row)`
-	background-color: white;
+  background-color: white;
 
-	transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 
-	&:hover {
-		z-index: 1;
+  &:hover {
+    z-index: 1;
 
-		box-shadow: 0 0 16px 0
-			${(props) => getColorWithOpacity(props.theme.colors.black, 20)};
-		/*background-color: rgba(0, 187, 255, .1);*/
-	}
+    box-shadow: 0 0 16px 0
+      ${(props) => getColorWithOpacity(props.theme.colors.black, 20)};
+    /*background-color: rgba(0, 187, 255, .1);*/
+  }
 `;
 
 const JobHeaderElement = styled.div`
-	margin-top: 4px;
+  margin-top: 4px;
 
-	font-weight: 400;
+  font-weight: 400;
 
-	> small {
-		margin-right: 4px;
+  > small {
+    margin-right: 4px;
 
-		font-weight: 300;
-	}
+    font-weight: 300;
+  }
 `;
 
 const JobName = styled.div`
-	font-weight: 500;
-	font-size: 16px;
+  font-weight: 500;
+  font-size: 16px;
 `;
 
 const JobID = styled(JobHeaderElement)``;
@@ -446,244 +444,244 @@ const JobDeadline = styled(JobHeaderElement)``;
 const JobStatus = styled(JobHeaderElement)``;
 
 const Status = styled.div`
-	display: inline-block;
+  display: inline-block;
 
-	margin-right: -6px;
+  margin-right: -6px;
 `;
 
 const StatusButton = styled.button`
-	position: relative;
+  position: relative;
 
-	background-color: transparent;
-	border: 1px solid ${(props) => props.theme.colors.black};
-	border-radius: 9px;
-	font-family: "Segoe UI", sans-serif;
-	font-size: 11px;
-	opacity: 0.6;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.colors.black};
+  border-radius: 9px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 11px;
+  opacity: 0.6;
 
-	transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 
-	&:focus {
-		outline: none;
-	}
+  &:focus {
+    outline: none;
+  }
 
-	&:hover {
-		cursor: pointer;
+  &:hover {
+    cursor: pointer;
 
-		opacity: 1;
-	}
+    opacity: 1;
+  }
 `;
 
 const StatusDeleteButton = styled(StatusButton)`
-	z-index: 1;
+  z-index: 1;
 
-	padding: 0 18px 0 6px;
+  padding: 0 18px 0 6px;
 
-	border-color: ${(props) => props.theme.colors.danger};
-	color: ${(props) => props.theme.colors.danger};
+  border-color: ${(props) => props.theme.colors.danger};
+  color: ${(props) => props.theme.colors.danger};
 
-	&:hover {
-		background-color: ${(props) => props.theme.colors.danger};
-		color: ${(props) => props.theme.colors.white};
-	}
+  &:hover {
+    background-color: ${(props) => props.theme.colors.danger};
+    color: ${(props) => props.theme.colors.white};
+  }
 `;
 
 const StatusCurrentButton = styled(StatusButton)`
-	z-index: 3;
+  z-index: 3;
 
-	margin-right: -16px;
-	margin-left: -16px;
+  margin-right: -16px;
+  margin-left: -16px;
 
-	padding: 1px 6px;
+  padding: 1px 6px;
 
-	background-color: ${(props) => props.theme.colors.primary};
-	border-color: ${(props) => props.theme.colors.primary};
-	color: ${(props) => props.theme.colors.white};
-	opacity: 1;
+  background-color: ${(props) => props.theme.colors.primary};
+  border-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.white};
+  opacity: 1;
 
-	cursor: default !important;
-	transition: none;
+  cursor: default !important;
+  transition: none;
 `;
 
 const StatusNextButton = styled(StatusButton)`
-	z-index: 2;
+  z-index: 2;
 
-	padding: 0 6px 0 18px;
+  padding: 0 6px 0 18px;
 
-	border-color: ${(props) => props.theme.colors.accent};
-	color: ${(props) => props.theme.colors.accent};
+  border-color: ${(props) => props.theme.colors.accent};
+  color: ${(props) => props.theme.colors.accent};
 
-	&:hover {
-		background-color: ${(props) => props.theme.colors.accent};
-		color: ${(props) => props.theme.colors.white};
-	}
+  &:hover {
+    background-color: ${(props) => props.theme.colors.accent};
+    color: ${(props) => props.theme.colors.white};
+  }
 `;
 
 const RowJobHeader = styled(CalendarRowHeader)`
-	${JobID}, ${JobDeadline}, ${JobStatus} {
-		display: ${(props) => (props.view === "compact" ? "none" : "block")};
-	}
+  ${JobID}, ${JobDeadline}, ${JobStatus} {
+    display: ${(props) => (props.view === 'compact' ? 'none' : 'block')};
+  }
 `;
 
 const Day = styled(CalendarDay)`
-	align-items: center;
+  align-items: center;
 
-	color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
 `;
 
 const Contract = styled.div`
-	position: relative;
+  position: relative;
 
-	width: 100%;
+  width: 100%;
 `;
 
 const Droppable = styled.div`
-	position: relative;
+  position: relative;
 
-	&:after {
-		content: "";
+  &:after {
+    content: '';
 
-		box-sizing: border-box;
-		position: absolute;
+    box-sizing: border-box;
+    position: absolute;
 
-		height: 32px;
-		width: 32px;
+    height: 32px;
+    width: 32px;
 
-		top: -2px;
-		left: 50%;
+    top: -2px;
+    left: 50%;
 
-		transform: translateX(-50%);
+    transform: translateX(-50%);
 
-		background: ${(props) => getColorWithOpacity(props.theme.colors.black, 5)};
-		border: 1px dashed
-			${(props) => getColorWithOpacity(props.theme.colors.black, 20)};
-		border-radius: 16px;
+    background: ${(props) => getColorWithOpacity(props.theme.colors.black, 5)};
+    border: 1px dashed
+      ${(props) => getColorWithOpacity(props.theme.colors.black, 20)};
+    border-radius: 16px;
 
-		opacity: 0;
+    opacity: 0;
 
-		pointer-events: none;
-	}
+    pointer-events: none;
+  }
 
-	&.dropped:after {
-		opacity: 1;
-	}
+  &.dropped:after {
+    opacity: 1;
+  }
 
-	&.empty {
-		height: ${(props) => (props.view === "compact" ? "6px" : "28px")};
-	}
+  &.empty {
+    height: ${(props) => (props.view === 'compact' ? '6px' : '28px')};
+  }
 
-	&.empty:active {
-		background-color: ${(props) =>
-			getColorWithOpacity(props.theme.colors.accent, 20)};
-	}
+  &.empty:active {
+    background-color: ${(props) =>
+      getColorWithOpacity(props.theme.colors.accent, 20)};
+  }
 `;
 
 const ClassicValue = styled.span`
-	position: relative;
-	z-index: 1;
+  position: relative;
+  z-index: 1;
 
-	top: 2px;
-	left: 2px;
+  top: 2px;
+  left: 2px;
 
-	display: block;
+  display: block;
 
-	height: 24px;
-	width: 24px;
-	line-height: 24px;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
 
-	border-radius: 14px;
+  border-radius: 14px;
 
-	transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
 `;
 
 const View = styled.div`
-	width: 28px;
+  width: 28px;
 
-	margin: auto;
+  margin: auto;
 
-	text-align: center;
+  text-align: center;
 
-	&,
-	&:after {
-		background-color: ${(props) =>
-			props.phase === "saw"
-				? props.theme.colors.danger
-				: props.phase === "press"
-				? props.theme.colors.accent
-				: props.phase === "transport"
-				? props.theme.colors.success
-				: props.phase === "construction"
-				? props.theme.colors.warning
-				: "transparent"};
-	}
+  &,
+  &:after {
+    background-color: ${(props) =>
+      props.phase === 'saw'
+        ? props.theme.colors.danger
+        : props.phase === 'press'
+        ? props.theme.colors.accent
+        : props.phase === 'transport'
+        ? props.theme.colors.success
+        : props.phase === 'construction'
+        ? props.theme.colors.warning
+        : 'transparent'};
+  }
 `;
 
 const ClassicView = styled(View)`
-	height: 28px;
+  height: 28px;
 
-	border-radius: 14px;
+  border-radius: 14px;
 
-	display: ${(props) => (props.view.includes("classic") ? "block" : "none")};
+  display: ${(props) => (props.view.includes('classic') ? 'block' : 'none')};
 
-	&:hover ${ClassicValue} {
-		box-shadow: 0 0 8px 0
-			${(props) => getColorWithOpacity(props.theme.colors.black, 50)};
-		background-color: ${(props) =>
-			getColorWithOpacity(props.theme.colors.white, 10)};
+  &:hover ${ClassicValue} {
+    box-shadow: 0 0 8px 0
+      ${(props) => getColorWithOpacity(props.theme.colors.black, 50)};
+    background-color: ${(props) =>
+      getColorWithOpacity(props.theme.colors.white, 10)};
 
-		cursor: default;
-	}
+    cursor: default;
+  }
 `;
 
 const ClassicDay = styled(ClassicValue)`
-	font-size: 14px;
+  font-size: 14px;
 
-	display: ${(props) => (props.view === "classicDays" ? "block" : "none")};
+  display: ${(props) => (props.view === 'classicDays' ? 'block' : 'none')};
 `;
 
 const ClassicCapacity = styled(ClassicValue)`
-	font-size: 12px;
+  font-size: 12px;
 
-	display: ${(props) =>
-		props.view === "classicCapacities" ? "block" : "none"};
+  display: ${(props) =>
+    props.view === 'classicCapacities' ? 'block' : 'none'};
 `;
 
 const CompactView = styled(View)`
-	height: 6px;
+  height: 6px;
 
-	border-radius: 3px;
+  border-radius: 3px;
 
-	display: ${(props) => (props.view === "compact" ? "block" : "none")};
+  display: ${(props) => (props.view === 'compact' ? 'block' : 'none')};
 `;
 
 const DayPhase = styled.div`
-	position: relative;
+  position: relative;
 
-	width: 100%;
+  width: 100%;
 
-	margin: 2px 0;
+  margin: 2px 0;
 
-	${ClassicView}:after, ${CompactView}:after {
-		content: "";
+  ${ClassicView}:after, ${CompactView}:after {
+    content: '';
 
-		position: absolute;
+    position: absolute;
 
-		top: 0;
-		left: ${(props) =>
-			props.appearance === "continuous" || props.appearance === "end"
-				? "0"
-				: "50%"};
-		right: ${(props) =>
-			props.appearance === "continuous" || props.appearance === "start"
-				? "0"
-				: "50%"};
-	}
+    top: 0;
+    left: ${(props) =>
+      props.appearance === 'continuous' || props.appearance === 'end'
+        ? '0'
+        : '50%'};
+    right: ${(props) =>
+      props.appearance === 'continuous' || props.appearance === 'start'
+        ? '0'
+        : '50%'};
+  }
 
-	${ClassicView}:after {
-		height: 28px;
-	}
+  ${ClassicView}:after {
+    height: 28px;
+  }
 
-	${CompactView}:after {
-		height: 6px;
-	}
+  ${CompactView}:after {
+    height: 6px;
+  }
 `;

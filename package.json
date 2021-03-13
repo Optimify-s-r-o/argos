@@ -68,7 +68,7 @@
   "build": {
     "productName": "Argos",
     "appId": "org.common.argos",
-    "copyright": "Copyright © 2018-2020 Optimify s.r.o.",
+    "copyright": "Copyright © 2018-2021 Optimify s.r.o.",
     "publish": [
       {
         "provider": "github",

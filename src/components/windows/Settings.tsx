@@ -16,6 +16,10 @@ import { useTranslation } from 'react-i18next';
 
 const SettingsPath = '/settings';
 
+const SettingsPathWithParams = (token: string) => {
+  return SettingsPath + '?token=' + token;
+};
+
 const SettingsSettings = {
   width: 657,
   height: 542,
@@ -88,7 +92,7 @@ const Settings = () => {
   );
 };
 
-export { Settings, SettingsPath, SettingsSettings };
+export { Settings, SettingsPath, SettingsPathWithParams, SettingsSettings };
 
 const SettingsWrapper = styled.div`
   display: flex;

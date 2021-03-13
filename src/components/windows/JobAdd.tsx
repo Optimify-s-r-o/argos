@@ -49,6 +49,10 @@ const ipcRenderer = getIpcRenderer();
 
 const JobAddPath = '/job-add';
 
+const JobAddPathWithParams = (token: string) => {
+  return JobAddPath + '?token=' + token;
+};
+
 const JobAddSettings = {
   width: 457,
   height: 706,
@@ -275,7 +279,7 @@ const JobAdd = () => {
   );
 };
 
-export { JobAdd, JobAddPath, JobAddSettings };
+export { JobAdd, JobAddPath, JobAddPathWithParams, JobAddSettings };
 
 const JobAddFormCard = styled(FormCard)<{ isJobLoaded: boolean }>`
   height: ${(props) => (props.isJobLoaded ? 541 : 117)}px;

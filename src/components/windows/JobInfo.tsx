@@ -8,8 +8,10 @@ import '../../styles/forms.css';
 
 const title = 'Informace o zakázce';
 
-const JobInfoPath = (id) => {
-  return '/job-info/' + id;
+const JobInfoPath = '/job-info';
+
+const JobInfoPathWithParams = (id: string) => {
+  return '/job-info?id=' + id;
 };
 
 const JobInfoSettings = {
@@ -61,4 +63,4 @@ const JobInfo = () => {
   );
 };
 
-export { JobInfo, JobInfoPath, JobInfoSettings };
+export { JobInfo, JobInfoPath, JobInfoPathWithParams, JobInfoSettings };

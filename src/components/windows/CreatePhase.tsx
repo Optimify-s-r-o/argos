@@ -13,184 +13,182 @@ import { useTranslation } from 'react-i18next';
 import '../../styles/forms.css';
 import '../../styles/main.css';
 import {
-	FormBackground,
-	FormCard,
-	FormCardButtons,
-	FormColumn,
-} from "../../styles/forms";
+  FormBackground,
+  FormCard,
+  FormCardButtons,
+  FormColumn,
+} from '../../styles/forms';
 import {
-	closeCurrentElectronWindow,
-	setCurrentElectronWindowTitle,
-} from "../../utils/electron";
+  closeCurrentElectronWindow,
+  setCurrentElectronWindowTitle,
+} from '../../utils/electron';
 import {
-	MSGBOX_BUTTONS_OK,
-	MSGBOX_TYPE_SUCCESS,
-	showMessageBox,
-} from "../../utils/showMessageBox";
+  MSGBOX_BUTTONS_OK,
+  MSGBOX_TYPE_SUCCESS,
+  showMessageBox,
+} from '../../utils/showMessageBox';
 import FormRow, {
-	FormInfo,
-	FormInfoContent,
-	FormInfoHeader,
-	FormInfoRow,
-} from "../forms/FormRow";
+  FormInfo,
+  FormInfoContent,
+  FormInfoHeader,
+  FormInfoRow,
+} from '../forms/FormRow';
 
-const title = "phaseForms:create.titleBar";
+const title = 'phaseForms:create.titleBar';
 
-const CreatePhasePath = "/create-phase";
+const CreatePhasePath = '/create-phase';
 
 const CreatePhasePathWithParams = (
-	token: string,
-	phase: string,
-	date: string,
-	jobId: string,
-	jobGuid: string,
-	jobLocation: string,
-	jobDescription: string
+  token: string,
+  phase: string,
+  date: string,
+  jobId: string,
+  jobGuid: string,
+  jobLocation: string,
+  jobDescription: string
 ) =>
-	"/create-phase?url=" +
-	process.env.REACT_APP_BACKEND_API +
-	"&token=" +
-	token +
-	"&phase=" +
-	phase +
-	"&date=" +
-	date +
-	"&jobId=" +
-	jobId +
-	"&jobGuid=" +
-	jobGuid +
-	"&jobLocation=" +
-	jobLocation +
-	"&jobDescription=" +
-	jobDescription;
+  '/create-phase?token=' +
+  token +
+  '&phase=' +
+  phase +
+  '&date=' +
+  date +
+  '&jobId=' +
+  jobId +
+  '&jobGuid=' +
+  jobGuid +
+  '&jobLocation=' +
+  jobLocation +
+  '&jobDescription=' +
+  jobDescription;
 
 const CreatePhaseSettings = {
-	width: 458,
-	height: 550,
-	maximizable: false,
-	resizable: false,
+  width: 458,
+  height: 550,
+  maximizable: false,
+  resizable: false,
 };
 
 const CreatePhase = () => {
-	const location = useLocation();
-	const params = queryString.parse(location.search);
+  const location = useLocation();
+  const params = queryString.parse(location.search);
 
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
-	const [phase, setPhase] = useState({
-		label: t(("phaseForms:phases." + params.phase) as string),
-		value: params.phase as string,
-	});
-	const [date, setDate] = useState(new Date(Date.parse(params.date as string)));
+  const [phase, setPhase] = useState({
+    label: t(('phaseForms:phases.' + params.phase) as string),
+    value: params.phase as string,
+  });
+  const [date, setDate] = useState(new Date(Date.parse(params.date as string)));
 
-	const handleChange = (
-		event,
-		setter: React.Dispatch<React.SetStateAction<any>>
-	) => {
-		const target = event.target;
-		const value = target.type === "checkbox" ? target.checked : target.value;
+  const handleChange = (
+    event,
+    setter: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
 
-		setter(value);
-	};
+    setter(value);
+  };
 
-	const handleSelectChange = (option) => {
-		setPhase(option);
-	};
+  const handleSelectChange = (option) => {
+    setPhase(option);
+  };
 
-	const handleCreatePhase = () => {
-		phasePartCreate(
-			params.token as string,
-			params.jobGuid as string,
-			phase.value,
-			getDateString(date),
-			(data) => {
-				if (data.status === 200) {
-					showMessageBox(
-						"phaseForms:create.success",
-						MSGBOX_TYPE_SUCCESS,
-						MSGBOX_BUTTONS_OK,
-						() => {
-							closeCurrentElectronWindow();
-						}
-					);
-				}
-			}
-		);
-	};
+  const handleCreatePhase = () => {
+    phasePartCreate(
+      params.token as string,
+      params.jobGuid as string,
+      phase.value,
+      getDateString(date),
+      (data) => {
+        if (data.status === 200) {
+          showMessageBox(
+            'phaseForms:create.success',
+            MSGBOX_TYPE_SUCCESS,
+            MSGBOX_BUTTONS_OK,
+            () => {
+              closeCurrentElectronWindow();
+            }
+          );
+        }
+      }
+    );
+  };
 
-	setCurrentElectronWindowTitle(t(title));
+  setCurrentElectronWindowTitle(t(title));
 
-	return (
-		<FormBackground>
-			<TitleBar title={t(title)} icon={false} />
-			<Row>
-				<FormColumn>
-					<FormCard>
-						<FormRow title={t("jobForms:common.jobInfo")}>
-							<FormInfo>
-								<FormInfoRow>
-									<FormInfoHeader>
-										{t("jobForms:common.jobIdentification")}
-									</FormInfoHeader>
-									<FormInfoContent>{params.jobId}</FormInfoContent>
-								</FormInfoRow>
-								<FormInfoRow>
-									<FormInfoHeader>
-										{t("jobForms:common.location")}
-									</FormInfoHeader>
-									<FormInfoContent>{params.jobLocation}</FormInfoContent>
-								</FormInfoRow>
-								<FormInfoRow>
-									<FormInfoHeader>
-										{t("jobForms:common.description")}
-									</FormInfoHeader>
-									<FormInfoContent>{params.jobDescription}</FormInfoContent>
-								</FormInfoRow>
-							</FormInfo>
-						</FormRow>
-						<FormRow title={t("phaseForms:create.phase")}>
-							<Select
-								value={phase}
-								onChange={handleSelectChange}
-								options={[
-									{ label: t("phaseForms:phases.saw"), value: "saw" },
-									{ label: t("phaseForms:phases.press"), value: "press" },
-									{
-										label: t("phaseForms:phases.transport"),
-										value: "transport",
-									},
-									{ label: t("phaseForms:phases.assembly"), value: "assembly" },
-								]}
-							/>
-						</FormRow>
+  return (
+    <FormBackground>
+      <TitleBar title={t(title)} icon={false} />
+      <Row>
+        <FormColumn>
+          <FormCard>
+            <FormRow title={t('jobForms:common.jobInfo')}>
+              <FormInfo>
+                <FormInfoRow>
+                  <FormInfoHeader>
+                    {t('jobForms:common.jobIdentification')}
+                  </FormInfoHeader>
+                  <FormInfoContent>{params.jobId}</FormInfoContent>
+                </FormInfoRow>
+                <FormInfoRow>
+                  <FormInfoHeader>
+                    {t('jobForms:common.location')}
+                  </FormInfoHeader>
+                  <FormInfoContent>{params.jobLocation}</FormInfoContent>
+                </FormInfoRow>
+                <FormInfoRow>
+                  <FormInfoHeader>
+                    {t('jobForms:common.description')}
+                  </FormInfoHeader>
+                  <FormInfoContent>{params.jobDescription}</FormInfoContent>
+                </FormInfoRow>
+              </FormInfo>
+            </FormRow>
+            <FormRow title={t('phaseForms:create.phase')}>
+              <Select
+                value={phase}
+                onChange={handleSelectChange}
+                options={[
+                  { label: t('phaseForms:phases.saw'), value: 'saw' },
+                  { label: t('phaseForms:phases.press'), value: 'press' },
+                  {
+                    label: t('phaseForms:phases.transport'),
+                    value: 'transport',
+                  },
+                  { label: t('phaseForms:phases.assembly'), value: 'assembly' },
+                ]}
+              />
+            </FormRow>
 
-						<FormRow title={t("phaseForms:create.date")}>
-							<DatePicker
-								name="date"
-								value={date}
-								onChange={(e) => handleChange(e, setDate)}
-								direction={"up"}
-							/>
-						</FormRow>
-					</FormCard>
+            <FormRow title={t('phaseForms:create.date')}>
+              <DatePicker
+                name='date'
+                value={date}
+                onChange={(e) => handleChange(e, setDate)}
+                direction={'up'}
+              />
+            </FormRow>
+          </FormCard>
 
-					<FormCardButtons>
-						<Cancel onClick={() => closeCurrentElectronWindow()}>
-							{t("messageBox:buttons.cancel")}
-						</Cancel>
-						<Submit onClick={handleCreatePhase}>
-							{t("phaseForms:create.create")}
-						</Submit>
-					</FormCardButtons>
-				</FormColumn>
-			</Row>
-		</FormBackground>
-	);
+          <FormCardButtons>
+            <Cancel onClick={() => closeCurrentElectronWindow()}>
+              {t('messageBox:buttons.cancel')}
+            </Cancel>
+            <Submit onClick={handleCreatePhase}>
+              {t('phaseForms:create.create')}
+            </Submit>
+          </FormCardButtons>
+        </FormColumn>
+      </Row>
+    </FormBackground>
+  );
 };
 
 export {
-	CreatePhase,
-	CreatePhasePath,
-	CreatePhasePathWithParams,
-	CreatePhaseSettings,
+  CreatePhase,
+  CreatePhasePath,
+  CreatePhasePathWithParams,
+  CreatePhaseSettings,
 };

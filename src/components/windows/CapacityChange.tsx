@@ -52,9 +52,7 @@ const CapacityChangePathWithParams = (
   phase: string
 ) => {
   return (
-    '/capacity-change?url=' +
-    process.env.REACT_APP_BACKEND_API +
-    '&token=' +
+    '/capacity-change?token=' +
     token +
     '&jobGuid=' +
     jobGuid +

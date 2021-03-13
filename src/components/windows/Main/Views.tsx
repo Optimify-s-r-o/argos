@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import views from '../../../enums/views';
 import WarningBar from './Views/WarningBar';
 import { connect } from 'react-redux';
-import { SettingsPath, SettingsSettings } from '../Settings';
+import { SettingsPathWithParams, SettingsSettings } from '../Settings';
 import { useTranslation } from 'react-i18next';
 
 const mapStateToProps = (state) => {
@@ -46,15 +46,7 @@ const Views = (props: ViewsProps) => {
         text={t('warnings:pambaConnection.text')}
         action={
           <OpenWindow
-            path={
-              SettingsPath +
-              '?url=' +
-              props.url +
-              '&pambaPath=' +
-              props.pambaPath +
-              '&token=' +
-              props.token
-            }
+            path={SettingsPathWithParams(props.token)}
             windowSettings={SettingsSettings}
           >
             <a>{t('warnings:pambaConnection.action')}</a>.
