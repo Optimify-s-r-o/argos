@@ -1,97 +1,98 @@
 import {
-  App,
-  BrowserWindow,
-  IpcMain,
-  IpcRenderer
-  } from 'electron';
+	App,
+	BrowserWindow,
+	IpcMain,
+	IpcRenderer
+	} from 'electron';
 
 function isElectron() {
-  return typeof window.require === 'function';
+	return typeof window.require === "function";
 }
 
 function getApp(): App {
-  let app;
-  if (isElectron()) app = window.require('electron').remote.app;
+	let app;
+	if (isElectron()) app = window.require("electron").remote.app;
 
-  return app;
+	return app;
 }
 
 function getBrowserWindow() {
-  let BrowserWindow;
-  if (isElectron())
-    BrowserWindow = window.require('electron').remote.BrowserWindow;
+	let BrowserWindow;
+	console.log(isElectron());
+	if (isElectron())
+		BrowserWindow = window.require("electron").remote.BrowserWindow;
 
-  return BrowserWindow;
+	return BrowserWindow;
 }
 
 function getIpcMain(): IpcMain {
-  let ipcMain;
-  if (isElectron()) ipcMain = window.require('electron').remote.ipcMain;
+	let ipcMain;
+	if (isElectron()) ipcMain = window.require("electron").remote.ipcMain;
 
-  return ipcMain;
+	return ipcMain;
 }
 
 function getIpcRenderer(): IpcRenderer {
-  let ipcRenderer;
-  if (isElectron()) ipcRenderer = window.require('electron').ipcRenderer;
+	let ipcRenderer;
+	if (isElectron()) ipcRenderer = window.require("electron").ipcRenderer;
 
-  return ipcRenderer;
+	return ipcRenderer;
 }
 
 function getCurrentElectronWindow(): BrowserWindow {
-  let w;
-  if (isElectron()) w = window.require('electron').remote.getCurrentWindow();
-  return w;
+	let w;
+	if (isElectron()) w = window.require("electron").remote.getCurrentWindow();
+	return w;
 }
 
 function closeCurrentElectronWindow() {
-  if (isElectron()) {
-    const w = window.require('electron').remote.getCurrentWindow();
-    w.closable = true;
-    w.close();
-  }
+	if (isElectron()) {
+		const w = window.require("electron").remote.getCurrentWindow();
+		w.closable = true;
+		w.close();
+	}
 }
 
 function setCurrentElectronWindowTitle(title) {
-  if (isElectron())
-    window.require('electron').remote.getCurrentWindow().setTitle(title);
+	if (isElectron())
+		window.require("electron").remote.getCurrentWindow().setTitle(title);
 }
 
 function setCurrentElectronWindowHeight(height, center = false) {
-  if (isElectron()) {
-    let currentWindow = window.require('electron').remote.getCurrentWindow();
+	if (isElectron()) {
+		let currentWindow = window.require("electron").remote.getCurrentWindow();
 
-    currentWindow.setSize(currentWindow.getSize()[0], height);
-    if (center) currentWindow.center();
-  }
+		currentWindow.setSize(currentWindow.getSize()[0], height);
+		if (center) currentWindow.center();
+	}
 }
 
 function getDialog() {
-  let dialog;
+	let dialog;
 
-  if (isElectron()) dialog = window.require('electron').remote.dialog;
+	if (isElectron()) dialog = window.require("electron").remote.dialog;
 
-  return dialog;
+	return dialog;
 }
 
 function getPath() {
-  let path;
+	let path;
 
-  if (isElectron()) path = window.require('electron').remote.app.getAppPath();
+	if (isElectron()) path = window.require("electron").remote.app.getAppPath();
 
-  return path;
+	return path;
 }
 
 export {
-  isElectron,
-  getApp,
-  getBrowserWindow,
-  getIpcMain,
-  getIpcRenderer,
-  getCurrentElectronWindow,
-  closeCurrentElectronWindow,
-  setCurrentElectronWindowTitle,
-  setCurrentElectronWindowHeight,
-  getDialog,
-  getPath,
+	isElectron,
+	getApp,
+	getBrowserWindow,
+	getIpcMain,
+	getIpcRenderer,
+	getCurrentElectronWindow,
+	closeCurrentElectronWindow,
+	setCurrentElectronWindowTitle,
+	setCurrentElectronWindowHeight,
+	getDialog,
+	getPath,
 };

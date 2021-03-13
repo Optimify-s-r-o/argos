@@ -1,6 +1,5 @@
 import Common from './Settings/01_Common';
 import queryString from 'query-string';
-import React, { useState } from 'react';
 import Shifts from './Settings/02_Shifts';
 import styled from 'styled-components';
 import TitleBar from '../TitleBar';
@@ -13,6 +12,7 @@ import { setCurrentElectronWindowTitle } from '../../utils/electron';
 import { SettingsCategory } from '../../types/settings';
 import { Updates } from './Settings/Updates';
 import { useLocation } from 'react-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const SettingsPath = "/settings";

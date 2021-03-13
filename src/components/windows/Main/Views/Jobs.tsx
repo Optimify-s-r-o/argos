@@ -1,9 +1,9 @@
 import ExternalTable from '../../../table/ExternalTable';
 import jobsGet from '../../../../api/jobs/get';
-import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getLocalizedDate } from '../../../../utils/days';
 import { SettingsType } from '../../../../types/settings';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface JobsProps {

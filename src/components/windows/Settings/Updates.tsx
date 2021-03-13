@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getIpcRenderer } from '../../../utils/electron';
+import { useEffect, useState } from 'react';
 import {
 	APP_VERSION,
 	CHECK_FOR_UPDATE_FAILURE,
@@ -105,17 +105,14 @@ export const Updates = () => {
 };
 
 const Description = styled.span`
-	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 0.3em 0 1.3em 0;
 `;
 
 const Info = styled.span`
-	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 1.3em 0 0.3em 0;
 `;
 
 const Message = styled.span`
-	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 1.3em 0;
 `;
 
@@ -125,14 +122,8 @@ const AlertBox = styled.div`
 	justify-content: flex-start;
 	flex-direction: column;
 	margin: 1em 0;
-	.anticon svg {
-		background: transparent;
-	}
 `;
 
 const SButton = styled.button`
 	margin: 0.4em 0 0.4em 0;
-	.anticon svg {
-		background: transparent;
-	}
 `;

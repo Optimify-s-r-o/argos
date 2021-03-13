@@ -1,7 +1,6 @@
 import getCalendarDays from '../../../../../api/calendar/overwiev';
 import jobDelete from '../../../../../api/job-delete';
 import phasePartMove from '../../../../../api/phase/move-phase-part';
-import React, { HTMLAttributes } from 'react';
 import showPhaseMoveModal from '../../../../../utils/showPhaseMoveModal';
 import styled from 'styled-components';
 import ucfirst from '../../../../../utils/ucfirst';
@@ -9,6 +8,7 @@ import { CalendarDataType } from '../../../../../types/calendar';
 import { connect } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { getColorWithOpacity } from '../../../../../styles/theme';
+import { HTMLAttributes } from 'react';
 import { JobType } from '../../../../../types/job';
 import { setCalendarData } from '../../../../../actions/calendar';
 import { SettingsType } from '../../../../../types/settings';

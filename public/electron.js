@@ -20,6 +20,7 @@ const createWindow =() =>{
     frame: false,
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true
     },
     title: 'Argos planner',
     backgroundColor: '#004466',
@@ -27,11 +28,7 @@ const createWindow =() =>{
     height: 480,
   });
 
-  window.loadURL(
-    isDev
-      ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
-  );
+  window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
 
   window.on('ready-to-show', (e) => {
     window.show();
@@ -142,7 +139,7 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
-});
+});;
 
 const logInfo =(text) =>{
   log.info(text);

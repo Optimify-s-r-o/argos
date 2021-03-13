@@ -32,6 +32,7 @@ export const openWindow = (
 	onOpen?: (window: BrowserWindow) => void,
 	onClose?: () => void
 ) => {
+	console.log(BrowserWindowClass);
 	if (BrowserWindowClass !== undefined) {
 		let options;
 		if (windowSettings)

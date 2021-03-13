@@ -1,7 +1,6 @@
 import closeBlack from '../../icons/close_black.png';
 import LoginForm from './Login/LoginForm';
 import optimifyLogo from '../../icons/optimify_logo_dark-bg.svg';
-import React from 'react';
 import styled from 'styled-components';
 import { closeCurrentElectronWindow } from '../../utils/electron';
 
