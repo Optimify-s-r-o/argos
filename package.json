@@ -11,9 +11,11 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-pro": "^5.15.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/pro-light-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@types/node": "^14.14.34",
     "@types/react": "^17.0.3",

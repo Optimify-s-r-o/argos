@@ -61,8 +61,13 @@
       "add": "Přidat\n dopravce"
     }
   },
+  "app": {
+    "header": "Aplikace",
+    "about": "O Argosu"
+  },
   "user": {
     "header": "Uživatel",
-    "logout": "Odhlásit"
+    "logout": "Odhlásit",
+    "license": "Licence"
   }
 }

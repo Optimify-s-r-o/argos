@@ -29,7 +29,7 @@ import {
   faPlusCircle,
   faQuestion,
   faSyncAlt,
-} from '@fortawesome/free-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 import {
   GenerateDocumentPath,
   GenerateDocumentSettings,
