@@ -1,11 +1,11 @@
 import isConnected from '../../../api/proxy/connected';
 import OpenWindow from '../../OpenWindow';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import views from '../../../enums/views';
 import WarningBar from './Views/WarningBar';
 import { connect } from 'react-redux';
 import { SettingsPathWithParams, SettingsSettings } from '../Settings';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const mapStateToProps = (state) => {

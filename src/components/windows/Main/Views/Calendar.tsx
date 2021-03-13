@@ -2,7 +2,6 @@ import getCalendarDays from '../../../../api/calendar/overwiev';
 import jobAddImg from '../../../../icons/add.png';
 import OpenWindow, { openWindow } from '../../../OpenWindow';
 import phasePartDelete from '../../../../api/phase/delete-phase-part';
-import React, { useEffect, useState } from 'react';
 import RowCapacities from './Calendar/RowCapacities';
 import RowDays from './Calendar/RowDays';
 import RowEvents from './Calendar/RowEvents';
@@ -19,6 +18,7 @@ import { getIpcRenderer, isElectron } from '../../../../utils/electron';
 import { JobAddPathWithParams, JobAddSettings } from '../../JobAdd';
 import { setCalendarData } from '../../../../actions/calendar';
 import { SettingsType } from '../../../../types/settings';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   getColorWithOpacity,

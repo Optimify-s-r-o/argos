@@ -1,10 +1,9 @@
 import FormRow from '../forms/FormRow';
-import React from 'react';
 import TitleBar from '../TitleBar';
 import { FormCard, FormCardHeader, FormColumn } from '../../styles/forms';
 import { Row } from '../../styles/global';
-import '../../styles/main.css';
 import '../../styles/forms.css';
+import '../../styles/main.css';
 
 const title = 'Informace o zakázce';
 

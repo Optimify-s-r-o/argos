@@ -1,10 +1,10 @@
 import NumericInput from 'react-numeric-input';
 import phasePartMove from '../../api/phase/move-phase-part';
 import queryString from 'query-string';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TextButton } from '../../styles/global';
 import { useLocation } from 'react-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	closeCurrentElectronWindow,

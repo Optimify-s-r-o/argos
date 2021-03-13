@@ -2,159 +2,172 @@ import close from '../icons/close.png';
 import maximize from '../icons/maximize.png';
 import maximized from '../icons/maximized.png';
 import minimize from '../icons/minimize.png';
-import React from 'react';
 import styled from 'styled-components';
+import { APP_VERSION } from '../types/ipcConstants';
 import { BrowserWindow } from 'electron';
 import { getColorWithOpacity } from '../styles/theme';
+import { getIpcRenderer } from '../utils/electron';
+import { useEffect, useState } from 'react';
 
-const isElectron = typeof window.require === 'function';
+const isElectron = typeof window.require === "function";
 let w: BrowserWindow | null = null;
 
 interface TitleBarProps {
-  title: string;
-  icon?: boolean;
-  buttons?: boolean;
-  colorClass?: string;
+	title: string;
+	icon?: boolean;
+	buttons?: boolean;
+	colorClass?: string;
 }
 
 const TitleBar = (props: TitleBarProps) => {
-  if (props.colorClass) document.body.classList.add(props.colorClass);
+	const [version, setVersion] = useState("0.0.0");
+	if (props.colorClass) document.body.classList.add(props.colorClass);
 
-  if (isElectron) {
-    w = window.require('electron').remote.getCurrentWindow();
+	useEffect(() => {
+		if (isElectron) {
+			const ipcRenderer = getIpcRenderer();
+			ipcRenderer.send(APP_VERSION);
+			ipcRenderer.on(APP_VERSION, (event, text) => {
+				setVersion(text?.version);
+			});
+		}
+	}, []);
 
-    if (w) {
-      w.on('show', (e) => {
-        const maximizeElement = document.getElementById(
-          'Maximize'
-        ) as HTMLElement;
-        if (maximizeElement)
-          (maximizeElement.children[0] as HTMLImageElement).src = maximize;
-        document.body.classList.add('border');
-      });
+	if (isElectron) {
+		w = window.require("electron").remote.getCurrentWindow();
 
-      w.on('maximize', (e) => {
-        const maximizeElement = document.getElementById(
-          'Maximize'
-        ) as HTMLElement;
-        if (maximizeElement)
-          (maximizeElement.children[0] as HTMLImageElement).src = maximized;
-        document.body.classList.remove('border');
-      });
+		if (w) {
+			w.on("show", (e) => {
+				const maximizeElement = document.getElementById(
+					"Maximize"
+				) as HTMLElement;
+				if (maximizeElement)
+					(maximizeElement.children[0] as HTMLImageElement).src = maximize;
+				document.body.classList.add("border");
+			});
 
-      w.on('unmaximize', (e) => {
-        const maximizeElement = document.getElementById(
-          'Maximize'
-        ) as HTMLElement;
-        if (maximizeElement)
-          (maximizeElement.children[0] as HTMLImageElement).src = maximize;
-        document.body.classList.add('border');
-      });
-    }
-  }
+			w.on("maximize", (e) => {
+				const maximizeElement = document.getElementById(
+					"Maximize"
+				) as HTMLElement;
+				if (maximizeElement)
+					(maximizeElement.children[0] as HTMLImageElement).src = maximized;
+				document.body.classList.remove("border");
+			});
 
-  const handleMinimize = (e) => {
-    if (w !== null && w.isMinimizable()) w.minimize();
-  };
+			w.on("unmaximize", (e) => {
+				const maximizeElement = document.getElementById(
+					"Maximize"
+				) as HTMLElement;
+				if (maximizeElement)
+					(maximizeElement.children[0] as HTMLImageElement).src = maximize;
+				document.body.classList.add("border");
+			});
+		}
+	}
 
-  const handleMaximize = (e) => {
-    if (w !== null && w.maximizable) {
-      if (w.isMaximized()) w.unmaximize();
-      else w.maximize();
-    }
-  };
+	const handleMinimize = (e) => {
+		if (w !== null && w.isMinimizable()) w.minimize();
+	};
 
-  const handleClose = (e) => {
-    if (w !== null && w.closable) w.close();
-  };
+	const handleMaximize = (e) => {
+		if (w !== null && w.maximizable) {
+			if (w.isMaximized()) w.unmaximize();
+			else w.maximize();
+		}
+	};
 
-  return (
-    <TitleBarWrapper className={props.colorClass ? props.colorClass : ''}>
-      {props.icon === false ? '' : <Icon>&nbsp;</Icon>}
-      <AppName>{props.title}</AppName>
+	const handleClose = (e) => {
+		if (w !== null && w.closable) w.close();
+	};
 
-      <Buttons className={props.buttons === false ? 'hidden' : ''}>
-        <Button tabIndex={-1} onClick={handleMinimize}>
-          <img src={minimize} alt='Minimize' />
-        </Button>
-        <Button id='Maximize' tabIndex={-1} onClick={handleMaximize}>
-          <img src={maximized} alt='Maximize' />
-        </Button>
-        <Button tabIndex={-1} onClick={handleClose} isClose={true}>
-          <img src={close} alt='Close' />
-        </Button>
-      </Buttons>
-    </TitleBarWrapper>
-  );
+	return (
+		<TitleBarWrapper className={props.colorClass ? props.colorClass : ""}>
+			{props.icon === false ? "" : <Icon>&nbsp;</Icon>}
+			<AppName>{props.title + " " + version}</AppName>
+
+			<Buttons className={props.buttons === false ? "hidden" : ""}>
+				<Button tabIndex={-1} onClick={handleMinimize}>
+					<img src={minimize} alt="Minimize" />
+				</Button>
+				<Button id="Maximize" tabIndex={-1} onClick={handleMaximize}>
+					<img src={maximized} alt="Maximize" />
+				</Button>
+				<Button tabIndex={-1} onClick={handleClose} isClose={true}>
+					<img src={close} alt="Close" />
+				</Button>
+			</Buttons>
+		</TitleBarWrapper>
+	);
 };
 
 const TitleBarWrapper = styled.div`
-  display: flex;
+	display: flex;
 
-  justify-content: space-between;
-  align-items: center;
+	justify-content: space-between;
+	align-items: center;
 
-  height: 32px;
+	height: 32px;
 
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.white};
+	background-color: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.white};
 
-  -webkit-app-region: drag;
+	-webkit-app-region: drag;
 `;
 
 const TitleBarItem = styled.div`
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 33%;
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 33%;
 `;
 
 const AppName = styled(TitleBarItem)`
-  padding: 0 16px;
+	padding: 0 16px;
 
-  font-size: 12px;
-  font-weight: 400;
+	font-size: 12px;
+	font-weight: 400;
 `;
 
 const Icon = styled(TitleBarItem)`
-  & + ${AppName} {
-    text-align: center;
-  }
+	& + ${AppName} {
+		text-align: center;
+	}
 `;
 
 const Buttons = styled(TitleBarItem)`
-  text-align: right;
+	text-align: right;
 
-  &.hidden {
-    > * {
-      display: none;
-    }
-  }
+	&.hidden {
+		> * {
+			display: none;
+		}
+	}
 `;
 
 const Button = styled.button`
-  height: 32px;
-  width: 46px;
+	height: 32px;
+	width: 46px;
 
-  border: 0;
-  background: transparent;
-  color: ${(props) => props.theme.colors.white};
+	border: 0;
+	background: transparent;
+	color: ${(props) => props.theme.colors.white};
 
-  transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
 
-  -webkit-app-region: none;
+	-webkit-app-region: none;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.isClose
-        ? props.theme.colors.danger
-        : getColorWithOpacity(props.theme.colors.black, 20)};
-    outline: none;
-  }
+	&:hover {
+		background-color: ${(props) =>
+			props.isClose
+				? props.theme.colors.danger
+				: getColorWithOpacity(props.theme.colors.black, 20)};
+		outline: none;
+	}
 
-  &:active,
-  &:focus {
-    outline: none;
-  }
+	&:active,
+	&:focus {
+		outline: none;
+	}
 `;
 
 export default TitleBar;

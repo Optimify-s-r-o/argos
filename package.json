@@ -1,6 +1,6 @@
 {
   "name": "argos",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "productName": "Argos",
   "description": "Argos",
   "author": {
@@ -24,10 +24,12 @@
     "@wojtekmaj/react-daterange-picker": "^2.5.0",
     "concurrently": "^5.3.0",
     "date-fns": "^2.16.1",
+    "electron-is-dev": "^2.0.0",
     "electron-log": "^4.3.2",
     "electron-store": "^5.1.1",
     "electron-updater": "^4.3.8",
     "i18next": "^17.3.1",
+    "is-electron": "^2.2.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.11.1",
@@ -49,9 +51,12 @@
     "styled-components": "^5.1.0",
     "truncate-middle": "^1.0.6",
     "uuid": "^3.4.0",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
+    "dev": "concurrently \"yarn watch\" \"electron . --dev\"",
+    "watch": "watch \"yarn build\" ./src",
     "start": "env-cmd -f .env.prod react-scripts start",
     "start:local": "env-cmd -f .env react-scripts start",
     "build": "env-cmd -f .env.prod react-scripts build",
@@ -59,7 +64,6 @@
     "build:prod": "env-cmd -f .env.prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently -k \"npm start\" \"npm:electron\"",
     "prod": "concurrently -k \"npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "release": "npm run build:prod && electron-builder build --win -p always",
@@ -133,9 +137,8 @@
   "devDependencies": {
     "electron": "^7.2.1",
     "electron-builder": "^22.10.5",
-    "electron-reloader": "^1.0.1",
     "env-cmd": "^10.1.0",
-    "typescript": "^3.8.3",
+    "typescript": "^4.2.3",
     "wait-on": "^5.2.1"
   }
 }

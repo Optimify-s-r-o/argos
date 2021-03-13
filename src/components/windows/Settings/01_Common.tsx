@@ -1,7 +1,5 @@
-import React from 'react';
-
 const Common = () => {
-  return <></>;
+	return <></>;
 };
 
 export default Common;

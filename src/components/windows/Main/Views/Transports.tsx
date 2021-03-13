@@ -1,8 +1,8 @@
 import ExternalTable from '../../../table/ExternalTable';
 import getTransports from '../../../../api/transports/get';
-import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SettingsType } from '../../../../types/settings';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface TransportProps {

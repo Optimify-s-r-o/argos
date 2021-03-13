@@ -3,16 +3,9 @@ const path = require('path');
 const execFile = require('child_process').execFile;
 const { autoUpdater } = require("electron-updater")
 const log = require('electron-log');
+const isDev = require("electron-is-dev");
 
-try {
-  require('electron-reloader')(module, {
-    watchRenderer: true,
-  });
-} catch (_) {
-  console.log('Error');
-}
-
-function createWindow() {
+const createWindow =() =>{
   autoUpdater.logger = log;
   autoUpdater.logger.transports.file.level = 'info';
   autoUpdater.autoDownload=false;
@@ -27,6 +20,7 @@ function createWindow() {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true
     },
     title: 'Argos planner',
     backgroundColor: '#004466',
@@ -34,9 +28,6 @@ function createWindow() {
     height: 480,
   });
 
-  //window.maximize();
-
-  //window.loadURL('http://localhost:3000/');
   window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
 
   window.on('ready-to-show', (e) => {
@@ -113,7 +104,7 @@ function createWindow() {
 
 }
 
-function runProxyServer() {
+const runProxyServer = () => {
   let pathLevel = '../';
   if (process.argv[2] !== '--dev') {
     pathLevel += '../../';
@@ -128,12 +119,28 @@ function runProxyServer() {
       cwd: path.join(__dirname, pathLevel + 'bin/proxy'),
     },
     (err, data) => {
-      //throw err;
-      /*console.log(err);
-        console.log(data.toString());*/
+      logInfo(err);
     }
   );
 }
 
 
-app.on('ready', createWindow);
+app.on('ready', ()=>  {
+  createWindow();
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
+
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});;
+
+const logInfo =(text) =>{
+  log.info(text);
+}

@@ -1,10 +1,10 @@
 import getShifts from '../../../api/shifts/get-shifts';
-import React, { useEffect, useState } from 'react';
 import Shift from './02_Shifts/Shift';
 import styled from 'styled-components';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { phaseTypesWithShifts } from '../../../enums/phases';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface ShiftsProps {

@@ -1,11 +1,11 @@
 import Input from '../../forms/Input';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import Submit from '../../forms/Submit';
 import userAuth from '../../../api/users/auth';
 import { closeCurrentElectronWindow } from '../../../utils/electron';
 import { MainPathWithParams, MainSettings } from '../Main';
 import { openWindow } from '../../OpenWindow';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const FIELD_EMAIL = "email";
