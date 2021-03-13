@@ -3,8 +3,11 @@ import maximize from '../icons/maximize.png';
 import maximized from '../icons/maximized.png';
 import minimize from '../icons/minimize.png';
 import styled from 'styled-components';
+import { APP_VERSION } from '../types/ipcConstants';
 import { BrowserWindow } from 'electron';
 import { getColorWithOpacity } from '../styles/theme';
+import { getIpcRenderer } from '../utils/electron';
+import { useEffect, useState } from 'react';
 
 const isElectron = typeof window.require === "function";
 let w: BrowserWindow | null = null;
@@ -17,7 +20,18 @@ interface TitleBarProps {
 }
 
 const TitleBar = (props: TitleBarProps) => {
+	const [version, setVersion] = useState("0.0.0");
 	if (props.colorClass) document.body.classList.add(props.colorClass);
+
+	useEffect(() => {
+		if (isElectron) {
+			const ipcRenderer = getIpcRenderer();
+			ipcRenderer.send(APP_VERSION);
+			ipcRenderer.on(APP_VERSION, (event, text) => {
+				setVersion(text?.version);
+			});
+		}
+	}, []);
 
 	if (isElectron) {
 		w = window.require("electron").remote.getCurrentWindow();
@@ -70,7 +84,7 @@ const TitleBar = (props: TitleBarProps) => {
 	return (
 		<TitleBarWrapper className={props.colorClass ? props.colorClass : ""}>
 			{props.icon === false ? "" : <Icon>&nbsp;</Icon>}
-			<AppName>{props.title}</AppName>
+			<AppName>{props.title + " " + version}</AppName>
 
 			<Buttons className={props.buttons === false ? "hidden" : ""}>
 				<Button tabIndex={-1} onClick={handleMinimize}>
