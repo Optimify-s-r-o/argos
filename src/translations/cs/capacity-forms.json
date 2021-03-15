@@ -1,8 +1,14 @@
 {
   "titleBar": "Změna kapacity",
+  "titleDay": "Kapacity dne",
   "capacities": "Kapacity",
+  "info": "Informace",
   "requiredCapacity": "Potřebná kapacita",
+  "plannedCapacity": "Plánovaná kapacita",
+  "realCapacity": "Skutečná spotřeba",
+  "defaultCapacity": "Standardní kapacita",
   "freeCapacity": "Nepřiřazená kapacita",
+  "totalCapacity": "Celková kapacita",
   "saveCapacities": "Uložit kapacity",
   "date": "Datum",
   "shift": "Směna",
@@ -21,5 +27,9 @@
   "error": {
     "title": "Chyba",
     "text": "Při ukládání kapacity se vyskytla chyba. Zkuste to, prosím, znovu. Pokud chyba přetrvává, kontaktujte vývojáře."
+  },
+  "errorDay": {
+    "title": "Chyba",
+    "text": "Při načítání kapacity pro daný den se vyskytla chyba. Zkuste to, prosím, znovu. Pokud chyba přetrvává, kontaktujte vývojáře."
   }
 }

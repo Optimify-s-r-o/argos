@@ -5,7 +5,6 @@ import classicDays from '../icons/style_dates.png';
 import compact from '../icons/style_compact.png';
 import deadlineEarliest from '../icons/deadline_earliest.png';
 import deadlineLatest from '../icons/deadline_latest.png';
-import inventory from '../icons/inventure.png';
 import months from '../icons/months.png';
 import weeks from '../icons/weeks.png';
 import { callReloadPlates } from '../utils/helper-functions';
@@ -26,6 +25,7 @@ import {
   faExclamationTriangle,
   faFileExport,
   faInfo,
+  faInventory,
   faPlusCircle,
   faQuestion,
   faSyncAlt,
@@ -180,9 +180,9 @@ const nav = (
           header: t('nav:material.inventory.header'),
           items: [
             {
-              type: 'largeIcon',
+              type: 'largeFAIcon',
               onClick: () => alert('TODO'),
-              src: inventory,
+              icon: faInventory,
               title: t('nav:material.inventory.inventory'),
             },
           ],

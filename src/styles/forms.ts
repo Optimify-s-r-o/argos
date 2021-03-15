@@ -9,6 +9,10 @@ export const FormBackground = styled.div`
 
 export const FormColumn = styled(Column)`
   padding: 32px;
+
+  & + & {
+    padding-left: 0;
+  }
 `;
 
 export const FormCard = styled.div`
@@ -16,22 +20,19 @@ export const FormCard = styled.div`
 
   background-color: ${(props) => props.theme.colors.background};
   box-shadow: 0 0 48px -8px rgba(0, 0, 0, 0.75);
+
+  & + & {
+    margin-top: 32px;
+  }
 `;
 
 export const FormCardHeader = styled.div`
+  margin: -8px -16px 0;
   padding: 16px 24px;
 
-  background: rgba(0, 68, 102, 0.05);
-  border-top: 1px solid rgba(0, 68, 102, 0.2);
+  background: rgba(0, 68, 102, 0.1);
   font-weight: 500;
   text-transform: uppercase;
-
-  &:first-child {
-    border-top: 0;
-
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-  }
 `;
 
 export const FormCardButtons = styled.div`
